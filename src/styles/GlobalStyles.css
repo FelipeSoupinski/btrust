@@ -1,0 +1,23 @@
+/* 1. Importação das Fontes (Mulish e Montserrat) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Mulish:wght@400;600;700&display=swap');
+
+/* 2. Reset Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 3. Estilos Aplicados ao Corpo da Aplicação */
+body {
+    background-color: #F9F9F9; /* Fundo: F9F9F9 */
+    color: #40444D; /* Texto Secundário como cor base */
+    font-family: 'Mulish', sans-serif; /* Fonte Principal como padrão */
+    line-height: 1.5;
+}
+
+/* 4. Estilos de Tipografia Baseados nos seus Padrões */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif; /* Secundária para Títulos */
+    color: #012C63; /* Cor Principal para Títulos */
+}

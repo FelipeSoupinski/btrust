@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: btrust-mvp
+    build: . 
+    ports:
+      - "8080:80" # Mapeia a porta 80 do contêiner para a 8080 da sua máquina
+    restart: always

@@ -5,7 +5,6 @@ docker compose up:	Inicia os serviços definidos no docker-compose.yml.
 --build:	(Importante na primeira vez!) Força a reconstrução da imagem. Ele lê o Dockerfile, executa as duas etapas (build do Node e criação da imagem Nginx) e cria a imagem Docker.
 -d: Roda o contêiner em modo detached (em segundo plano), liberando seu terminal.
 
-
 será inicializado na porta 8080
 http://localhost:8080
 

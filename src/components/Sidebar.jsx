@@ -34,22 +34,20 @@ const groupChatsByMonth = (chats) => {
 // ----------------------------------------------------
 
 const sidebarStyles = {
-    // MUDANÇAS ESTÃO AQUI:
-    width: '100%', // <-- MUDANÇA PRINCIPAL: De '280px' para '100%'
-    height: '100vh', // <-- ADICIONADO: Garante que ocupa a altura toda
-    boxSizing: 'border-box', // <-- ADICIONADO: Para o padding não "empurrar" o layout
-    
-    // Resto dos estilos (mantidos como estavam)
-    backgroundColor: COLORS.principal, 
+   minWidth: '280px',        // GARANTE largura mínima
+    maxWidth: '280px',        // GARANTE largura máxima
+    height: '100vh',
+    boxSizing: 'border-box',
+    backgroundColor: COLORS.principal,
     color: COLORS.branco,
-    padding: '20px 0', 
+    padding: '20px 0',
     display: 'flex',
     flexDirection: 'column',
     fontFamily: FONTS.principal,
     boxShadow: '2px 0 5px rgba(0, 0, 0, 0.1)',
-    flexShrink: 0, 
+    flexShrink: 0,
     overflow: 'hidden',
-    whiteSpace: 'nowrap',
+    whiteSpace: 'nowrap',   
 };
 
 const logoContainerStyles = {

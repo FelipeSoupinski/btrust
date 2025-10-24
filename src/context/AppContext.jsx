@@ -1,63 +1,105 @@
 // src/context/AppContext.jsx
+import React, { createContext, useContext, useState } from 'react';
 
-import React, { createContext, useState, useContext } from 'react';
-
-// 1. Criação do Contexto
-export const AppContext = createContext();
-
-// Dados de Exemplo para as Bases de Dados
+// --- Dados Simulados (Mock) para as Bases ---
+// Estes são os dados que o ModelSelectPage.jsx vai usar
 const MOCK_DATA_SOURCES = [
-    { id: 1, name: 'Marketing', description: 'Descrição simples sobre a base de dados' },
-    { id: 2, name: 'Finanças', description: 'Dados financeiros e relatórios de mercado' },
-    { id: 3, name: 'Regulatório', description: 'Documentação e normas da B3' },
-    { id: 4, name: 'Tecnologia', description: 'Dados sobre infraestrutura e sistemas' },
-    { id: 5, name: 'Risco', description: 'Modelos e análises de risco' },
-    { id: 6, name: 'Ativos', description: 'Informações detalhadas sobre ativos' },
+    { 
+        id: 'b1', 
+        name: 'Base de Marketing', 
+        description: 'Análises de campanhas, performance de anúncios e segmentação de clientes.' 
+    },
+    { 
+        id: 'b2', 
+        name: 'Base Financeira', 
+        description: 'Relatórios de risco, previsões de mercado e balanços patrimoniais.' 
+    },
+    { 
+        id: 'b3', 
+        name: 'Base Operacional', 
+        description: 'Logística, eficiência de processos e dados de produção interna.' 
+    },
+    { 
+        id: 'b4', 
+        name: 'Base de RH', 
+        description: 'Dados de contratação, performance de funcionários e folha de pagamento.' 
+    },
+    { 
+        id: 'b5', 
+        name: 'Base Jurídica', 
+        description: 'Documentos legais, análise de contratos e compliance.' 
+    },
+    { 
+        id: 'b6', 
+        name: 'Base de TI', 
+        description: 'Logs de sistema, gestão de incidentes e segurança de rede.' 
+    },
 ];
+// ----------------------------------------------
 
-// 2. Criação do Provider
-export const AppProvider = ({ children }) => {
-    // Controla qual tela está ativa: 'chat' (padrão) ou 'model-select'
-    const [activeScreen, setActiveScreen] = useState('chat'); 
+
+// 1. Criar o Contexto
+const AppContext = createContext(null);
+
+// 2. Criar o "Provedor" (O componente "Pai" que guarda a informação)
+export function AppProvider({ children }) {
     
-    // Controla o estado da sidebar (aberta ou fechada)
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
-
-    // Lista de todas as bases de dados disponíveis
-    const [availableDataSources] = useState(MOCK_DATA_SOURCES);
+    // --- Estados Globais ---
     
-    // Lista de IDs das bases de dados que o usuário SELECIONOU e estão ATIVAS para o chat
-    // Inicialmente vazia, só será preenchida após a seleção na tela ModelSelectPage
-    const [selectedDataSources, setSelectedDataSources] = useState([]); 
+    // Estado para controlar a tela atual ('chat' ou 'model-select')
+    const [activeScreen, setActiveScreen] = useState('chat');
+    
+    // Estado para controlar a sidebar (aberta ou fechada)
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-    // Função para ligar/desligar uma base de dados no Dropdown do Header
+    // Estado que guarda TODAS as bases de dados disponíveis
+    const [availableDataSources, setAvailableDataSources] = useState(MOCK_DATA_SOURCES);
+    
+    // Estado que guarda as bases que o utilizador SELECIONOU
+    const [selectedDataSources, setSelectedDataSources] = useState([]);
+
+    // --- Funções Globais ---
+
+    // Função para adicionar/remover uma base de dados (usada no Header e ModelSelectPage)
     const toggleDataSource = (id) => {
-        setSelectedDataSources(prev => 
-            prev.includes(id) 
-                ? prev.filter(sourceId => sourceId !== id) // Remove se já estiver lá
-                : [...prev, id] // Adiciona se não estiver lá
-        );
+        setSelectedDataSources(prevSelected => {
+            if (prevSelected.includes(id)) {
+                // Se já existe, remove
+                return prevSelected.filter(sourceId => sourceId !== id);
+            } else {
+                // Se não existe, adiciona
+                return [...prevSelected, id];
+            }
+        });
     };
 
-    const contextValue = {
+    // 3. Montar o "pacote" de informações que todos os filhos podem aceder
+    const value = {
+        // Variáveis
         activeScreen,
-        setActiveScreen,
         isSidebarOpen,
-        setIsSidebarOpen,
         availableDataSources,
         selectedDataSources,
+        
+        // Funções
+        setActiveScreen,
+        setIsSidebarOpen,
         setSelectedDataSources,
         toggleDataSource,
     };
 
     return (
-        <AppContext.Provider value={contextValue}>
+        <AppContext.Provider value={value}>
             {children}
         </AppContext.Provider>
     );
-};
+}
 
-// Hook customizado para fácil consumo
-export const useAppContext = () => {
-    return useContext(AppContext);
-};
+// 4. Criar o "Hook" (O atalho para os componentes "Filho" usarem a informação)
+export function useAppContext() {
+    const context = useContext(AppContext);
+    if (!context) {
+        throw new Error('useAppContext deve ser usado dentro de um AppProvider');
+    }
+    return context;
+}

@@ -4,17 +4,14 @@ import { FONT_SIZES, COLORS, FONTS } from '../styles/theme.js';
 import { useAppContext } from '../context/AppContext.jsx';
 
 const headerStyles = {
-    position: 'absolute', // Flutua sobre o conteúdo
-    top: 0,
-    left: 0,
-    zIndex: 10, 
-    width: '100%', 
-    height: '60px', 
-    padding: '15px 30px', 
+    width: '100%',
+    padding: '15px 30px', // Aumentando o padding lateral para dar mais respiro
     display: 'flex',
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
     alignItems: 'center',
     boxSizing: 'border-box',
+    backgroundColor: COLORS.branco, // Adicionando cor de fundo para destaque
+    borderBottom: `1px solid ${COLORS.fundo}`, // Borda sutil para separar do conteúdo
 };
 
 const profileStyles = {
@@ -82,13 +79,8 @@ function Header() {
 
     return (
         <header style={headerStyles}>
-
-            {/* Área Esquerda (APENAS Dropdown) */}
-            <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-
-                {/* O BOTÃO DE ABRIR FOI REMOVIDO DESTE FICHEIRO */}
-
-                {/* Dropdown Toggle */}
+            {/* Dropdown */}
+            <div style={{ position: 'relative' }}>
                 {selectedDataSources.length > 0 && (
                     <div
                         style={dropdownToggleStyles}
@@ -96,37 +88,38 @@ function Header() {
                     >
                         {displaySourceName}
                         {selectedDataSources.length > 1 && ` (+${selectedDataSources.length - 1})`}
-                        <span style={{ marginLeft: '10px' }}>▼</span>
+                        <span style={{ marginLeft: '8px' }}>Down Arrow</span>
                     </div>
                 )}
 
                 {/* Menu Dropdown */}
                 {isDropdownOpen && selectedDataSources.length > 0 && (
                     <div style={dropdownMenuStyles}>
-                        <div style={{ padding: '0 15px 5px', fontSize: FONT_SIZES.subtexto, color: COLORS.principal, fontWeight: '700' }}>
+                        <div style={{ padding: '8px 15px', fontWeight: '700', color: COLORS.principal }}>
                             Bases Ativas:
                         </div>
-                        {selectedDataSources.map(id => {
-                            const source = availableDataSources.find(s => s.id === id);
-                            if (!source) return null;
-                            return (
-                                <div
-                                    key={source.id}
-                                    style={dropdownItemStyles}
-                                    onClick={(e) => { e.stopPropagation(); toggleDataSource(source.id); }}
-                                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = COLORS.fundo}
-                                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = COLORS.branco}
-                                >
-                                    <input
-                                        type="checkbox"
-                                        checked={true}
-                                        readOnly
-                                        style={{ marginRight: '10px' }}
-                                    />
-                                    {source.name}
-                                </div>
-                            );
-                        })}
+                        {activeSources.map(source => (
+                            <div
+                                key={source.id}
+                                style={dropdownItemStyles}
+                                // NÃO fecha o dropdown ao clicar
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    toggleDataSource(source.id);
+                                    // Mantém aberto
+                                }}
+                                onMouseOver={(e) => e.currentTarget.style.backgroundColor = COLORS.fundo}
+                                onMouseOut={(e) => e.currentTarget.style.backgroundColor = COLORS.branco}
+                            >
+                                <input
+                                    type="checkbox"
+                                    checked={selectedDataSources.includes(source.id)}
+                                    readOnly
+                                    style={{ marginRight: '8px' }}
+                                />
+                                {source.name}
+                            </div>
+                        ))}
                     </div>
                 )}
             </div>

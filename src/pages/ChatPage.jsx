@@ -1,50 +1,50 @@
+// src/pages/ChatPage.jsx
 import React from 'react';
 import ChatInput from '../components/ChatInput.jsx';
 import { FONT_SIZES, COLORS, FONTS } from '../styles/theme.js';
 
+
 const containerStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-end', // Alinha o conteúdo para a parte de baixo
-    height: '100%',
-    width: '100%',
-    padding: '0 20px 20px 20px', // Adiciona padding no rodapé para o input
-    boxSizing: 'border-box', // Garante que o padding não quebre o layout
-    overflowY: 'auto',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100%',
+  width: '100%',
+  padding: '0 20px',
+  boxSizing: 'border-box',
+  flexGrow: 1,           // ← ESSENCIAL
+  overflow: 'hidden',
 };
 
-const titleContainerStyles = {
-    flexGrow: 1, // Faz com que ocupe todo o espaço acima do input
-    display: 'flex',
-    alignItems: 'center', // Centraliza verticalmente o título
-    justifyContent: 'center',
-    width: '100%',
-    paddingTop: '60px', // Espaço extra no topo
+
+const contentWrapperStyles = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  width: '100%',
+  maxWidth: '700px',  // Mesmo limite do input
 };
 
 const titleStyles = {
-    fontSize: FONT_SIZES.titulo,
-    color: COLORS.textosSecundarios,
-    fontWeight: '700',
-    fontFamily: FONTS.secundaria,
-    opacity: 0.3, // Opacidade baixa para simular o texto "placeholder"
-
+  fontSize: FONT_SIZES.titulo,
+  color: COLORS.textosSecundarios,
+  fontWeight: '700',
+  fontFamily: FONTS.secundaria,
+  opacity: 0.3,
+  marginBottom: '40px',
+  textAlign: 'center',
 };
 
-
 function ChatPage() {
-    return (
-        <div style={containerStyles}>
-
-            <div style={titleContainerStyles}>
-                <h1 style={titleStyles}>BTrust</h1>
-            </div>
-
-            {/* Agora este componente pode esticar para 100% */}
-            <ChatInput />
-
-        </div>
-    );
+  return (
+    <div style={containerStyles}>
+      <div style={contentWrapperStyles}>
+        <h1 style={titleStyles}>BTrust</h1>
+        <ChatInput />
+      </div>
+    </div>
+  );
 }
 
 export default ChatPage;

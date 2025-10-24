@@ -1,28 +1,33 @@
 // src/components/ChatInput.jsx
+
 import React from 'react';
 import { COLORS, FONT_SIZES } from '../styles/theme.js';
 
 const inputContainerStyles = {
     width: '100%',
-    maxWidth: '700px',
-    margin: '0 auto', // <-- LINHA ADICIONADA: Isto centra o bloco de 700px.
+    maxWidth: '700px', // Limita a largura máxima
+    position: 'relative',
+    // margin: '0 auto', // <-- ADICIONADO: Isto centra o container
     display: 'flex',
     alignItems: 'center',
-    padding: '8px',
+    // padding: '8px',
     backgroundColor: COLORS.branco,
-    borderRadius: '25px',
+    borderRadius: '30px',
     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
     border: `1px solid ${COLORS.fundo}`,
 };
 
 const inputFieldStyles = {
-    flexGrow: 1, // Faz o <input> ocupar o espaço interno
+    flexGrow: 1,
+    padding: '15px 20px',
     border: 'none',
-    padding: '10px 15px',
     fontSize: FONT_SIZES.texto,
     outline: 'none',
     color: COLORS.textosSecundarios,
     background: 'transparent',
+    outline: 'none',
+    paddingLeft: '12px', // Espaço para o ícone de clipe
+    borderRadius: '30px',
 };
 
 // Estilo para os ícones (Anexo e Envio)

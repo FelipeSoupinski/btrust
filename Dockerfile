@@ -31,7 +31,7 @@ COPY --from=build /app/dist /usr/share/nginx/html
 
 # Copia configuração personalizada do repositório (se existir)
 # Substitui a config default do nginx para permitir SPA routing (try_files)
-COPY config/nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Instala curl para permitir healthchecks (pequena dependência de runtime)
 RUN apk add --no-cache curl

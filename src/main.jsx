@@ -2,12 +2,11 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
-import './index.css'; 
-import './styles/GlobalStyles.css'; 
+import AgentResponsePage from './pages/AgentResponsePage.jsx';
+import './styles/GlobalStyles.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <AgentResponsePage />
   </React.StrictMode>,
 );

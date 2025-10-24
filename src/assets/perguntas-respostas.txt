@@ -1,0 +1,2867 @@
+/* tela agente: pergunta feita e respondida */
+
+position: relative;
+width: 1440px;
+height: 1008px;
+left: 3289px;
+top: 1362px;
+
+background: #FFFFFF;
+
+
+/* barra lateral */
+
+position: absolute;
+width: 328px;
+height: 1008px;
+left: 0px;
+top: 0px;
+
+background: #474747;
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* Frame 1 */
+
+position: absolute;
+width: 70px;
+height: 70px;
+left: 29px;
+top: 24px;
+
+background: #FFFFFF;
+border-radius: 104px;
+
+
+/* chats de hoje */
+
+position: absolute;
+width: 287px;
+height: 159px;
+left: 17px;
+top: 272px;
+
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* selecionado */
+
+position: absolute;
+width: 287px;
+height: 44px;
+left: 17px;
+top: 303px;
+
+
+
+/* selecionado */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 10px 10px 10px 12px;
+gap: 10px;
+
+position: absolute;
+left: 2.44%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #353535;
+border-radius: 8px;
+
+
+/* seleção esquerda */
+
+margin: 0 auto;
+width: 171px;
+height: 20px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Bin */
+
+margin: 0 auto;
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 29.17%;
+right: 29.17%;
+top: 0%;
+bottom: 75%;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 16.67%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 50%;
+bottom: 16.67%;
+
+background: #FFFFFF;
+
+
+/* Rectangle 17 */
+
+position: absolute;
+left: 0%;
+right: 98.26%;
+top: 2.27%;
+bottom: 2.27%;
+
+background: #353535;
+border-radius: 20px;
+
+
+/* Hoje */
+
+position: absolute;
+width: 26px;
+height: 15px;
+left: 24px;
+top: 272px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 15px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* não selecionado */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 10px 12px;
+gap: 10px;
+
+position: absolute;
+width: 280px;
+height: 40px;
+left: 24px;
+top: 347px;
+
+border-radius: 8px;
+
+
+/* seleção esquerda */
+
+margin: 0 auto;
+width: 114px;
+height: 18px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 18px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Bin */
+
+margin: 0 auto;
+width: 20px;
+height: 20px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 29.17%;
+right: 29.17%;
+top: 0%;
+bottom: 75%;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 16.67%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 50%;
+bottom: 16.67%;
+
+background: #FFFFFF;
+
+
+/* não selecionado */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 10px 12px;
+gap: 10px;
+
+position: absolute;
+width: 280px;
+height: 40px;
+left: 24px;
+top: 391px;
+
+border-radius: 8px;
+
+
+/* seleção esquerda */
+
+margin: 0 auto;
+width: 114px;
+height: 18px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 18px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Bin */
+
+margin: 0 auto;
+width: 20px;
+height: 20px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 29.17%;
+right: 29.17%;
+top: 0%;
+bottom: 75%;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 16.67%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 50%;
+bottom: 16.67%;
+
+background: #FFFFFF;
+
+
+/* chats da semana */
+
+position: absolute;
+width: 280px;
+height: 159px;
+left: 24px;
+top: 447px;
+
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* Esta semana */
+
+position: absolute;
+width: 73px;
+height: 15px;
+left: 24px;
+top: 447px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 15px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* não selecionado */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 10px 12px;
+gap: 10px;
+
+position: absolute;
+width: 280px;
+height: 40px;
+left: 24px;
+top: 522px;
+
+border-radius: 8px;
+
+
+/* seleção esquerda */
+
+margin: 0 auto;
+width: 114px;
+height: 18px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 18px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Bin */
+
+margin: 0 auto;
+width: 20px;
+height: 20px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 29.17%;
+right: 29.17%;
+top: 0%;
+bottom: 75%;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 16.67%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 50%;
+bottom: 16.67%;
+
+background: #FFFFFF;
+
+
+/* não selecionado */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 10px 12px;
+gap: 10px;
+
+position: absolute;
+width: 280px;
+height: 40px;
+left: 24px;
+top: 478px;
+
+border-radius: 8px;
+
+
+/* seleção esquerda */
+
+margin: 0 auto;
+width: 114px;
+height: 18px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 18px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Bin */
+
+margin: 0 auto;
+width: 20px;
+height: 20px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 29.17%;
+right: 29.17%;
+top: 0%;
+bottom: 75%;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 16.67%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 50%;
+bottom: 16.67%;
+
+background: #FFFFFF;
+
+
+/* não selecionado */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 10px 12px;
+gap: 10px;
+
+position: absolute;
+width: 280px;
+height: 40px;
+left: 24px;
+top: 566px;
+
+border-radius: 8px;
+
+
+/* seleção esquerda */
+
+margin: 0 auto;
+width: 114px;
+height: 18px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 18px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Bin */
+
+margin: 0 auto;
+width: 20px;
+height: 20px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 29.17%;
+right: 29.17%;
+top: 0%;
+bottom: 75%;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 16.67%;
+bottom: 0%;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 50%;
+bottom: 16.67%;
+
+background: #FFFFFF;
+
+
+/* Line 1 */
+
+position: absolute;
+width: 280px;
+height: 0px;
+left: 24px;
+top: 248px;
+
+border: 1px solid #FFFFFF;
+
+
+/* não selecionado */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 10px 12px;
+gap: 10px;
+
+position: absolute;
+width: 280px;
+height: 44px;
+left: 24px;
+top: 136px;
+
+border-radius: 8px;
+
+
+/* Write */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 26.63%;
+right: 8.13%;
+top: 8.24%;
+bottom: 26.67%;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 12.5%;
+top: 12.5%;
+bottom: 8.33%;
+
+background: #FFFFFF;
+
+
+/* Criar novo chat */
+
+width: 103px;
+height: 18px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 18px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Bin */
+
+display: none;
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 29.17%;
+right: 29.17%;
+top: 0%;
+bottom: 75%;
+
+background: #000000;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 16.67%;
+bottom: 0%;
+
+background: #000000;
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 50%;
+bottom: 16.67%;
+
+background: #000000;
+
+
+/* não selecionado */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 10px 12px;
+gap: 10px;
+
+position: absolute;
+width: 280px;
+height: 44px;
+left: 24px;
+top: 180px;
+
+border-radius: 8px;
+
+
+/* More */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 41.41%;
+right: 41.41%;
+top: 12.51%;
+bottom: 12.51%;
+
+background: #FFFFFF;
+
+
+/* Escolher um modelo */
+
+width: 134px;
+height: 18px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 18px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Bin */
+
+display: none;
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 29.17%;
+right: 29.17%;
+top: 0%;
+bottom: 75%;
+
+background: #000000;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 16.67%;
+bottom: 0%;
+
+background: #000000;
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 50%;
+bottom: 16.67%;
+
+background: #000000;
+
+
+/* Card */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+position: absolute;
+width: 842px;
+height: 129px;
+left: 463px;
+top: 867px;
+
+background: #FFFFFF;
+border: 0.8px solid rgba(0, 0, 0, 0.1);
+border-radius: 8px;
+
+
+/* ChatInterface */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 12px;
+
+width: 813.6px;
+height: 87.99px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Container */
+
+width: 813.6px;
+height: 60px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Button */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px 2.67029e-05px 0px 0px;
+
+position: absolute;
+width: 37.6px;
+height: 32px;
+left: 0px;
+top: 0px;
+
+background: #FFFFFF;
+border: 0.8px solid rgba(0, 0, 0, 0.1);
+border-radius: 8px;
+
+
+/* Icon */
+
+width: 16px;
+height: 16px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 12.51%;
+right: 9.76%;
+top: 8.33%;
+bottom: 8.33%;
+
+border: 1.33333px solid #0A0A0A;
+
+
+/* Container */
+
+position: absolute;
+width: 768px;
+height: 60px;
+left: 45.6px;
+top: 0px;
+
+border-radius: 0px;
+
+
+/* Textarea */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 8px 48px 8px 12px;
+
+position: absolute;
+width: 768px;
+height: 60px;
+left: 0px;
+top: 0px;
+
+background: #F3F3F5;
+border-radius: 8px;
+
+
+/* Digite sua mensagem... (Enter para enviar, Shift+Enter para nova linha) */
+
+width: 457px;
+height: 20px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+/* identical to box height, or 143% */
+
+color: #717182;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+position: absolute;
+width: 36px;
+height: 32px;
+left: 724px;
+top: 14px;
+
+background: #030213;
+opacity: 0.5;
+border-radius: 8px;
+
+
+/* Icon */
+
+width: 16px;
+height: 16px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.32%;
+bottom: 8.33%;
+
+border: 1.33333px solid #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 45.48%;
+right: 8.94%;
+top: 8.94%;
+bottom: 45.48%;
+
+border: 1.33333px solid #FFFFFF;
+
+
+/* Paragraph */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+
+width: 813.6px;
+height: 15.99px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* O ChatBot GPT pode cometer erros. Verifique inform */
+
+width: 813.6px;
+height: 16px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 16px;
+/* identical to box height, or 133% */
+text-align: center;
+
+color: #6A7282;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Primitive.div */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+position: absolute;
+width: 842px;
+height: 622px;
+left: 463px;
+top: 119px;
+
+border-radius: 0px;
+
+
+/* ChatInterface */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+padding: 0px;
+gap: 16px;
+
+width: 842px;
+height: 410.34px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* MessageBubble */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+align-items: center;
+padding: 0px;
+gap: 12px;
+
+margin: 0 auto;
+width: 842px;
+height: 45px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Card */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 3.03984e-06px 0px 0px -1.2219e-05px;
+
+width: 155px;
+height: 45px;
+
+background: #030213;
+border: 0.8px solid rgba(0, 0, 0, 0.1);
+border-radius: 18px 18px 2px 18px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* CardContent */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px 12px 0px;
+gap: 8px;
+
+width: 154px;
+height: 44px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* MessageBubble */
+
+width: 130px;
+height: 24px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Pergunta */
+
+position: absolute;
+width: 65px;
+height: 24px;
+left: 0px;
+top: -2.2px;
+
+font-family: 'Arimo';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+color: #FFFFFF;
+
+
+
+/* Primitive.span */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 0px;
+
+width: 32px;
+height: 32px;
+
+border-radius: 2.68435e+07px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Text */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+margin: 0 auto;
+width: 32px;
+height: 32px;
+
+background: #ECEEF2;
+border-radius: 2.68435e+07px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Icon */
+
+width: 16px;
+height: 16px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 20.83%;
+right: 20.84%;
+top: 62.5%;
+bottom: 12.5%;
+
+border: 1.33333px solid #0A0A0A;
+
+
+/* Vector */
+
+position: absolute;
+left: 33.33%;
+right: 33.34%;
+top: 12.5%;
+bottom: 54.17%;
+
+border: 1.33333px solid #0A0A0A;
+
+
+/* MessageBubble */
+
+margin: 0 auto;
+width: 842px;
+height: 308.75px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Card */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 3.03984e-06px 0px 3.03984e-06px 1.82986e-05px;
+
+position: absolute;
+width: 571px;
+height: 272px;
+left: 44px;
+top: -0.42px;
+
+border-radius: 14px;
+
+
+/* CardContent */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px 12px 0px;
+gap: 12px;
+
+width: 569px;
+height: 296px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* MessageBubble */
+
+width: 545px;
+height: 72px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Com base na análise dos documentos enviados, posso */
+
+position: absolute;
+width: 542px;
+height: 72px;
+left: 0px;
+top: -2.2px;
+
+font-family: 'Arimo';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+/* or 150% */
+
+color: #0A0A0A;
+
+
+
+/* MessageBubble */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+padding: 0px;
+gap: 12px;
+
+width: 545px;
+height: 200px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 8px;
+
+width: 545px;
+height: 36px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 0px 3.05176e-05px 0px 0px;
+gap: 456.76px;
+
+width: 545px;
+height: 20px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Text */
+
+width: 61.21px;
+height: 20px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Confiança */
+
+position: absolute;
+width: 64px;
+height: 20px;
+left: 0px;
+top: -1.2px;
+
+font-family: 'Arimo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+/* identical to box height, or 143% */
+
+color: #4A5565;
+
+
+
+/* Text */
+
+width: 27.06px;
+height: 20px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 87% */
+
+position: absolute;
+width: 32px;
+height: 20px;
+left: -3.78px;
+top: -1.22px;
+
+font-family: 'Arimo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+/* identical to box height, or 143% */
+
+color: #0A0A0A;
+
+
+
+/* Primitive.div */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px 70.8549px 0px -70.8549px;
+
+width: 545px;
+height: 8px;
+
+background: rgba(3, 2, 19, 0.2);
+border-radius: 2.68435e+07px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Container */
+
+width: 545px;
+height: 8px;
+
+background: #030213;
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 3px 0px;
+gap: 2px;
+
+width: 545px;
+height: 120px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Text */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+
+width: 134.5px;
+height: 18.4px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Referências utilizadas: */
+
+width: 141px;
+height: 20px;
+
+font-family: 'Arimo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+/* identical to box height, or 143% */
+
+color: #4A5565;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Card */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 7.99999px 12px 0px;
+gap: 8px;
+
+width: 545px;
+height: 97px;
+
+background: rgba(249, 250, 251, 0.25);
+border: 0.8px solid rgba(0, 0, 0, 0.1);
+border-radius: 14px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Group 4 */
+
+width: 519.4px;
+height: 22px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* MessageBubble */
+
+position: absolute;
+width: 244px;
+height: 22px;
+left: 12.8px;
+top: 8.8px;
+
+border-radius: 0px;
+
+
+/* Icon */
+
+position: absolute;
+width: 16px;
+height: 16px;
+left: 0px;
+top: 2px;
+
+border-radius: 0px;
+
+
+/* Vector */
+
+position: absolute;
+left: 16.67%;
+right: 16.66%;
+top: 8.33%;
+bottom: 8.33%;
+
+border: 1.33333px solid #2B7FFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 58.33%;
+right: 16.67%;
+top: 8.33%;
+bottom: 66.67%;
+
+border: 1.33333px solid #2B7FFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 33.33%;
+right: 58.34%;
+top: 37.5%;
+bottom: 62.5%;
+
+border: 1.33333px solid #2B7FFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 33.33%;
+right: 33.34%;
+top: 54.17%;
+bottom: 45.83%;
+
+border: 1.33333px solid #2B7FFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 33.33%;
+right: 33.34%;
+top: 70.83%;
+bottom: 29.17%;
+
+border: 1.33333px solid #2B7FFF;
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 4px;
+
+position: absolute;
+width: 219.54px;
+height: 19px;
+left: 24.2px;
+top: 0.2px;
+
+border-radius: 0px;
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 8px;
+
+width: 219.54px;
+height: 21.59px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Heading 4 */
+
+width: 173.85px;
+height: 20px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Relatório Financeiro Q3.pdf */
+
+position: absolute;
+width: 172px;
+height: 20px;
+left: 0px;
+top: -1.2px;
+
+font-family: 'Arimo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+/* identical to box height, or 143% */
+
+color: #101828;
+
+
+
+/* Badge */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 2px 8px;
+gap: 4px;
+
+width: 37.69px;
+height: 21.59px;
+
+border: 0.8px solid rgba(0, 0, 0, 0.1);
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* p. 3 */
+
+width: 21px;
+height: 16px;
+
+font-family: 'Arimo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 16px;
+/* identical to box height, or 133% */
+
+color: #0A0A0A;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+width: 10.54px;
+height: 6.25px;
+left: 521.66px;
+top: 15.8px;
+
+background: #000000;
+
+
+/* Group 3 */
+
+width: 244px;
+height: 22px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* MessageBubble */
+
+position: absolute;
+width: 244px;
+height: 22px;
+left: 12.8px;
+top: 38.8px;
+
+border-radius: 0px;
+
+
+/* Icon */
+
+position: absolute;
+width: 16px;
+height: 16px;
+left: 0px;
+top: 2px;
+
+border-radius: 0px;
+
+
+/* Vector */
+
+position: absolute;
+left: 16.67%;
+right: 16.66%;
+top: 8.33%;
+bottom: 8.33%;
+
+border: 1.33333px solid #2B7FFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 58.33%;
+right: 16.67%;
+top: 8.33%;
+bottom: 66.67%;
+
+border: 1.33333px solid #2B7FFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 33.33%;
+right: 58.34%;
+top: 37.5%;
+bottom: 62.5%;
+
+border: 1.33333px solid #2B7FFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 33.33%;
+right: 33.34%;
+top: 54.17%;
+bottom: 45.83%;
+
+border: 1.33333px solid #2B7FFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 33.33%;
+right: 33.34%;
+top: 70.83%;
+bottom: 29.17%;
+
+border: 1.33333px solid #2B7FFF;
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 4px;
+
+position: absolute;
+width: 219.54px;
+height: 19px;
+left: 24.2px;
+top: 0.2px;
+
+border-radius: 0px;
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 8px;
+
+width: 219.54px;
+height: 21.59px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Heading 4 */
+
+width: 173.85px;
+height: 20px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Relatório Financeiro Q3.pdf */
+
+position: absolute;
+width: 172px;
+height: 20px;
+left: 0px;
+top: -1.2px;
+
+font-family: 'Arimo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+/* identical to box height, or 143% */
+
+color: #101828;
+
+
+
+/* Badge */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 2px 8px;
+gap: 4px;
+
+width: 37.69px;
+height: 21.59px;
+
+border: 0.8px solid rgba(0, 0, 0, 0.1);
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* p. 3 */
+
+width: 21px;
+height: 16px;
+
+font-family: 'Arimo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 16px;
+/* identical to box height, or 133% */
+
+color: #0A0A0A;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Group 5 */
+
+width: 244px;
+height: 22px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* MessageBubble */
+
+position: absolute;
+width: 244px;
+height: 22px;
+left: 12.8px;
+top: 68.8px;
+
+border-radius: 0px;
+
+
+/* Icon */
+
+position: absolute;
+width: 16px;
+height: 16px;
+left: 0px;
+top: 2px;
+
+border-radius: 0px;
+
+
+/* Vector */
+
+position: absolute;
+left: 16.67%;
+right: 16.66%;
+top: 8.33%;
+bottom: 8.33%;
+
+border: 1.33333px solid #2B7FFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 58.33%;
+right: 16.67%;
+top: 8.33%;
+bottom: 66.67%;
+
+border: 1.33333px solid #2B7FFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 33.33%;
+right: 58.34%;
+top: 37.5%;
+bottom: 62.5%;
+
+border: 1.33333px solid #2B7FFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 33.33%;
+right: 33.34%;
+top: 54.17%;
+bottom: 45.83%;
+
+border: 1.33333px solid #2B7FFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 33.33%;
+right: 33.34%;
+top: 70.83%;
+bottom: 29.17%;
+
+border: 1.33333px solid #2B7FFF;
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 4px;
+
+position: absolute;
+width: 219.54px;
+height: 19px;
+left: 24.2px;
+top: 0.2px;
+
+border-radius: 0px;
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 8px;
+
+width: 219.54px;
+height: 21.59px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Heading 4 */
+
+width: 173.85px;
+height: 20px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Relatório Financeiro Q3.pdf */
+
+position: absolute;
+width: 172px;
+height: 20px;
+left: 0px;
+top: -1.2px;
+
+font-family: 'Arimo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+/* identical to box height, or 143% */
+
+color: #101828;
+
+
+
+/* Badge */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 2px 8px;
+gap: 4px;
+
+width: 37.69px;
+height: 21.59px;
+
+border: 0.8px solid rgba(0, 0, 0, 0.1);
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* p. 3 */
+
+width: 21px;
+height: 16px;
+
+font-family: 'Arimo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 16px;
+/* identical to box height, or 133% */
+
+color: #0A0A0A;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Frame 6 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 0px;
+gap: 12px;
+
+width: 545px;
+height: 20px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Frame 13 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 0px;
+gap: 8px;
+
+margin: 0 auto;
+width: 102.54px;
+height: 20px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Ver detalhes */
+
+margin: 0 auto;
+width: 84px;
+height: 20px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 20px;
+/* identical to box height, or 143% */
+
+color: #0A0A0A;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+margin: 0 auto;
+width: 10.54px;
+height: 6.25px;
+
+background: #000000;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Ver mais */
+
+margin: 0 auto;
+width: 57px;
+height: 20px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+/* identical to box height, or 143% */
+
+color: #000000;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Primitive.span */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+
+position: absolute;
+width: 32px;
+height: 32px;
+left: 0px;
+top: 0px;
+
+border-radius: 2.68435e+07px;
+
+
+/* Text */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+width: 32px;
+height: 32px;
+
+background: #030213;
+border-radius: 2.68435e+07px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Icon */
+
+width: 16px;
+height: 16px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 33.33%;
+right: 50%;
+top: 16.67%;
+bottom: 66.67%;
+
+border: 1.33333px solid #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 18.75%;
+right: 14.58%;
+top: 33.83%;
+bottom: 16.17%;
+
+border: 1.33333px solid #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 83.34%;
+top: 58.33%;
+bottom: 41.67%;
+
+border: 1.33333px solid #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 83.33%;
+right: 8.34%;
+top: 58.33%;
+bottom: 41.67%;
+
+border: 1.33333px solid #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 62.5%;
+right: 37.5%;
+top: 54.17%;
+bottom: 37.5%;
+
+border: 1.33333px solid #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 62.5%;
+top: 54.17%;
+bottom: 37.5%;
+
+border: 1.33333px solid #FFFFFF;
+
+
+/* Card */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 0px 24px;
+
+position: absolute;
+width: 1112px;
+height: 64px;
+left: 328px;
+top: 0px;
+
+background: #FFFFFF;
+border: 0.8px solid rgba(0, 0, 0, 0.1);
+border-radius: 0px;
+
+
+/* ChatInterface */
+
+margin: 0 auto;
+width: 1062.4px;
+height: 32px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* CardTitle */
+
+position: absolute;
+width: 241px;
+height: 28px;
+left: 0.2px;
+top: 2px;
+
+border-radius: 0px;
+
+
+/* Container */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 0px;
+gap: 8px;
+
+position: absolute;
+width: 73.25px;
+height: 32px;
+left: 627.56px;
+top: 0px;
+
+border-radius: 0px;
+
+
+/* Button */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px 8px;
+gap: 14px;
+
+position: absolute;
+width: 128.6px;
+height: 32px;
+left: 910.2px;
+top: 0px;
+
+background: #FFFFFF;
+border: 0.8px solid rgba(0, 0, 0, 0.1);
+border-radius: 8px;
+
+
+/* Icon */
+
+width: 16px;
+height: 16px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 20.83%;
+right: 20.84%;
+top: 62.5%;
+bottom: 12.5%;
+
+border: 1.33333px solid #0A0A0A;
+
+
+/* Vector */
+
+position: absolute;
+left: 33.33%;
+right: 33.34%;
+top: 12.5%;
+bottom: 54.17%;
+
+border: 1.33333px solid #0A0A0A;
+
+
+/* ChatInterface */
+
+width: 81px;
+height: 20px;
+
+border-radius: 0px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Fulano de tal */
+
+position: absolute;
+width: 82px;
+height: 20px;
+left: 0px;
+top: -1.2px;
+
+font-family: 'Arimo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+/* identical to box height, or 143% */
+
+color: #0A0A0A;
+
+
+
+/* marketing */
+
+position: absolute;
+width: 116px;
+height: 28px;
+left: 0.2px;
+top: 0.6px;
+
+
+
+/* Marketing */
+
+position: absolute;
+width: 86px;
+height: 28px;
+left: 0.2px;
+top: 0.6px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 28px;
+/* identical to box height, or 156% */
+
+color: #0A0A0A;
+
+
+
+/* Down Arrow */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 92.2px;
+top: 4px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 29.17%;
+right: 26.91%;
+top: 41.67%;
+bottom: 32.31%;
+
+background: #000000;
+
+
+/* sugestão */
+
+position: absolute;
+width: 855px;
+height: 40px;
+left: 463px;
+top: 821px;
+
+
+
+/* Frame 14 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+position: absolute;
+width: 306px;
+height: 40px;
+left: 463px;
+top: 821px;
+
+background: #F3F3F5;
+border-radius: 100px;
+
+
+/* primeira sugestão para um possivel próximo passo */
+
+width: 286px;
+height: 20px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 600;
+font-size: 12px;
+line-height: 20px;
+/* identical to box height, or 167% */
+
+color: #000000;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Frame 15 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+position: absolute;
+width: 308px;
+height: 40px;
+left: 775px;
+top: 821px;
+
+background: #F3F3F5;
+border-radius: 100px;
+
+
+/* segunda sugestão para um possivel próximo passo */
+
+width: 288px;
+height: 20px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 600;
+font-size: 12px;
+line-height: 20px;
+/* identical to box height, or 167% */
+
+color: #000000;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Frame 16 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+position: absolute;
+width: 232px;
+height: 40px;
+left: 1086px;
+top: 821px;
+
+background: linear-gradient(90deg, #F3F3F5 43.51%, #FFFFFF 88.39%);
+border-radius: 100px;
+
+
+/* terceira sugestão para um possivel */
+
+width: 196px;
+height: 20px;
+
+font-family: 'Mulish';
+font-style: normal;
+font-weight: 600;
+font-size: 12px;
+line-height: 20px;
+/* identical to box height, or 167% */
+
+color: #000000;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Rectangle 18 */
+
+position: absolute;
+width: 124px;
+height: 40px;
+left: 1181px;
+top: 821px;
+
+background: linear-gradient(90deg, rgba(217, 217, 217, 0) -13.78%, #FFFFFF 100%);

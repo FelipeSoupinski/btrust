@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import { COLORS, FONT_SIZES, FONTS } from '../styles/theme.js';
+import { useAppContext } from '../context/AppContext.jsx';
 
 // ----------------------------------------------------
-// DADOS SIMULADOS E FUNÇÕES DE AJUDA (MANTIDOS NO TOPO)
+// DADOS SIMULADOS E FUNÇÕES DE AJUDA
 // ----------------------------------------------------
 const INITIAL_CHATS = [
     { id: 101, title: 'Análise de Risco de Crédito', date: '2025-05-20' },
@@ -29,29 +30,48 @@ const groupChatsByMonth = (chats) => {
 
 
 // ----------------------------------------------------
-// ESTILOS DE COMPONENTE (AGORA TODOS DEFINIDOS AQUI EM CIMA)
+// ESTILOS DE COMPONENTE
 // ----------------------------------------------------
 
 const sidebarStyles = {
-    width: '280px',
-    backgroundColor: COLORS.principal, // Principal: #012C63
+    // MUDANÇAS ESTÃO AQUI:
+    width: '100%', // <-- MUDANÇA PRINCIPAL: De '280px' para '100%'
+    height: '100vh', // <-- ADICIONADO: Garante que ocupa a altura toda
+    boxSizing: 'border-box', // <-- ADICIONADO: Para o padding não "empurrar" o layout
+    
+    // Resto dos estilos (mantidos como estavam)
+    backgroundColor: COLORS.principal, 
     color: COLORS.branco,
     padding: '20px 0', 
     display: 'flex',
     flexDirection: 'column',
     fontFamily: FONTS.principal,
     boxShadow: '2px 0 5px rgba(0, 0, 0, 0.1)',
+    flexShrink: 0, 
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
 };
 
 const logoContainerStyles = {
     padding: '0 20px',
     marginBottom: '30px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
 };
-
 const logoStyles = {
     fontSize: FONT_SIZES.titulo,
     fontWeight: '700',
     fontFamily: FONTS.secundaria,
+};
+
+const closeButtonStyles = {
+    fontSize: '20px',
+    cursor: 'pointer',
+    color: COLORS.branco,
+    padding: '5px',
+    opacity: 0.7,
+    transition: 'opacity 0.2s',
 };
 
 const navAreaStyles = {
@@ -78,10 +98,10 @@ const navItemIconStyles = {
     marginRight: '10px',
 };
 
-const separatorStyles = { // Definido aqui para ser acessível
+const separatorStyles = { 
     borderColor: 'rgba(255, 255, 255, 0.2)',
     margin: '15px 0',
-    borderStyle: 'solid', // Adicionando para garantir a renderização
+    borderStyle: 'solid', 
     borderWidth: '0 0 1px 0' 
 };
 
@@ -111,10 +131,9 @@ const deleteIconStyles = {
 
 
 // ----------------------------------------------------
-// SUB-COMPONENTES (AGORA DEFINIDOS AQUI EM CIMA PARA ACESSAR OS ESTILOS)
+// SUB-COMPONENTES
 // ----------------------------------------------------
 
-// Componente Item de Histórico (ChatHistoryItem)
 const ChatHistoryItem = ({ chat, activeChat, setActiveChat, onDelete }) => {
     
     const isSelected = chat.id === activeChat;
@@ -135,7 +154,6 @@ const ChatHistoryItem = ({ chat, activeChat, setActiveChat, onDelete }) => {
         <div 
             style={combinedStyles}
             onClick={() => setActiveChat(chat.id)}
-            // Simulação do Hover (mantida sem pseudo-seletores)
             onMouseOver={(e) => e.currentTarget.style.backgroundColor = isSelected ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.1)'}
             onMouseOut={(e) => e.currentTarget.style.backgroundColor = isSelected ? 'rgba(0, 0, 0, 0.2)' : 'transparent'}
         >
@@ -154,7 +172,6 @@ const ChatHistoryItem = ({ chat, activeChat, setActiveChat, onDelete }) => {
     );
 };
 
-// Componente Item de Navegação (NavItem)
 const NavItem = ({ title, icon, action, isActive, isNewChat = false }) => {
         
     const itemActiveStyles = {
@@ -168,7 +185,7 @@ const NavItem = ({ title, icon, action, isActive, isNewChat = false }) => {
         fontWeight: isNewChat ? '600' : 'normal',
     };
     
-    const navItemIconStyles = { // Definido aqui para ser acessível
+    const navItemIconStyles = { 
         marginRight: '10px',
     };
 
@@ -176,7 +193,6 @@ const NavItem = ({ title, icon, action, isActive, isNewChat = false }) => {
         <div 
             style={combinedStyles}
             onClick={action}
-            // Simulação do Hover
             onMouseOver={(e) => e.currentTarget.style.backgroundColor = isActive ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.1)'}
             onMouseOut={(e) => e.currentTarget.style.backgroundColor = isActive ? 'rgba(0, 0, 0, 0.2)' : 'transparent'}
         >
@@ -193,13 +209,16 @@ const NavItem = ({ title, icon, action, isActive, isNewChat = false }) => {
 // COMPONENTE PRINCIPAL (Sidebar)
 // ----------------------------------------------------
 
-function Sidebar({ setActiveScreen }) { // Prop para mudar de Chat para Model Select
-    const [chats, setChats] = useState(INITIAL_CHATS);
-    const [activeChat, setActiveChat] = useState(INITIAL_CHATS[0].id);
-    
-    const chatsByMonth = groupChatsByMonth(chats);
+function Sidebar() {
+    const { 
+        activeScreen, 
+        setActiveScreen,
+        setIsSidebarOpen,
+    } = useAppContext(); 
 
-    // --- Ações ---
+    const [chats, setChats] = useState(INITIAL_CHATS);
+    const [activeChat, setActiveChat] = useState(INITIAL_CHATS[0].id); 
+    const chatsByMonth = groupChatsByMonth(chats);
     
     const handleCreateNewChat = () => {
         const newChatTitle = "Novo Chat " + (chats.length + 1);
@@ -208,7 +227,6 @@ function Sidebar({ setActiveScreen }) { // Prop para mudar de Chat para Model Se
             title: newChatTitle, 
             date: new Date().toISOString().split('T')[0]
         };
-        
         setChats([newChat, ...chats]);
         setActiveChat(newChat.id);
         setActiveScreen('chat');
@@ -216,42 +234,45 @@ function Sidebar({ setActiveScreen }) { // Prop para mudar de Chat para Model Se
     
     const handleDeleteChat = (id) => {
         setChats(chats.filter(chat => chat.id !== id));
-        if (activeChat === id && chats.length > 1) {
-            setActiveChat(chats.filter(chat => chat.id !== id)[0]?.id || null);
-        } else if (chats.length === 1) {
-             setActiveChat(null);
+        if (activeChat === id) {
+            const remainingChats = chats.filter(chat => chat.id !== id);
+            setActiveChat(remainingChats[0]?.id || null);
         }
     };
     
-    // Define se o botão "Criar Novo Chat" deve estar ativo (quando nenhum chat do histórico está selecionado)
-    const isNewChatActive = activeChat === null;
+    const isNewChatActive = activeChat === null && activeScreen === 'chat';
 
     return (
+        // O 'return' está correto, sem a lógica de display:none
         <div style={sidebarStyles}>
-            
-            {/* 1. Logo B3 */}
+
+            {/* 1. Logo B3 e Botão de Fechar */}
             <div style={logoContainerStyles}>
                 <span style={logoStyles}>B3 Logo</span>
+                <span
+                    onClick={() => setIsSidebarOpen(false)} // Ação: FECHAR
+                    style={closeButtonStyles}
+                    onMouseOver={(e) => e.currentTarget.style.opacity = 1}
+                    onMouseOut={(e) => e.currentTarget.style.opacity = 0.7}
+                >
+                    ❮
+                </span>
             </div>
 
             {/* 2. Ações Principais */}
             <nav style={navAreaStyles}>
-                
-                {/* Criar Novo Chat */}
-                <NavItem 
+                <NavItem
                     title="Criar novo chat"
                     icon="📝"
                     action={handleCreateNewChat}
-                    isActive={isNewChatActive} 
+                    isActive={isNewChatActive}
                     isNewChat={true}
                 />
-                
-                {/* Escolher um Modelo */}
-                <NavItem 
+                <NavItem
                     title="Escolher um modelo"
                     icon="⚙️"
-                    action={() => setActiveScreen('model-select')} 
-                    isActive={!isNewChatActive && activeChat === null} // Ativo se Model Select estiver selecionado
+                    action={() => setActiveScreen('model-select')}
+                    isActive={activeScreen === 'model-select'}
                 />
             </nav>
             

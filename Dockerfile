@@ -2,7 +2,7 @@
 # --- Estágio 1: Build (Construção da Aplicação) ---
 # Usamos uma imagem oficial do Node.js como base.
 # A tag 'alpine' resulta em uma imagem menor.
-FROM node:18-alpine AS build
+FROM node:20-alpine AS build
 
 # Define o diretório de trabalho dentro do contêiner
 WORKDIR /app

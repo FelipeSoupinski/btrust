@@ -1,48 +1,89 @@
-import React from 'react';
+// src/pages/ChatPage.jsx
+import React, { useState } from 'react';
 import ChatInput from '../components/ChatInput.jsx';
-import { FONT_SIZES, COLORS, FONTS } from '../styles/theme.js';
+import ChatMessage from '../components/ChatMessage.jsx';
+import SuggestionButtons from '../components/SuggestionButtons.jsx';
+import {
+    containerStyles,
+    messagesAreaStyles,
+    titleContainerStyles,
+    titleStyles,
+    inputAreaStyles,
+} from './styles/ChatPageStyles.js';
 
-const containerStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-end', // Alinha o conteúdo para a parte de baixo
-    height: '100%',
-    width: '100%',
-    padding: '0 20px 20px 20px', // Adiciona padding no rodapé para o input
-    boxSizing: 'border-box', // Garante que o padding não quebre o layout
-    overflowY: 'auto',
-};
+const INITIAL_MESSAGES = [];
 
-const titleContainerStyles = {
-    flexGrow: 1, // Faz com que ocupe todo o espaço acima do input
-    display: 'flex',
-    alignItems: 'center', // Centraliza verticalmente o título
-    justifyContent: 'center',
-    width: '100%',
-    paddingTop: '60px', // Espaço extra no topo
-};
-
-const titleStyles = {
-    fontSize: FONT_SIZES.titulo,
-    color: COLORS.textosSecundarios,
-    fontWeight: '700',
-    fontFamily: FONTS.secundaria,
-    opacity: 0.3, // Opacidade baixa para simular o texto "placeholder"
-
-};
-
+const SUGGESTIONS = [
+    'primeira sugestão para um possível próxima passo',
+    'segunda sugestão para um possível próxima passo',
+    'terceira sugestão para um possível próxima passo',
+];
 
 function ChatPage() {
+    const [messages, setMessages] = useState(INITIAL_MESSAGES);
+    const [inputValue, setInputValue] = useState('');
+
+    const handleSendMessage = (messageText) => {
+        if (!messageText.trim()) return;
+
+        const userMessage = {
+            type: 'user',
+            content: messageText,
+        };
+
+        const aiMessage = {
+            type: 'ai',
+            content: 'Com base na análise dos documentos enviados, posso fornecer informações detalhadas sobre o tópico mencionado. Os dados indicam uma tendência positiva nos últimos trimestres.',
+            confidence: 87,
+            references: [
+                { title: 'Relatório Financeiro Q3.pdf', page: 3 },
+                { title: 'Relatório Financeiro Q3.pdf', page: 3 },
+                { title: 'Relatório Financeiro Q3.pdf', page: 3 },
+            ],
+        };
+
+        setMessages([...messages, userMessage, aiMessage]);
+        setInputValue('');
+    };
+
+    const handleSuggestionClick = (suggestion) => {
+        handleSendMessage(suggestion);
+    };
+
     return (
         <div style={containerStyles}>
-
-            <div style={titleContainerStyles}>
-                <h1 style={titleStyles}>BTrust</h1>
+            <div style={messagesAreaStyles}>
+                {messages.length === 0 ? (
+                    <div style={titleContainerStyles}>
+                        <h1 style={titleStyles}>BTrust</h1>
+                    </div>
+                ) : (
+                    <>
+                        {messages.map((message, index) => (
+                            <ChatMessage
+                                key={index}
+                                type={message.type}
+                                content={message.content}
+                                confidence={message.confidence}
+                                references={message.references}
+                            />
+                        ))}
+                        
+                        <SuggestionButtons 
+                            suggestions={SUGGESTIONS}
+                            onSuggestionClick={handleSuggestionClick}
+                        />
+                    </>
+                )}
             </div>
 
-            {/* Agora este componente pode esticar para 100% */}
-            <ChatInput />
-
+            <div style={inputAreaStyles}>
+                <ChatInput 
+                    value={inputValue}
+                    onChange={setInputValue}
+                    onSend={handleSendMessage}
+                />
+            </div>
         </div>
     );
 }

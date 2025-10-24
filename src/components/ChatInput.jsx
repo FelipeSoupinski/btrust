@@ -1,76 +1,62 @@
 // src/components/ChatInput.jsx
 import React from 'react';
-import { COLORS, FONT_SIZES } from '../styles/theme.js';
+import {
+    inputContainerStyles,
+    inputFieldStyles,
+    iconStyle,
+    sendButtonStyles,
+    sendIconStyles,
+} from './styles/ChatInputStyles.js';
 
-const inputContainerStyles = {
-    width: '100%',
-    maxWidth: '700px',
-    margin: '0 auto', // <-- LINHA ADICIONADA: Isto centra o bloco de 700px.
-    display: 'flex',
-    alignItems: 'center',
-    padding: '8px',
-    backgroundColor: COLORS.branco,
-    borderRadius: '25px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-    border: `1px solid ${COLORS.fundo}`,
-};
+function ChatInput({ value = '', onChange, onSend }) {
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            if (onSend && value.trim()) {
+                onSend(value);
+            }
+        }
+    };
 
-const inputFieldStyles = {
-    flexGrow: 1, // Faz o <input> ocupar o espaço interno
-    border: 'none',
-    padding: '10px 15px',
-    fontSize: FONT_SIZES.texto,
-    outline: 'none',
-    color: COLORS.textosSecundarios,
-    background: 'transparent',
-};
+    const handleSendClick = () => {
+        if (onSend && value.trim()) {
+            onSend(value);
+        }
+    };
 
-// Estilo para os ícones (Anexo e Envio)
-const iconStyle = {
-    fontSize: '20px',
-    color: COLORS.textosSecundarios,
-    cursor: 'pointer',
-    padding: '5px',
-};
-
-const sendButtonStyles = {
-    width: '40px',
-    height: '40px',
-    backgroundColor: COLORS.principal,
-    borderRadius: '50%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    cursor: 'pointer',
-    border: 'none',
-    marginLeft: '5px',
-    flexShrink: 0,
-};
-
-const sendIconStyles = {
-    fontSize: '18px',
-    color: COLORS.branco,
-};
-
-function ChatInput() {
     return (
         <div style={inputContainerStyles}>
+            <span 
+                style={iconStyle}
+                onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'}
+                onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+            >
+                📎
+            </span>
 
-            {/* Ícone de Anexo (Clip) */}
-            <span style={{ ...iconStyle, marginRight: '10px' }}>📎</span>
-
-            {/* Campo de Texto */}
             <input
                 type="text"
+                value={value}
+                onChange={(e) => onChange && onChange(e.target.value)}
+                onKeyPress={handleKeyPress}
                 placeholder="Digite sua mensagem... (Enter para enviar, Shift+Enter para nova linha)"
                 style={inputFieldStyles}
             />
 
-            {/* Botão de Envio */}
-            <button style={sendButtonStyles}>
+            <button 
+                style={sendButtonStyles}
+                onClick={handleSendClick}
+                onMouseOver={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(1, 44, 99, 0.3)';
+                }}
+                onMouseOut={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = 'none';
+                }}
+            >
                 <span style={sendIconStyles}>➤</span>
             </button>
-
         </div>
     );
 }

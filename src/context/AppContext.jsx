@@ -1,6 +1,5 @@
 // src/context/AppContext.jsx
-
-import React, { createContext, useState, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 // 1. Criação do Contexto
 export const AppContext = createContext();

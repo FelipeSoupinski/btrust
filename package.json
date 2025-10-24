@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docker:up": "docker compose down --remove-orphans && docker compose up -d",
+    "docker:down": "docker compose down --remove-orphans --volumes",
+    "docker:restart": "npm run docker:down && npm run docker:up",
+    "docker:logs": "docker compose logs -f"
   },
   "dependencies": {
     "react": "^19.1.1",

@@ -8,17 +8,17 @@ import { useAppContext } from '../context/AppContext.jsx';
 // DADOS SIMULADOS E FUNÇÕES DE AJUDA
 // ----------------------------------------------------
 const INITIAL_CHATS = [
-    { id: 101, title: 'Análise de Risco de Crédito', date: '2025-05-20' },
-    { id: 102, title: 'Predição de Mercado', date: '2025-05-15' },
-    { id: 103, title: 'Relatório de Ativos Digitais', date: '2025-05-01' },
-    { id: 201, title: 'Otimização de Portfólio', date: '2025-04-28' },
-    { id: 202, title: 'Simulação de Investimento', date: '2025-04-10' },
+    { id: 101, title: 'Análise de...', date: '2025-05-20' },
+    { id: 102, title: 'Predição de...', date: '2025-05-15' },
+    { id: 103, title: 'Relatório de...', date: '2025-05-01' },
+    { id: 201, title: 'Otimização...', date: '2025-04-28' },
+    { id: 202, title: 'Simulação de...', date: '2025-04-10' },
 ];
 
 const groupChatsByMonth = (chats) => {
     return chats.reduce((groups, chat) => {
         const date = new Date(chat.date);
-        const monthYear = date.toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
+        const monthYear = date.toLocaleString('pt-BR', { month: 'long', year: 'numeric' }).toUpperCase();
         
         if (!groups[monthYear]) {
             groups[monthYear] = [];
@@ -34,22 +34,18 @@ const groupChatsByMonth = (chats) => {
 // ----------------------------------------------------
 
 const sidebarStyles = {
-    // MUDANÇAS ESTÃO AQUI:
-    width: '100%', // <-- MUDANÇA PRINCIPAL: De '280px' para '100%'
-    height: '100vh', // <-- ADICIONADO: Garante que ocupa a altura toda
-    boxSizing: 'border-box', // <-- ADICIONADO: Para o padding não "empurrar" o layout
-    
-    // Resto dos estilos (mantidos como estavam)
-    backgroundColor: COLORS.principal, 
+    width: '100%',
+    height: '100vh',
+    boxSizing: 'border-box',
+    backgroundColor: COLORS.principal,
     color: COLORS.branco,
-    padding: '20px 0', 
+    padding: '20px 0',
     display: 'flex',
     flexDirection: 'column',
     fontFamily: FONTS.principal,
-    boxShadow: '2px 0 5px rgba(0, 0, 0, 0.1)',
-    flexShrink: 0, 
+    boxShadow: '2px 0 8px rgba(0, 0, 0, 0.15)',
+    flexShrink: 0,
     overflow: 'hidden',
-    whiteSpace: 'nowrap',
 };
 
 const logoContainerStyles = {
@@ -59,19 +55,22 @@ const logoContainerStyles = {
     justifyContent: 'space-between',
     alignItems: 'center',
 };
+
 const logoStyles = {
     fontSize: FONT_SIZES.titulo,
     fontWeight: '700',
     fontFamily: FONTS.secundaria,
+    color: COLORS.branco,
 };
 
 const closeButtonStyles = {
     fontSize: '20px',
     cursor: 'pointer',
     color: COLORS.branco,
-    padding: '5px',
+    padding: '8px',
     opacity: 0.7,
     transition: 'opacity 0.2s',
+    borderRadius: '4px',
 };
 
 const navAreaStyles = {
@@ -82,31 +81,31 @@ const navItemBaseStyles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '10px 15px 10px 0', 
-    borderRadius: '4px',
+    padding: '12px 15px',
+    borderRadius: '6px',
     cursor: 'pointer',
     marginBottom: '8px',
     fontSize: FONT_SIZES.texto,
     textDecoration: 'none',
     color: COLORS.branco,
-    marginLeft: '15px', 
-    borderLeft: '5px solid transparent',
-    transition: 'background-color 0.1s',
+    transition: 'all 0.2s',
+    borderLeft: '3px solid transparent',
 };
 
 const navItemIconStyles = {
-    marginRight: '10px',
+    marginRight: '12px',
+    fontSize: '18px',
 };
 
-const separatorStyles = { 
-    borderColor: 'rgba(255, 255, 255, 0.2)',
-    margin: '15px 0',
-    borderStyle: 'solid', 
-    borderWidth: '0 0 1px 0' 
+const separatorStyles = {
+    borderColor: 'rgba(255, 255, 255, 0.15)',
+    margin: '20px 20px',
+    borderStyle: 'solid',
+    borderWidth: '0 0 1px 0',
 };
 
 const historySectionStyles = {
-    marginTop: '20px',
+    marginTop: '10px',
     overflowY: 'auto',
     flexGrow: 1,
     padding: '0 20px',
@@ -114,20 +113,23 @@ const historySectionStyles = {
 
 const historyTitleStyles = {
     fontSize: FONT_SIZES.subtexto,
-    color: COLORS.detalhes, 
+    color: 'rgba(255, 255, 255, 0.6)',
     textTransform: 'uppercase',
-    marginBottom: '10px',
-    fontWeight: '600',
-    paddingLeft: '15px',
+    marginBottom: '12px',
+    marginTop: '20px',
+    fontWeight: '700',
+    letterSpacing: '0.5px',
 };
 
 const deleteIconStyles = {
     color: 'rgba(255, 255, 255, 0.5)',
     cursor: 'pointer',
-    opacity: 0.5,
-    padding: '0 5px',
+    opacity: 0,
+    padding: '4px 8px',
     transition: 'opacity 0.2s',
+    fontSize: '16px',
 };
+
 
 
 // ----------------------------------------------------
@@ -135,36 +137,50 @@ const deleteIconStyles = {
 // ----------------------------------------------------
 
 const ChatHistoryItem = ({ chat, activeChat, setActiveChat, onDelete }) => {
-    
     const isSelected = chat.id === activeChat;
     
     const itemActiveStyles = {
-        backgroundColor: isSelected ? 'rgba(0, 0, 0, 0.2)' : 'transparent',
-        borderLeft: isSelected ? `5px solid ${COLORS.detalhes}` : '5px solid transparent', 
+        backgroundColor: isSelected ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+        borderLeft: isSelected ? `3px solid ${COLORS.detalhes}` : '3px solid transparent',
     };
     
     const combinedStyles = {
         ...navItemBaseStyles,
         ...itemActiveStyles,
-        marginLeft: '0', 
-        padding: '10px 15px',
+        padding: '10px 12px',
     };
 
     return (
         <div 
             style={combinedStyles}
             onClick={() => setActiveChat(chat.id)}
-            onMouseOver={(e) => e.currentTarget.style.backgroundColor = isSelected ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.1)'}
-            onMouseOut={(e) => e.currentTarget.style.backgroundColor = isSelected ? 'rgba(0, 0, 0, 0.2)' : 'transparent'}
+            onMouseOver={(e) => {
+                e.currentTarget.style.backgroundColor = isSelected ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)';
+                const deleteIcon = e.currentTarget.querySelector('.delete-icon');
+                if (deleteIcon) deleteIcon.style.opacity = 1;
+            }}
+            onMouseOut={(e) => {
+                e.currentTarget.style.backgroundColor = isSelected ? 'rgba(255, 255, 255, 0.1)' : 'transparent';
+                const deleteIcon = e.currentTarget.querySelector('.delete-icon');
+                if (deleteIcon) deleteIcon.style.opacity = 0;
+            }}
         >
-            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '80%' }}>
+            <span style={{ 
+                overflow: 'hidden', 
+                textOverflow: 'ellipsis', 
+                whiteSpace: 'nowrap', 
+                maxWidth: '80%',
+                fontSize: FONT_SIZES.subtexto,
+            }}>
                 {chat.title}
             </span>
             <span 
+                className="delete-icon"
                 style={deleteIconStyles}
-                onClick={(e) => { e.stopPropagation(); onDelete(chat.id); }}
-                onMouseOver={(e) => e.currentTarget.style.opacity = 1}
-                onMouseOut={(e) => e.currentTarget.style.opacity = 0.5}
+                onClick={(e) => { 
+                    e.stopPropagation(); 
+                    onDelete(chat.id); 
+                }}
             >
                 🗑️
             </span>
@@ -173,10 +189,9 @@ const ChatHistoryItem = ({ chat, activeChat, setActiveChat, onDelete }) => {
 };
 
 const NavItem = ({ title, icon, action, isActive, isNewChat = false }) => {
-        
     const itemActiveStyles = {
-        backgroundColor: isActive ? 'rgba(0, 0, 0, 0.2)' : 'transparent',
-        borderLeft: isActive ? `5px solid ${COLORS.detalhes}` : '5px solid transparent',
+        backgroundColor: isActive ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+        borderLeft: isActive ? `3px solid ${COLORS.detalhes}` : '3px solid transparent',
     };
 
     const combinedStyles = {
@@ -184,17 +199,17 @@ const NavItem = ({ title, icon, action, isActive, isNewChat = false }) => {
         ...itemActiveStyles,
         fontWeight: isNewChat ? '600' : 'normal',
     };
-    
-    const navItemIconStyles = { 
-        marginRight: '10px',
-    };
 
     return (
         <div 
             style={combinedStyles}
             onClick={action}
-            onMouseOver={(e) => e.currentTarget.style.backgroundColor = isActive ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.1)'}
-            onMouseOut={(e) => e.currentTarget.style.backgroundColor = isActive ? 'rgba(0, 0, 0, 0.2)' : 'transparent'}
+            onMouseOver={(e) => {
+                e.currentTarget.style.backgroundColor = isActive ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)';
+            }}
+            onMouseOut={(e) => {
+                e.currentTarget.style.backgroundColor = isActive ? 'rgba(255, 255, 255, 0.1)' : 'transparent';
+            }}
         >
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 <span style={navItemIconStyles}>{icon}</span>
@@ -281,7 +296,6 @@ function Sidebar() {
 
             {/* 3. Histórico de Conversas */}
             <div style={historySectionStyles}>
-                
                 {Object.entries(chatsByMonth).map(([monthYear, monthlyChats]) => (
                     <React.Fragment key={monthYear}>
                         <h3 style={historyTitleStyles}>{monthYear}</h3>
@@ -290,7 +304,10 @@ function Sidebar() {
                                 key={chat.id}
                                 chat={chat}
                                 activeChat={activeChat}
-                                setActiveChat={setActiveChat}
+                                setActiveChat={(id) => {
+                                    setActiveChat(id);
+                                    setActiveScreen('chat');
+                                }}
                                 onDelete={handleDeleteChat}
                             />
                         ))}

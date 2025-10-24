@@ -1,4 +1,7 @@
-/* Deixamos apenas o reset e os estilos base */
+/* src/styles/GlobalStyles.css */
+
+/* 1. Importação das Fontes do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Mulish:wght@400;600;700&display=swap');
 
 /* 2. Reset Básico */
 * {
@@ -9,15 +12,16 @@
 
 /* 3. Estilos Aplicados ao Corpo da Aplicação */
 body {
-    background-color: #F9F9F9;
+    background-color: #F9F9F9; 
     color: #40444D;
-    font-family: 'Arial', sans-serif; /* Usando a fonte padrão */
+    /* Aplicando a fonte principal */
+    font-family: 'Mulish', sans-serif; 
     line-height: 1.5;
 }
 
 /* 4. Estilos de Tipografia Baseados nos seus Padrões */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Georgia', serif; /* Usando a fonte padrão */
-    color: #012C63;
+    /* Aplicando a fonte secundária para títulos */
+    font-family: 'Montserrat', sans-serif; 
+    color: #012C63; 
 }
-/* ... remova o restante dos estilos de classe se não estiverem sendo usados ainda ... */

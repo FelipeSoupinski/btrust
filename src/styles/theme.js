@@ -8,8 +8,8 @@ export const COLORS = {
 };
 
 export const FONTS = {
-  principal: 'Mulish, sans-serif',
-  secundaria: 'Montserrat, sans-serif',
+  principal: 'Arial, sans-serif',
+  secundaria: 'Georgia, serif',
 };
 
 export const FONT_SIZES = {

@@ -1,7 +1,7 @@
 // src/components/Header.jsx
 
 import React from 'react';
-import { FONT_SIZES, COLORS } from '../styles/theme.js';
+import { FONT_SIZES, COLORS, FONTS} from '../styles/theme.js';
 
 const headerStyles = {
     height: '60px',

@@ -1,5 +1,3 @@
-// src/pages/ChatPage.jsx
-
 import React from 'react';
 import ChatInput from '../components/ChatInput.jsx';
 import { FONT_SIZES, COLORS, FONTS } from '../styles/theme.js';

@@ -80,9 +80,7 @@ const historyItemStyles = {
     cursor: 'pointer',
     borderRadius: '4px',
     // Invertemos a ordem no JSX, mas a lixeira fica na direita
-    ':hover': { 
-        backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    }
+    
 };
 
 const deleteIconStyles = {

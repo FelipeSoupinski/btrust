@@ -1,5 +1,5 @@
 // src/components/Topbar.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FONT_SIZES, COLORS, FONTS } from '../styles/theme.js';
 import { useAppContext } from '../context/AppContext.jsx';
 
@@ -38,19 +38,25 @@ const dropdownToggleStyles = {
     display: 'flex',
     alignItems: 'center',
     cursor: 'pointer',
-    padding: '5px 10px',
-    borderRadius: '5px',
-    backgroundColor: COLORS.fundo,
+    padding: '8px 15px',
+    borderRadius: '20px',
+    backgroundColor: COLORS.branco,
+    border: `1px solid #e0e0e0`,
+    color: COLORS.principal,
+    fontWeight: '600',
+    fontFamily: FONTS.secundaria,
+    fontSize: FONT_SIZES.subtexto,
+    transition: 'box-shadow 0.2s ease',
 };
 
 const dropdownMenuStyles = {
     position: 'absolute',
-    top: '40px',
+    top: '50px', // Aumentado para dar mais espaço
     left: '0px',
     backgroundColor: COLORS.branco,
-    border: `1px solid ${COLORS.fundo}`,
-    borderRadius: '5px',
-    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+    border: '1px solid #e0e0e0',
+    borderRadius: '12px',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
     zIndex: 100,
     minWidth: '200px',
 };
@@ -71,6 +77,13 @@ function Topbar() {
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+    // Efeito para fechar o dropdown se todas as fontes forem desmarcadas
+    useEffect(() => {
+        if (selectedDataSources.length === 0) {
+            setIsDropdownOpen(false);
+        }
+    }, [selectedDataSources]);
+
     const activeSources = availableDataSources.filter(source =>
         selectedDataSources.includes(source.id)
     );
@@ -80,23 +93,23 @@ function Topbar() {
     return (
         <header style={topbarStyles}>
             <div style={{ position: 'relative' }}>
-                {selectedDataSources.length > 0 && (
+                {availableDataSources.length > 0 && ( // Renderiza se houver fontes disponíveis, não apenas selecionadas
                     <div
                         style={dropdownToggleStyles}
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                     >
                         {displaySourceName}
                         {selectedDataSources.length > 1 && ` (+${selectedDataSources.length - 1})`}
-                        <span style={{ marginLeft: '8px' }}>Down Arrow</span>
+                        <span style={{ marginLeft: '8px', fontSize: '10px' }}>▼</span>
                     </div>
                 )}
 
-                {isDropdownOpen && selectedDataSources.length > 0 && (
+                {isDropdownOpen && ( // A visibilidade do menu depende apenas do estado 'isDropdownOpen'
                     <div style={dropdownMenuStyles}>
                         <div style={{ padding: '8px 15px', fontWeight: '700', color: COLORS.principal }}>
                             Bases Ativas:
                         </div>
-                        {activeSources.map(source => (
+                        {availableDataSources.map(source => (
                             <div
                                 key={source.id}
                                 style={dropdownItemStyles}
@@ -109,7 +122,7 @@ function Topbar() {
                             >
                                 <input
                                     type="checkbox"
-                                    checked={selectedDataSources.includes(source.id)}
+                                    checked={selectedDataSources.includes(source.id)} // O checkbox controla o estado visual
                                     readOnly
                                     style={{ marginRight: '8px' }}
                                 />

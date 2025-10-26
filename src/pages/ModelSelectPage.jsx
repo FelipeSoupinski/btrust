@@ -5,10 +5,8 @@ import { COLORS, FONT_SIZES, FONTS } from '../styles/theme.js';
 
 const ModelCard = ({ source, isSelected, onSelect }) => {
   const cardStyles = {
-    width: '280px',
     height: '180px',
     padding: '20px',
-    margin: '15px',
     borderRadius: '8px',
     cursor: 'pointer',
     display: 'flex',
@@ -82,7 +80,7 @@ function ModelSelectPage() {
 
   const gridStyles = {
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
     gap: '20px',
     maxWidth: '1000px',
     margin: '0 auto',

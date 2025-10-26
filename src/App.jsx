@@ -2,7 +2,7 @@
 import React from 'react';
 import { AppProvider, useAppContext } from './context/AppContext.jsx';
 import Sidebar from './components/Sidebar.jsx';
-import Header from './components/Header.jsx';
+import Topbar from './components/Topbar.jsx';
 import ChatPage from './pages/ChatPage.jsx';
 import ModelSelectPage from './pages/ModelSelectPage.jsx';
 import { COLORS } from './styles/theme.js';
@@ -14,7 +14,7 @@ const AppLayout = () => {
         display: 'grid',
         gridTemplateColumns: isSidebarOpen ? 'minmax(280px, 280px) 1fr' : '0fr 1fr',
         height: '100vh',
-        width: '100%',
+        width: '100vw', // Alterado para garantir a largura total da viewport
         backgroundColor: COLORS.fundo,
         transition: 'grid-template-columns 0.3s ease',
         overflow: 'hidden',
@@ -24,15 +24,15 @@ const AppLayout = () => {
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        height: '100vh', // ← OK
+        height: '100vh',
         backgroundColor: COLORS.fundo,
-        overflow: 'hidden', // ← OK
+        overflow: 'auto', // Alterado para controlar o scroll aqui
     };
 
 
     const pageContainerStyles = {
         flexGrow: 1,
-        overflowY: 'auto',
+        // overflowY: 'auto', // Removido
         width: '100%',
     };
 
@@ -72,7 +72,7 @@ const AppLayout = () => {
 
             {/* Área Principal */}
             <div style={mainContentStyles}>
-                <Header />
+                <Topbar />
                 <div style={pageContainerStyles}>
                     <CurrentPage />
                 </div>

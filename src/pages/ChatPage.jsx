@@ -22,7 +22,7 @@ const contentWrapperStyles = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  width: '100%',
+  // width: '100%', // Removido para permitir a centralização pelo container pai
   maxWidth: '700px',  // Mesmo limite do input
 };
 

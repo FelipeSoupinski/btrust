@@ -1,17 +1,17 @@
-// src/components/Header.jsx
+// src/components/Topbar.jsx
 import React, { useState } from 'react';
 import { FONT_SIZES, COLORS, FONTS } from '../styles/theme.js';
 import { useAppContext } from '../context/AppContext.jsx';
 
-const headerStyles = {
+const topbarStyles = {
     width: '100%',
-    padding: '15px 30px', // Aumentando o padding lateral para dar mais respiro
+    padding: '15px 30px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     boxSizing: 'border-box',
-    backgroundColor: COLORS.branco, // Adicionando cor de fundo para destaque
-    borderBottom: `1px solid ${COLORS.fundo}`, // Borda sutil para separar do conteúdo
+    backgroundColor: COLORS.branco,
+    borderBottom: `1px solid ${COLORS.fundo}`,
 };
 
 const profileStyles = {
@@ -19,7 +19,7 @@ const profileStyles = {
     alignItems: 'center',
     padding: '5px 15px',
     borderRadius: '20px',
-    backgroundColor: COLORS.fundo, // Fundo F9F9F9 para o elemento de perfil
+    backgroundColor: COLORS.fundo,
     fontSize: FONT_SIZES.subtexto,
     color: COLORS.textosSecundarios,
     cursor: 'pointer',
@@ -30,10 +30,9 @@ const profileStyles = {
 const userIconStyles = {
     marginLeft: '10px',
     fontSize: '18px',
-    color: COLORS.principal, // Ícone na cor principal
+    color: COLORS.principal,
 };
 
-// (Adicionei os estilos que faltavam no teu ficheiro original para o dropdown)
 const dropdownToggleStyles = {
     display: 'flex',
     alignItems: 'center',
@@ -51,7 +50,7 @@ const dropdownMenuStyles = {
     border: `1px solid ${COLORS.fundo}`,
     borderRadius: '5px',
     boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-    zIndex: 100, // zIndex alto
+    zIndex: 100,
     minWidth: '200px',
 };
 
@@ -61,8 +60,8 @@ const dropdownItemStyles = {
     display: 'flex',
     alignItems: 'center',
 };
-function Header() {
-    // REMOVEMOS 'setIsSidebarOpen' e 'isSidebarOpen' daqui
+
+function Topbar() {
     const {
         availableDataSources = [],
         selectedDataSources = [],
@@ -78,8 +77,7 @@ function Header() {
     const displaySourceName = activeSources.length > 0 ? activeSources[0].name : "Selecionar Base";
 
     return (
-        <header style={headerStyles}>
-            {/* Dropdown */}
+        <header style={topbarStyles}>
             <div style={{ position: 'relative' }}>
                 {selectedDataSources.length > 0 && (
                     <div
@@ -92,7 +90,6 @@ function Header() {
                     </div>
                 )}
 
-                {/* Menu Dropdown */}
                 {isDropdownOpen && selectedDataSources.length > 0 && (
                     <div style={dropdownMenuStyles}>
                         <div style={{ padding: '8px 15px', fontWeight: '700', color: COLORS.principal }}>
@@ -102,11 +99,9 @@ function Header() {
                             <div
                                 key={source.id}
                                 style={dropdownItemStyles}
-                                // NÃO fecha o dropdown ao clicar
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     toggleDataSource(source.id);
-                                    // Mantém aberto
                                 }}
                                 onMouseOver={(e) => e.currentTarget.style.backgroundColor = COLORS.fundo}
                                 onMouseOut={(e) => e.currentTarget.style.backgroundColor = COLORS.branco}
@@ -124,7 +119,6 @@ function Header() {
                 )}
             </div>
 
-            {/* Área Direita (Perfil) */}
             <div style={profileStyles}>
                 Fulano de tal
                 <span style={userIconStyles}>👤</span>
@@ -133,4 +127,4 @@ function Header() {
     );
 }
 
-export default Header;
+export default Topbar;

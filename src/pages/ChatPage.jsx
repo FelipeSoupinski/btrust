@@ -1,47 +1,150 @@
 // src/pages/ChatPage.jsx
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ChatInput from '../components/ChatInput.jsx';
+import ChatMessage from '../components/ChatMessage.jsx';
+import ThinkingIndicator from '../components/ThinkingIndicator.jsx';
+import BotMessage from '../components/BotMessage.jsx';
+import { useAppContext } from '../context/AppContext.jsx';
 import { FONT_SIZES, COLORS, FONTS } from '../styles/theme.js';
 
 
 const containerStyles = {
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
   height: '100%',
   width: '100%',
-  padding: '0 20px',
   boxSizing: 'border-box',
-  flexGrow: 1,           // ← ESSENCIAL
-  overflow: 'hidden',
+  flexGrow: 1,
 };
 
-
-const contentWrapperStyles = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  width: '100%', // Removido para permitir a centralização pelo container pai
-  maxWidth: '612px',  // Mesmo limite do input
+const chatWindowStyles = {
+    flexGrow: 1,
+    overflowY: 'auto',
+    padding: '20px 0', // Padding horizontal removido para ser controlado pelo container filho
+    display: 'flex',
+    flexDirection: 'column',
 };
 
-const titleStyles = {
-  fontSize: FONT_SIZES.titulo,
-  color: COLORS.principal,
-  fontWeight: '700',
-  fontFamily: FONTS.secundaria,
-  marginBottom: '40px',
-  textAlign: 'center',
+const inputAreaStyles = {
+    padding: '20px',
+    backgroundColor: COLORS.fundo,
 };
+
+const messagesContainerStyles = {
+    width: '100%',
+    maxWidth: '842px', // Mesma largura máxima do container do input
+    margin: '0 auto', // Centraliza o container
+    display: 'flex',
+    flexDirection: 'column',
+}
 
 function ChatPage() {
+    const { activeChat, chatMessages, setChatMessages, setChats } = useAppContext();
+    const [isThinking, setIsThinking] = useState(false);
+    const messagesEndRef = useRef(null);
+    const thinkingTimeoutRef = useRef(null); // Ref para guardar o ID do timeout
+
+    const currentMessages = chatMessages[activeChat] || [];
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
+    useEffect(scrollToBottom, [currentMessages, isThinking]);
+
+    const handleSendMessage = (text) => {
+        // Se for a primeira mensagem, atualiza o título do chat na sidebar
+        if (currentMessages.length === 0) {
+            const newTitle = text.length > 40 ? text.substring(0, 40) + '...' : text;
+            setChats(prevChats => 
+                prevChats.map(chat => 
+                    chat.id === activeChat 
+                        ? { ...chat, title: newTitle } 
+                        : chat
+                )
+            );
+        }
+
+        const userMessage = { author: 'user', text };
+        
+        // Adiciona a mensagem do usuário ao estado
+        const updatedMessages = [...currentMessages, userMessage];
+        setChatMessages(prev => ({ ...prev, [activeChat]: updatedMessages }));
+
+        // Simula o bot "pensando"
+        setIsThinking(true);
+
+        // Simula a resposta do bot após um tempo
+        // Guarda o ID do timeout para que possamos cancelá-lo
+        thinkingTimeoutRef.current = setTimeout(() => {
+            const botResponse = {
+                author: 'bot',
+                text: (
+                    <BotMessage
+                        text={`Esta é uma resposta simulada para a sua pergunta: "${text}". A integração real com a IA virá em breve.`}
+                        score={{ level: 'high', value: 92 }}
+                        references={[
+                            { name: 'Relatório Anual 2024.pdf', page: 3 },
+                            { name: 'Análise de Mercado Q1.docx', page: 12 },
+                            { name: 'Diretrizes de Compliance.pdf', page: 8 },
+                            { name: 'Apresentação de Resultados.pptx', page: 5 },
+                            { name: 'Estatuto Social da Companhia.pdf', page: 21 },
+                            { name: 'Plano de Negócios 2025.pdf', page: 18 },
+                            { name: 'Pesquisa de Satisfação do Cliente.xlsx', page: 2 },
+                        ]}
+                    />
+                )
+            };
+            
+            setChatMessages(prev => ({
+                ...prev,
+                [activeChat]: [...updatedMessages, botResponse]
+            }));
+
+            setIsThinking(false);
+        }, 2500); // Simula 2.5 segundos de espera
+    };
+
+    const handleStopGeneration = () => {
+        if (thinkingTimeoutRef.current) {
+            clearTimeout(thinkingTimeoutRef.current);
+            thinkingTimeoutRef.current = null;
+        }
+        setIsThinking(false);
+        // Opcional: Adicionar uma mensagem informando que a geração foi parada
+        // (Pode ser implementado depois)
+    };
+
+    // Se nenhum chat estiver ativo, mostra uma mensagem inicial
+    if (!activeChat) {
+        return (
+            <div style={{...containerStyles, alignItems: 'center', justifyContent: 'center'}}>
+                <h1 style={{fontSize: FONT_SIZES.titulo, color: COLORS.principal, fontFamily: FONTS.secundaria}}>BTrust</h1>
+                <p style={{color: COLORS.textosSecundarios}}>Selecione um chat ou crie um novo para começar.</p>
+            </div>
+        );
+    }
+
   return (
     <div style={containerStyles}>
-      <div style={contentWrapperStyles}>
-        <h1 style={titleStyles}>BTrust</h1>
-        <ChatInput />
-      </div>
+        <div style={chatWindowStyles}>
+            <div style={messagesContainerStyles}>
+                {currentMessages.map((msg, index) => (
+                    <ChatMessage key={index} message={msg} />
+                ))}
+                {isThinking && <ThinkingIndicator />}
+                <div ref={messagesEndRef} />
+            </div>
+        </div>
+        <div style={inputAreaStyles}>
+            <div style={{ maxWidth: '842px', margin: '0 auto' }}>
+                <ChatInput 
+                    onSendMessage={handleSendMessage} 
+                    disabled={isThinking}
+                    onStop={handleStopGeneration}
+                />
+            </div>
+        </div>
     </div>
   );
 }

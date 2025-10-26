@@ -7,14 +7,6 @@ import { useAppContext } from '../context/AppContext.jsx';
 // ----------------------------------------------------
 // DADOS SIMULADOS E FUNÇÕES DE AJUDA
 // ----------------------------------------------------
-const INITIAL_CHATS = [
-    { id: 101, title: 'Análise de Risco de Crédito', date: '2025-05-20' },
-    { id: 102, title: 'Predição de Mercado', date: '2025-05-15' },
-    { id: 103, title: 'Relatório de Ativos Digitais', date: '2025-05-01' },
-    { id: 201, title: 'Otimização de Portfólio', date: '2025-04-28' },
-    { id: 202, title: 'Simulação de Investimento', date: '2025-04-10' },
-];
-
 const groupChatsByMonth = (chats) => {
     return chats.reduce((groups, chat) => {
         const date = new Date(chat.date);
@@ -223,10 +215,13 @@ function Sidebar() {
         setActiveScreen,
         isSidebarOpen,
         setIsSidebarOpen,
+        chats,
+        setChats,
+        activeChat,
+        setActiveChat,
+        setChatMessages,
     } = useAppContext(); 
 
-    const [chats, setChats] = useState(INITIAL_CHATS);
-    const [activeChat, setActiveChat] = useState(INITIAL_CHATS[0].id); 
     const chatsByMonth = groupChatsByMonth(chats);
     
     const handleCreateNewChat = () => {
@@ -237,6 +232,7 @@ function Sidebar() {
             date: new Date().toISOString().split('T')[0]
         };
         setChats([newChat, ...chats]);
+        setChatMessages(prev => ({ ...prev, [newChat.id]: [] })); // Cria um array de mensagens vazio para o novo chat
         setActiveChat(newChat.id);
         setActiveScreen('chat');
     };
@@ -247,6 +243,12 @@ function Sidebar() {
             const remainingChats = chats.filter(chat => chat.id !== id);
             setActiveChat(remainingChats[0]?.id || null);
         }
+        // Opcional: remover as mensagens do chat deletado do estado
+        setChatMessages(prev => {
+            const newMessages = { ...prev };
+            delete newMessages[id];
+            return newMessages;
+        });
     };
     
     const isNewChatActive = activeChat === null && activeScreen === 'chat';

@@ -26,14 +26,15 @@ const AppLayout = () => {
         width: '100%',
         height: '100vh',
         backgroundColor: COLORS.fundo,
-        overflow: 'auto', // Alterado para controlar o scroll aqui
+        overflow: 'hidden', // Impede o scroll do container principal
     };
 
 
     const pageContainerStyles = {
         flexGrow: 1,
-        // overflowY: 'auto', // Removido
+        overflowY: 'auto', // Adiciona scroll apenas à área da página
         width: '100%',
+        display: 'flex', // Garante que o filho (ChatPage/ModelSelectPage) ocupe todo o espaço
     };
 
     const openButtonStyles = {

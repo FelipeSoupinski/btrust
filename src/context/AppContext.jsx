@@ -42,6 +42,21 @@ const MOCK_DATA_SOURCES = [
 ];
 // ----------------------------------------------
 
+// --- Dados Simulados para o Histórico de Chats ---
+const INITIAL_CHATS = [
+    { id: 101, title: 'Análise de Risco de Crédito', date: '2025-05-20' },
+    { id: 102, title: 'Predição de Mercado', date: '2025-05-15' },
+    { id: 103, title: 'Relatório de Ativos Digitais', date: '2025-05-01' },
+];
+
+const INITIAL_CHAT_MESSAGES = {
+    101: [
+        { author: 'user', text: 'Pode me ajudar com uma análise de risco?' },
+        { author: 'bot', text: 'Claro! Por favor, forneça os dados do cliente.' },
+    ],
+    102: [],
+    103: [],
+};
 
 // 1. Criar o Contexto
 const AppContext = createContext(null);
@@ -62,6 +77,15 @@ export function AppProvider({ children }) {
     
     // Estado que guarda as bases que o utilizador SELECIONOU
     const [selectedDataSources, setSelectedDataSources] = useState([]);
+
+    // Estado para o histórico de chats (lista na sidebar)
+    const [chats, setChats] = useState(INITIAL_CHATS);
+
+    // Estado para o chat ativo (ID)
+    const [activeChat, setActiveChat] = useState(INITIAL_CHATS[0]?.id || null);
+
+    // Estado que armazena as mensagens de cada chat
+    const [chatMessages, setChatMessages] = useState(INITIAL_CHAT_MESSAGES);
 
     // --- Funções Globais ---
 
@@ -85,12 +109,18 @@ export function AppProvider({ children }) {
         isSidebarOpen,
         availableDataSources,
         selectedDataSources,
+        chats,
+        activeChat,
+        chatMessages,
         
         // Funções
         setActiveScreen,
         setIsSidebarOpen,
         setSelectedDataSources,
         toggleDataSource,
+        setChats,
+        setActiveChat,
+        setChatMessages,
     };
 
     return (

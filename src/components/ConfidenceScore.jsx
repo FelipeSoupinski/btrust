@@ -8,7 +8,7 @@ const scoreContainerStyles = {
 
 const headerStyles = {
     display: 'flex',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between', // Removido para alinhar o ponto à esquerda
     alignItems: 'center',
     marginBottom: '8px',
 };
@@ -17,6 +17,23 @@ const titleStyles = {
     fontSize: FONT_SIZES.subtexto,
     fontWeight: '600',
     color: COLORS.principal,
+};
+
+const lowScoreIndicatorStyles = {
+    width: '8px',
+    height: '8px',
+    borderRadius: '50%',
+    backgroundColor: '#d32f2f', // Vermelho
+    marginRight: '8px',
+};
+
+const warningTextStyles = {
+    fontSize: FONT_SIZES.subtexto,
+    color: COLORS.textosSecundarios, // Vermelho
+    marginTop: '8px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
 };
 
 const barBackgroundStyles = {
@@ -30,7 +47,7 @@ const barBackgroundStyles = {
 const getBarColor = (level) => {
     switch (level) {
         case 'high': return '#2e7d32'; // Verde
-        case 'medium': return '#ed6c02'; // Laranja
+        case 'medium': return '#ebc623ff'; // Laranja
         case 'low': return '#d32f2f'; // Vermelho
         default: return COLORS.textosSecundarios;
     }
@@ -48,11 +65,21 @@ const ConfidenceScore = ({ level, value }) => {
     return (
         <div style={scoreContainerStyles}>
             <div style={headerStyles}>
+                {level === 'low' && <div style={lowScoreIndicatorStyles} />}
                 <span style={titleStyles}>Score de Confiança: {value}%</span>
             </div>
             <div style={barBackgroundStyles}>
                 <div style={barFillStyles(level, value)}></div>
             </div>
+            {level === 'low' && (
+                <div style={warningTextStyles}>
+                    <span>
+                        Nível de confiança <strong style={{ fontWeight: '900' }}>baixo</strong>!
+                        Verifique antes de usar ou pergunte novamente.
+                    </span>
+                    <span>⚠️</span>
+                </div>
+            )}
         </div>
     );
 };

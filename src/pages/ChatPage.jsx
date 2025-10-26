@@ -77,12 +77,21 @@ function ChatPage() {
         // Simula a resposta do bot após um tempo
         // Guarda o ID do timeout para que possamos cancelá-lo
         thinkingTimeoutRef.current = setTimeout(() => {
+            // Lógica para ciclar entre os scores para facilitar os testes manuais
+            const testScores = [
+                { level: 'high', value: 95 },
+                { level: 'medium', value: 65 },
+                { level: 'low', value: 35 },
+            ];
+            const botResponseCount = Math.floor(updatedMessages.length / 2);
+            const scoreToTest = testScores[botResponseCount % testScores.length];
+
             const botResponse = {
                 author: 'bot',
                 text: (
                     <BotMessage
                         text={`Esta é uma resposta simulada para a sua pergunta: "${text}". A integração real com a IA virá em breve.`}
-                        score={{ level: 'high', value: 92 }}
+                        score={scoreToTest}
                         references={[
                             { name: 'Relatório Anual 2024.pdf', page: 3 },
                             { name: 'Análise de Mercado Q1.docx', page: 12 },

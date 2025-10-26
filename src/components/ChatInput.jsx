@@ -5,7 +5,7 @@ import { COLORS, FONT_SIZES } from '../styles/theme.js';
 
 const inputContainerStyles = {
     width: '100%',
-    maxWidth: '700px', // Limita a largura máxima
+    maxWidth: '1024px', // Limita a largura máxima
     position: 'relative',
     // margin: '0 auto', // <-- ADICIONADO: Isto centra o container
     display: 'flex',

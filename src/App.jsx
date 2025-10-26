@@ -12,7 +12,7 @@ const AppLayout = () => {
 
     const layoutStyles = {
         display: 'grid',
-        gridTemplateColumns: isSidebarOpen ? 'minmax(280px, 280px) 1fr' : '0fr 1fr',
+        gridTemplateColumns: isSidebarOpen ? '280px 1fr' : '0fr 1fr',
         height: '100vh',
         width: '100vw', // Alterado para garantir a largura total da viewport
         backgroundColor: COLORS.fundo,

@@ -34,8 +34,8 @@ const groupChatsByMonth = (chats) => {
 // ----------------------------------------------------
 
 const sidebarStyles = {
-   minWidth: '280px',        // GARANTE largura mínima
-    maxWidth: '280px',        // GARANTE largura máxima
+    minWidth: '280px',
+    maxWidth: '280px',
     height: '100vh',
     boxSizing: 'border-box',
     backgroundColor: COLORS.principal,
@@ -47,7 +47,15 @@ const sidebarStyles = {
     boxShadow: '2px 0 5px rgba(0, 0, 0, 0.1)',
     flexShrink: 0,
     overflow: 'hidden',
-    whiteSpace: 'nowrap',   
+    whiteSpace: 'nowrap',
+    transition: 'min-width 0.3s ease-in-out, max-width 0.3s ease-in-out, padding 0.3s ease-in-out',
+};
+
+const closedSidebarStyles = {
+    minWidth: '0',
+    maxWidth: '0',
+    padding: '20px 0',
+    overflow: 'hidden',
 };
 
 const logoContainerStyles = {
@@ -211,6 +219,7 @@ function Sidebar() {
     const { 
         activeScreen, 
         setActiveScreen,
+        isSidebarOpen,
         setIsSidebarOpen,
     } = useAppContext(); 
 
@@ -240,9 +249,13 @@ function Sidebar() {
     
     const isNewChatActive = activeChat === null && activeScreen === 'chat';
 
+    const finalSidebarStyles = {
+        ...sidebarStyles,
+        ...(!isSidebarOpen && closedSidebarStyles)
+    };
+
     return (
-        // O 'return' está correto, sem a lógica de display:none
-        <div style={sidebarStyles}>
+        <div style={finalSidebarStyles}>
 
             {/* 1. Logo B3 e Botão de Fechar */}
             <div style={logoContainerStyles}>

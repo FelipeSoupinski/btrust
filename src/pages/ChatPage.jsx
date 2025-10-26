@@ -22,16 +22,15 @@ const contentWrapperStyles = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  // width: '100%', // Removido para permitir a centralização pelo container pai
-  maxWidth: '700px',  // Mesmo limite do input
+  width: '100%', // Removido para permitir a centralização pelo container pai
+  maxWidth: '612px',  // Mesmo limite do input
 };
 
 const titleStyles = {
   fontSize: FONT_SIZES.titulo,
-  color: COLORS.textosSecundarios,
+  color: COLORS.principal,
   fontWeight: '700',
   fontFamily: FONTS.secundaria,
-  opacity: 0.3,
   marginBottom: '40px',
   textAlign: 'center',
 };

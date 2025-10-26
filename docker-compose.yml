@@ -2,8 +2,14 @@ version: '3.8'
 
 services:
   frontend:
-    container_name: btrust-mvp
-    build: . 
+    container_name: btrust-mvp-dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     ports:
-      - "8080:80" 
-    restart: always
+      - "5173:5173"
+    volumes:
+      # Mapeia o código-fonte local para o contêiner
+      # Exceto node_modules, para usar o que foi instalado no contêiner
+      - .:/app
+      - /app/node_modules

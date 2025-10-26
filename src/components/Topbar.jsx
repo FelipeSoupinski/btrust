@@ -10,7 +10,7 @@ const topbarStyles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     boxSizing: 'border-box',
-    backgroundColor: COLORS.branco,
+    backgroundColor: COLORS.fundo,
     borderBottom: `1px solid ${COLORS.fundo}`,
 };
 
@@ -25,6 +25,7 @@ const profileStyles = {
     cursor: 'pointer',
     fontWeight: '600',
     fontFamily: FONTS.secundaria,
+    border: `1px solid ${COLORS.principal}`,
 };
 
 const userIconStyles = {

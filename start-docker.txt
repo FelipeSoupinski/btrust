@@ -1,12 +1,20 @@
-Se for a primeira vez, faça
-docker compose up --build -d
+### Ambiente de Desenvolvimento (com Hot-Reload)
 
-docker compose up:	Inicia os serviços definidos no docker-compose.yml.
---build:	(Importante na primeira vez!) Força a reconstrução da imagem. Ele lê o Dockerfile, executa as duas etapas (build do Node e criação da imagem Nginx) e cria a imagem Docker.
--d: Roda o contêiner em modo detached (em segundo plano), liberando seu terminal.
+1.  **Para iniciar o ambiente:**
+    ```bash
+    docker-compose up --build
+    ```
 
-será inicializado na porta 8080
-http://localhost:8080
+2.  **Acesse em:** [http://localhost:5173](http://localhost:5173)
 
-Parar o container e remover a rede que foi criada (não destroi a imagem)
-docker compose down
+As alterações no código serão refletidas em tempo real.
+
+---
+
+### Ambiente de Produção (Build final)
+
+Para construir a imagem de produção (usando Nginx), use o Dockerfile original:
+```bash
+docker build -t btrust-prod .
+docker run -d -p 8080:80 btrust-prod
+```

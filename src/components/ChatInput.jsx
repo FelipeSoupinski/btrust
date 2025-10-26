@@ -4,8 +4,9 @@ import React from 'react';
 import { COLORS, FONT_SIZES } from '../styles/theme.js';
 
 const inputContainerStyles = {
-    width: '100%',
-    maxWidth: '1024px', // Limita a largura máxima
+    width: '100%', 
+    maxWidth: '842px', // Limita a largura máxima
+    height: '60px',
     position: 'relative',
     // margin: '0 auto', // <-- ADICIONADO: Isto centra o container
     display: 'flex',
@@ -28,6 +29,7 @@ const inputFieldStyles = {
     outline: 'none',
     paddingLeft: '12px', // Espaço para o ícone de clipe
     borderRadius: '30px',
+    
 };
 
 // Estilo para os ícones (Anexo e Envio)
@@ -36,6 +38,7 @@ const iconStyle = {
     color: COLORS.textosSecundarios,
     cursor: 'pointer',
     padding: '5px',
+    marginLeft: '7px',
 };
 
 const sendButtonStyles = {
@@ -50,6 +53,7 @@ const sendButtonStyles = {
     border: 'none',
     marginLeft: '5px',
     flexShrink: 0,
+    marginRight: '12px',
 };
 
 const sendIconStyles = {

@@ -34,6 +34,11 @@ const MOCK_DATA_SOURCES = [
         name: 'Base de TI', 
         description: 'Logs de sistema, gestão de incidentes e segurança de rede.' 
     },
+    { 
+        id: 'b7', 
+        name: 'Base de Logística', 
+        description: 'Rastreamento de entregas, gestão de inventário e otimização de rotas.' 
+    },
 ];
 // ----------------------------------------------
 

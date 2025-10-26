@@ -73,6 +73,7 @@ function Topbar() {
         availableDataSources = [],
         selectedDataSources = [],
         toggleDataSource = () => { },
+        isSidebarOpen,
     } = useAppContext();
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -90,9 +91,16 @@ function Topbar() {
 
     const displaySourceName = activeSources.length > 0 ? activeSources[0].name : "Selecionar Base";
 
+    const dropdownContainerStyles = {
+        position: 'relative',
+        // Adiciona margem à esquerda quando a sidebar está fechada para não ficar sob o botão de abrir
+        marginLeft: !isSidebarOpen ? '60px' : '0px',
+        transition: 'margin-left 0.3s ease',
+    };
+
     return (
         <header style={topbarStyles}>
-            <div style={{ position: 'relative' }}>
+            <div style={dropdownContainerStyles}>
                 {availableDataSources.length > 0 && ( // Renderiza se houver fontes disponíveis, não apenas selecionadas
                     <div
                         style={dropdownToggleStyles}

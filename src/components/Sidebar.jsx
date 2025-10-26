@@ -88,14 +88,13 @@ const navItemBaseStyles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '10px 15px 10px 0', 
+    padding: '10px 15px',
     borderRadius: '4px',
     cursor: 'pointer',
     marginBottom: '8px',
     fontSize: FONT_SIZES.texto,
     textDecoration: 'none',
     color: COLORS.branco,
-    marginLeft: '15px', 
     borderLeft: '5px solid transparent',
     transition: 'background-color 0.1s',
 };
@@ -140,7 +139,7 @@ const deleteIconStyles = {
 // SUB-COMPONENTES
 // ----------------------------------------------------
 
-const ChatHistoryItem = ({ chat, activeChat, setActiveChat, onDelete }) => {
+const ChatHistoryItem = ({ chat, activeChat, setActiveChat, onDelete, setActiveScreen }) => {
     
     const isSelected = chat.id === activeChat;
     
@@ -159,7 +158,10 @@ const ChatHistoryItem = ({ chat, activeChat, setActiveChat, onDelete }) => {
     return (
         <div 
             style={combinedStyles}
-            onClick={() => setActiveChat(chat.id)}
+            onClick={() => {
+                setActiveChat(chat.id);
+                setActiveScreen('chat'); // Navega para a tela de chat
+            }}
             onMouseOver={(e) => e.currentTarget.style.backgroundColor = isSelected ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.1)'}
             onMouseOut={(e) => e.currentTarget.style.backgroundColor = isSelected ? 'rgba(0, 0, 0, 0.2)' : 'transparent'}
         >
@@ -282,7 +284,10 @@ function Sidebar() {
                 <NavItem
                     title="Escolher um modelo"
                     icon="⚙️"
-                    action={() => setActiveScreen('model-select')}
+                    action={() => {
+                        setActiveScreen('model-select');
+                        setActiveChat(null); // Desmarca qualquer chat ativo
+                    }}
                     isActive={activeScreen === 'model-select'}
                 />
             </nav>
@@ -302,6 +307,7 @@ function Sidebar() {
                                 chat={chat}
                                 activeChat={activeChat}
                                 setActiveChat={setActiveChat}
+                                setActiveScreen={setActiveScreen}
                                 onDelete={handleDeleteChat}
                             />
                         ))}

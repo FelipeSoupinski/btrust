@@ -68,8 +68,7 @@ function ModelSelectPage() {
   const containerStyles = {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'center', // Restaurado para centralizar o conteúdo da página
     padding: '20px',
     overflowY: 'auto',
     flexGrow: 1,
@@ -82,8 +81,8 @@ function ModelSelectPage() {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
     gap: '20px',
-    maxWidth: '1000px',
-    margin: '0 auto',
+    width: '100%',
+    maxWidth: '1200px', // Mantém um limite máximo de largura para o grid
   };
 
   const handleSelect = (id) => {

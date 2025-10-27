@@ -112,7 +112,7 @@ const historySectionStyles = {
 
 const historyTitleStyles = {
     fontSize: FONT_SIZES.subtexto,
-    color: COLORS.detalhes, 
+    color: COLORS.azulClaro,
     textTransform: 'uppercase',
     marginBottom: '10px',
     fontWeight: '600',

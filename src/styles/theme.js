@@ -1,10 +1,11 @@
 export const COLORS = {
-  principal: '#012C63',    // Azul Escuro (Principal)
-  fundo: '#F9F9F9',        // Cinza Claro (Fundo)
-  detalhes: '#FFD862',     // Amarelo (Detalhes/Destaque)
-  textosSecundarios: '#40444D', // Cinza Chumbo (Texto Secundário)
+  principal: '#012C63',   
+  fundo: '#F9F9F9',
+  detalhes: '#FFD862',     
+  textosSecundarios: '#40444D', 
   branco: '#FFFFFF',
   preto: '#000000',
+  azulClaro: '#B3BBD6',
 };
 
 export const FONTS = {

@@ -83,8 +83,23 @@ function ChatPage() {
                 { level: 'medium', value: 65 },
                 { level: 'low', value: 35 },
             ];
+            const testMetrics = [
+                { docCount: 15, coverage: 98, relevance: 85 },
+                { docCount: 8, coverage: 75, relevance: 60 },
+                { docCount: 3, coverage: 40, relevance: 30 },
+            ];
             const botResponseCount = Math.floor(updatedMessages.length / 2);
             const scoreToTest = testScores[botResponseCount % testScores.length];
+            const metricsToTest = testMetrics[botResponseCount % testMetrics.length];
+            
+            let scoreExplanationText = "";
+            if (scoreToTest.level === 'high') {
+                scoreExplanationText = "O nível de confiança é alto, indicando que a resposta foi gerada com base em múltiplos documentos altamente relevantes e cobrindo a maior parte da sua pergunta. Você pode usar esta informação com grande segurança.";
+            } else if (scoreToTest.level === 'medium') {
+                scoreExplanationText = "O nível de confiança é médio. A resposta utilizou documentos relevantes, mas pode haver lacunas na cobertura da pergunta ou a relevância média das fontes não foi a ideal. Recomenda-se uma verificação rápida ou refinar a pergunta se precisar de mais precisão.";
+            } else {
+                scoreExplanationText = "O nível de confiança é baixo. A resposta pode ter sido gerada com poucas fontes, ou as fontes encontradas não foram muito relevantes para a sua pergunta. É crucial verificar esta informação antes de usar ou reformular a sua pergunta para obter resultados mais precisos.";
+            }
 
             const botResponse = {
                 author: 'bot',
@@ -92,15 +107,8 @@ function ChatPage() {
                     <BotMessage
                         text={`Esta é uma resposta simulada para a sua pergunta: "${text}". A integração real com a IA virá em breve.`}
                         score={scoreToTest}
-                        references={[
-                            { name: 'Relatório Anual 2024.pdf', page: 3 },
-                            { name: 'Análise de Mercado Q1.docx', page: 12 },
-                            { name: 'Diretrizes de Compliance.pdf', page: 8 },
-                            { name: 'Apresentação de Resultados.pptx', page: 5 },
-                            { name: 'Estatuto Social da Companhia.pdf', page: 21 },
-                            { name: 'Plano de Negócios 2025.pdf', page: 18 },
-                            { name: 'Pesquisa de Satisfação do Cliente.xlsx', page: 2 },
-                        ]}
+                        metrics={metricsToTest}
+                        scoreExplanation={scoreExplanationText}
                     />
                 )
             };

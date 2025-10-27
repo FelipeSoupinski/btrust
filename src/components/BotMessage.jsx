@@ -1,41 +1,53 @@
 // src/components/BotMessage.jsx
-import React from 'react';
-import ConfidenceScore from './ConfidenceScore';
-import References from './References';
-import { COLORS, FONT_SIZES } from '../styles/theme';
+import React, { useState } from 'react';
+import ConfidenceScore from './ConfidenceScore.jsx';
+import References from './References.jsx';
+import DetailsModal from './DetailsModal.jsx';
+import { COLORS, FONT_SIZES } from '../styles/theme.js';
 
 const botMessageContainerStyles = {
     display: 'flex',
     flexDirection: 'column',
-    maxWidth: '100%', // Garante que o conteúdo não ultrapasse o container pai
-    gap: '20px',
+    gap: '15px',
+    width: '100%',
 };
 
-const textStyles = {
+const botTextStyles = {
     lineHeight: 1.6,
     whiteSpace: 'pre-wrap',
 };
 
-const detailsLinkStyles = {
+const detailsButtonStyles = {
+    background: 'none',
+    border: 'none',
     color: COLORS.principal,
     textDecoration: 'underline',
     cursor: 'pointer',
     fontSize: FONT_SIZES.subtexto,
-    fontWeight: '600',
+    padding: '5px 0',
+    alignSelf: 'flex-start',
 };
 
-const BotMessage = ({ text, score, references }) => {
+const BotMessage = ({ text, score, references, metrics, scoreExplanation }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <div style={botMessageContainerStyles}>
-            <div style={textStyles}>{text}</div>
-            
-            {score && <ConfidenceScore level={score.level} value={score.value} />}
-            
-            {references && references.length > 0 && <References items={references} />}
+            <div style={botTextStyles}>{text}</div>
 
-            <div>
-                <span style={detailsLinkStyles}>Ver detalhes</span>
-            </div>
+            {score && <ConfidenceScore level={score.level} value={score.value} />}
+
+            <button style={detailsButtonStyles} onClick={() => setIsModalOpen(true)}>
+                Ver detalhes
+            </button>
+
+            <DetailsModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                references={references}
+                metrics={metrics}
+                scoreExplanation={scoreExplanation}
+            />
         </div>
     );
 };

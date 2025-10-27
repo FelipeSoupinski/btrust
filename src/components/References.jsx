@@ -61,8 +61,8 @@ const arrowStyles = (isOpen) => ({
     transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
 });
 
-const References = ({ items = [] }) => {
-    const [isOpen, setIsOpen] = useState(false);
+const References = ({ items = [], startOpen = false }) => {
+    const [isOpen, setIsOpen] = useState(startOpen);
     const [visibleCount, setVisibleCount] = useState(5);
 
     const handleSeeMore = () => {

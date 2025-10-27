@@ -1,67 +1,8 @@
 // src/components/ChatMessage.jsx
-import { faUser, faRobot } from '@fortawesome/free-solid-svg-icons';
+import { faRobot, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
-
-import { COLORS, FONTS } from '../styles/theme';
-
-const messageContainerStyles = isUser => ({
-  display: 'flex',
-  flexDirection: isUser ? 'row-reverse' : 'row',
-  alignItems: 'flex-start',
-  gap: '15px',
-  width: '100%',
-  maxWidth: '842px',
-  margin: '15px 0',
-  alignSelf: isUser ? 'flex-end' : 'flex-start',
-});
-
-const avatarStyles = isUser => ({
-  width: '40px',
-  height: '40px',
-  borderRadius: '50%',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexShrink: 0,
-  backgroundColor: isUser ? COLORS.detalhes : COLORS.principal,
-  color: isUser ? COLORS.principal : COLORS.detalhes,
-  fontFamily: FONTS.secundaria,
-  fontWeight: '700',
-});
-
-const contentStyles = {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '10px',
-  // A largura será controlada pelo conteúdo filho
-};
-
-const botTextStyles = {
-  lineHeight: 1.6,
-  whiteSpace: 'pre-wrap', // Mantém quebras de linha e espaços
-};
-
-const userBubbleStyles = {
-  backgroundColor: COLORS.principal,
-  color: COLORS.branco,
-  padding: '10px 15px',
-  borderRadius: '18px',
-  ...botTextStyles,
-  maxWidth: '650px', // Limite máximo para o balão não ficar muito largo
-  wordBreak: 'break-word', // Garante a quebra de palavras longas
-};
-
-const seeMoreUserMessageStyle = {
-  background: 'none',
-  border: 'none',
-  color: COLORS.principal,
-  textDecoration: 'underline',
-  cursor: 'pointer',
-  fontSize: '12px',
-  padding: '5px 0',
-  marginTop: '5px',
-};
+import * as styles from '../styles/ChatMessage.styles.js';
 
 const UserMessageBubble = ({ text }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -72,11 +13,11 @@ const UserMessageBubble = ({ text }) => {
 
   return (
     <div>
-      <div style={userBubbleStyles}>
+      <div style={styles.userBubbleStyles}>
         {isLongText && !isExpanded ? `${text.substring(0, characterLimit)}...` : text}
       </div>
       {isLongText && (
-        <button onClick={toggleExpand} style={seeMoreUserMessageStyle}>
+        <button onClick={toggleExpand} style={styles.seeMoreUserMessageStyle}>
           {isExpanded ? 'Ver menos' : 'Ver mais'}
         </button>
       )}
@@ -89,16 +30,16 @@ const ChatMessage = ({ message }) => {
   const isUser = author === 'user';
 
   return (
-    <div style={messageContainerStyles(isUser)}>
-      <div style={avatarStyles(isUser)}>
+    <div style={styles.messageContainerStyles(isUser)}>
+      <div style={styles.avatarStyles(isUser)}>
         <FontAwesomeIcon icon={isUser ? faUser : faRobot} />
       </div>
       {/* Para o bot, o container ocupa 100% da largura. Para o usuário, não. */}
-      <div style={{ ...contentStyles, width: isUser ? 'auto' : '100%' }}>
+      <div style={styles.contentStyles(isUser)}>
         {isUser ? (
           <UserMessageBubble text={text} />
         ) : typeof text === 'string' ? (
-          <div style={botTextStyles}>{text}</div>
+          <div style={styles.botTextStyles}>{text}</div>
         ) : (
           text
         )}

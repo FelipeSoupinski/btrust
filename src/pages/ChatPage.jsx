@@ -6,37 +6,7 @@ import ChatInput from '../components/ChatInput.jsx';
 import ChatMessage from '../components/ChatMessage.jsx';
 import ThinkingIndicator from '../components/ThinkingIndicator.jsx';
 import { useAppContext } from '../context/AppContext.jsx';
-import { COLORS, FONT_SIZES, FONTS } from '../styles/theme.js';
-
-const containerStyles = {
-  display: 'flex',
-  flexDirection: 'column',
-  height: '100%',
-  width: '100%',
-  boxSizing: 'border-box',
-  flexGrow: 1,
-};
-
-const chatWindowStyles = {
-  flexGrow: 1,
-  overflowY: 'auto',
-  padding: '20px 0', // Padding horizontal removido para ser controlado pelo container filho
-  display: 'flex',
-  flexDirection: 'column',
-};
-
-const inputAreaStyles = {
-  padding: '20px',
-  backgroundColor: COLORS.fundo,
-};
-
-const messagesContainerStyles = {
-  width: '100%',
-  maxWidth: '842px', // Mesma largura máxima do container do input
-  margin: '0 auto', // Centraliza o container
-  display: 'flex',
-  flexDirection: 'column',
-};
+import * as styles from '../styles/ChatPage.styles.js';
 
 function ChatPage() {
   const { activeChat, chatMessages, setChatMessages, setChats } = useAppContext();
@@ -134,27 +104,17 @@ function ChatPage() {
   // Se nenhum chat estiver ativo, mostra uma mensagem inicial
   if (!activeChat) {
     return (
-      <div style={{ ...containerStyles, alignItems: 'center', justifyContent: 'center' }}>
-        <h1
-          style={{
-            fontSize: FONT_SIZES.titulo,
-            color: COLORS.principal,
-            fontFamily: FONTS.secundaria,
-          }}
-        >
-          BTrust
-        </h1>
-        <p style={{ color: COLORS.textosSecundarios }}>
-          Selecione um chat ou crie um novo para começar.
-        </p>
+      <div style={styles.noChatContainerStyles}>
+        <h1 style={styles.noChatTitleStyles}>BTrust</h1>
+        <p style={styles.noChatTextStyles}>Selecione um chat ou crie um novo para começar.</p>
       </div>
     );
   }
 
   return (
-    <div style={containerStyles}>
-      <div style={chatWindowStyles}>
-        <div style={messagesContainerStyles}>
+    <div style={styles.containerStyles}>
+      <div style={styles.chatWindowStyles}>
+        <div style={styles.messagesContainerStyles}>
           {currentMessages.map((msg, index) => (
             <ChatMessage key={index} message={msg} />
           ))}
@@ -162,8 +122,8 @@ function ChatPage() {
           <div ref={messagesEndRef} />
         </div>
       </div>
-      <div style={inputAreaStyles}>
-        <div style={{ maxWidth: '842px', margin: '0 auto' }}>
+      <div style={styles.inputAreaStyles}>
+        <div style={styles.inputWrapperStyles}>
           <ChatInput
             onSendMessage={handleSendMessage}
             disabled={isThinking}

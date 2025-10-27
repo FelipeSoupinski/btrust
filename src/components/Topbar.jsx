@@ -1,112 +1,10 @@
 // src/components/Topbar.jsx
-import { faUser, faChevronDown, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { useAppContext } from '../context/AppContext.jsx';
-import { COLORS, FONT_SIZES, FONTS } from '../styles/theme.js';
-
-const topbarStyles = {
-  width: '100%',
-  padding: '15px 30px',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  boxSizing: 'border-box',
-  backgroundColor: COLORS.fundo,
-  borderBottom: `1px solid ${COLORS.fundo}`,
-};
-
-const profileStyles = {
-  display: 'flex',
-  alignItems: 'center',
-  padding: '5px 15px',
-  borderRadius: '20px',
-  backgroundColor: COLORS.fundo,
-  fontSize: FONT_SIZES.subtexto,
-  color: COLORS.textosSecundarios,
-  cursor: 'pointer',
-  fontWeight: '600',
-  fontFamily: FONTS.secundaria,
-  border: `1px solid ${COLORS.principal}`,
-};
-
-const userIconStyles = {
-  marginLeft: '10px',
-  fontSize: '18px',
-  color: COLORS.principal,
-};
-
-const dropdownToggleStyles = {
-  display: 'flex',
-  alignItems: 'center',
-  cursor: 'pointer',
-  padding: '8px 15px',
-  borderRadius: '20px',
-  backgroundColor: COLORS.branco,
-  border: `1px solid #e0e0e0`,
-  color: COLORS.principal,
-  fontWeight: '600',
-  fontFamily: FONTS.secundaria,
-  fontSize: FONT_SIZES.subtexto,
-  transition: 'box-shadow 0.2s ease',
-};
-
-const dropdownMenuStyles = {
-  position: 'absolute',
-  top: '50px', // Aumentado para dar mais espaço
-  left: '0px',
-  backgroundColor: COLORS.branco,
-  border: '1px solid #e0e0e0',
-  borderRadius: '12px',
-  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-  zIndex: 100,
-  minWidth: '200px',
-};
-
-const dropdownItemStyles = {
-  padding: '10px 15px',
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-};
-
-const dropdownContainerStyles = isSidebarOpen => ({
-  position: 'relative',
-  // Adiciona margem à esquerda quando a sidebar está fechada para não ficar sob o botão de abrir
-  marginLeft: !isSidebarOpen ? '60px' : '0px',
-  transition: 'margin-left 0.3s ease',
-});
-
-const profileContainerStyles = {
-  position: 'relative',
-};
-
-const profileDropdownMenuStyles = {
-  position: 'absolute',
-  top: '50px',
-  right: '0px',
-  backgroundColor: COLORS.branco,
-  border: '1px solid #e0e0e0',
-  borderRadius: '12px',
-  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-  zIndex: 100,
-  minWidth: '180px',
-};
-
-const logoutButtonStyles = {
-  padding: '10px 15px',
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  color: COLORS.principal,
-  fontWeight: '600',
-  fontFamily: FONTS.secundaria,
-  fontSize: FONT_SIZES.subtexto,
-  borderRadius: '8px',
-  margin: '5px',
-};
+import * as styles from '../styles/Topbar.styles.js';
 
 function Topbar() {
   const {
@@ -140,37 +38,38 @@ function Topbar() {
   };
 
   return (
-    <header style={topbarStyles}>
-      <div style={dropdownContainerStyles(isSidebarOpen)}>
-        {availableDataSources.length > 0 && ( // Renderiza se houver fontes disponíveis, não apenas selecionadas
-          <div style={dropdownToggleStyles} onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+    <header style={styles.topbarStyles}>
+      <div style={styles.dropdownContainerStyles(isSidebarOpen)}>
+        {availableDataSources.length > 0 && (
+          <div
+            style={styles.dropdownToggleStyles}
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          >
             {displaySourceName}
             {selectedDataSources.length > 1 && ` (+${selectedDataSources.length - 1})`}
-            <FontAwesomeIcon icon={faChevronDown} style={{ marginLeft: '8px', fontSize: '10px' }} />
+            <FontAwesomeIcon icon={faChevronDown} style={styles.chevronIconStyles} />
           </div>
         )}
 
-        {isDropdownOpen && ( // A visibilidade do menu depende apenas do estado 'isDropdownOpen'
-          <div style={dropdownMenuStyles}>
-            <div style={{ padding: '8px 15px', fontWeight: '700', color: COLORS.principal }}>
-              Bases Ativas:
-            </div>
+        {isDropdownOpen && (
+          <div style={styles.dropdownMenuStyles}>
+            <div style={styles.dropdownHeaderStyles}>Bases Ativas:</div>
             {availableDataSources.map(source => (
               <div
                 key={source.id}
-                style={dropdownItemStyles}
+                style={styles.dropdownItemStyles}
                 onClick={e => {
                   e.stopPropagation();
                   toggleDataSource(source.id);
                 }}
-                onMouseOver={e => (e.currentTarget.style.backgroundColor = COLORS.fundo)}
-                onMouseOut={e => (e.currentTarget.style.backgroundColor = COLORS.branco)}
+                onMouseOver={e => (e.currentTarget.style.backgroundColor = '#f5f5f5')}
+                onMouseOut={e => (e.currentTarget.style.backgroundColor = '#fff')}
               >
                 <input
                   type="checkbox"
-                  checked={selectedDataSources.includes(source.id)} // O checkbox controla o estado visual
+                  checked={selectedDataSources.includes(source.id)}
                   readOnly
-                  style={{ marginRight: '8px' }}
+                  style={styles.checkboxStyles}
                 />
                 {source.name}
               </div>
@@ -179,21 +78,24 @@ function Topbar() {
         )}
       </div>
 
-      <div style={profileContainerStyles}>
-        <div style={profileStyles} onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}>
+      <div style={styles.profileContainerStyles}>
+        <div
+          style={styles.profileStyles}
+          onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+        >
           Fulano de tal
-          <FontAwesomeIcon icon={faUser} style={userIconStyles} />
+          <FontAwesomeIcon icon={faUser} style={styles.userIconStyles} />
         </div>
 
         {isProfileDropdownOpen && (
-          <div style={profileDropdownMenuStyles}>
+          <div style={styles.profileDropdownMenuStyles}>
             <div
-              style={logoutButtonStyles}
+              style={styles.logoutButtonStyles}
               onClick={handleLogout}
-              onMouseOver={e => (e.currentTarget.style.backgroundColor = COLORS.fundo)}
-              onMouseOut={e => (e.currentTarget.style.backgroundColor = COLORS.branco)}
+              onMouseOver={e => (e.currentTarget.style.backgroundColor = '#f5f5f5')}
+              onMouseOut={e => (e.currentTarget.style.backgroundColor = '#fff')}
             >
-              <FontAwesomeIcon icon={faRightFromBracket} style={{ marginRight: '8px' }} />
+              <FontAwesomeIcon icon={faRightFromBracket} style={styles.logoutIconStyles} />
               Logout
             </div>
           </div>

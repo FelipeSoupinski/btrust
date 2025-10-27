@@ -2,9 +2,9 @@ import { faEye, faEyeSlash, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import logoB3 from '../assets/b3.svg';
 import '../styles/Login.css';
+import { pointerStyle } from '../styles/Login.styles.js';
 
 export default function BTrustLogin() {
   const [email, setEmail] = useState('');
@@ -60,7 +60,7 @@ export default function BTrustLogin() {
                   size="sm"
                   icon={faXmark}
                   onClick={handleClearEmail}
-                  style={{ cursor: 'pointer' }}
+                  style={pointerStyle}
                 />
               )}
             </div>
@@ -82,7 +82,7 @@ export default function BTrustLogin() {
               {password && (
                 <FontAwesomeIcon
                   size="sm"
-                  style={{ cursor: 'pointer' }}
+                  style={pointerStyle}
                   icon={showPassword ? faEyeSlash : faEye}
                   onClick={() => setShowPassword(!showPassword)}
                 />

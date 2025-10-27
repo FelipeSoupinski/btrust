@@ -48,6 +48,7 @@ const closedSidebarStyles = {
     maxWidth: '0',
     padding: '20px 0',
     overflow: 'hidden',
+
 };
 
 const logoContainerStyles = {
@@ -258,65 +259,73 @@ function Sidebar() {
         ...(!isSidebarOpen && closedSidebarStyles)
     };
 
+    const contentStyles = {
+        opacity: isSidebarOpen ? 1 : 0,
+        transition: 'opacity 0.2s ease-out',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        transitionDelay: isSidebarOpen ? '0.1s' : '0s',
+    };
+
     return (
         <div style={finalSidebarStyles}>
+            <div style={contentStyles}>
+                {/* 1. Logo B3 e Botão de Fechar */}
+                <div style={logoContainerStyles}>
+                    <span style={logoStyles}>BTrust</span>
+                    <span
+                        onClick={() => setIsSidebarOpen(false)} // Ação: FECHAR
+                        style={closeButtonStyles}
+                        onMouseOver={(e) => e.currentTarget.style.opacity = 1}
+                        onMouseOut={(e) => e.currentTarget.style.opacity = 0.7}
+                    >
+                        ❮
+                    </span>
+                </div>
 
-            {/* 1. Logo B3 e Botão de Fechar */}
-            <div style={logoContainerStyles}>
-                <span style={logoStyles}>B3 Logo</span>
-                <span
-                    onClick={() => setIsSidebarOpen(false)} // Ação: FECHAR
-                    style={closeButtonStyles}
-                    onMouseOver={(e) => e.currentTarget.style.opacity = 1}
-                    onMouseOut={(e) => e.currentTarget.style.opacity = 0.7}
-                >
-                    ❮
-                </span>
-            </div>
-
-            {/* 2. Ações Principais */}
-            <nav style={navAreaStyles}>
-                <NavItem
-                    title="Criar novo chat"
-                    icon="📝"
-                    action={handleCreateNewChat}
-                    isActive={isNewChatActive}
-                    isNewChat={true}
-                />
-                <NavItem
-                    title="Escolher um modelo"
-                    icon="⚙️"
-                    action={() => {
-                        setActiveScreen('model-select');
-                        setActiveChat(null); // Desmarca qualquer chat ativo
-                    }}
-                    isActive={activeScreen === 'model-select'}
-                />
-            </nav>
-            
-            {/* Separador */}
-            <hr style={separatorStyles} />
-
-            {/* 3. Histórico de Conversas */}
-            <div style={historySectionStyles}>
+                {/* 2. Ações Principais */}
+                <nav style={navAreaStyles}>
+                    <NavItem
+                        title="Criar novo chat"
+                        icon="📝"
+                        action={handleCreateNewChat}
+                        isActive={isNewChatActive}
+                        isNewChat={true}
+                    />
+                    <NavItem
+                        title="Escolher um modelo"
+                        icon="⚙️"
+                        action={() => {
+                            setActiveScreen('model-select');
+                            setActiveChat(null); // Desmarca qualquer chat ativo
+                        }}
+                        isActive={activeScreen === 'model-select'}
+                    />
+                </nav>
                 
-                {Object.entries(chatsByMonth).map(([monthYear, monthlyChats]) => (
-                    <React.Fragment key={monthYear}>
-                        <h3 style={historyTitleStyles}>{monthYear}</h3>
-                        {monthlyChats.map(chat => (
-                            <ChatHistoryItem 
-                                key={chat.id}
-                                chat={chat}
-                                activeChat={activeChat}
-                                setActiveChat={setActiveChat}
-                                setActiveScreen={setActiveScreen}
-                                onDelete={handleDeleteChat}
-                            />
-                        ))}
-                    </React.Fragment>
-                ))}
+                {/* Separador */}
+                <hr style={separatorStyles} />
+
+                {/* 3. Histórico de Conversas */}
+                <div style={historySectionStyles}>
+                    {Object.entries(chatsByMonth).map(([monthYear, monthlyChats]) => (
+                        <React.Fragment key={monthYear}>
+                            <h3 style={historyTitleStyles}>{monthYear}</h3>
+                            {monthlyChats.map(chat => (
+                                <ChatHistoryItem 
+                                    key={chat.id}
+                                    chat={chat}
+                                    activeChat={activeChat}
+                                    setActiveChat={setActiveChat}
+                                    setActiveScreen={setActiveScreen}
+                                    onDelete={handleDeleteChat}
+                                />
+                            ))}
+                        </React.Fragment>
+                    ))}
+                </div>
             </div>
-            
         </div>
     );
 }

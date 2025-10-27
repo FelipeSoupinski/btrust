@@ -1,5 +1,7 @@
 // src/components/ChatMessage.jsx
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faRobot } from '@fortawesome/free-solid-svg-icons';
 import { COLORS, FONTS } from '../styles/theme';
 
 const messageContainerStyles = (isUser) => ({
@@ -88,7 +90,7 @@ const ChatMessage = ({ message }) => {
     return (
         <div style={messageContainerStyles(isUser)}>
             <div style={avatarStyles(isUser)}>
-                {isUser ? '👤' : '🤖'}
+                <FontAwesomeIcon icon={isUser ? faUser : faRobot} />
             </div>
             {/* Para o bot, o container ocupa 100% da largura. Para o usuário, não. */}
             <div style={{ ...contentStyles, width: isUser ? 'auto' : '100%' }}>

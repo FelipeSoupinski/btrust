@@ -1,5 +1,7 @@
 // src/components/ThinkingIndicator.jsx
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRobot } from '@fortawesome/free-solid-svg-icons';
 import { COLORS, FONTS } from '../styles/theme';
 
 const thinkingContainerStyles = {
@@ -42,7 +44,9 @@ const dotStyle = {
 
 const ThinkingIndicator = () => (
     <div style={thinkingContainerStyles}>
-        <div style={avatarStyles}>🤖</div>
+        <div style={avatarStyles}>
+            <FontAwesomeIcon icon={faRobot} />
+        </div>
         <div style={dotsContainerStyles}>
             <div style={dotStyle}></div><div style={dotStyle}></div><div style={dotStyle}></div>
         </div>

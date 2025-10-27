@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faMessage, faGear, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { COLORS, FONT_SIZES, FONTS } from '../styles/theme.js';
 import { useAppContext } from '../context/AppContext.jsx';
 
@@ -163,14 +165,13 @@ const ChatHistoryItem = ({ chat, activeChat, setActiveChat, onDelete }) => {
             <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '80%' }}>
                 {chat.title}
             </span>
-            <span 
+            <FontAwesomeIcon 
+                icon={faTrash}
                 style={deleteIconStyles}
                 onClick={(e) => { e.stopPropagation(); onDelete(chat.id); }}
                 onMouseOver={(e) => e.currentTarget.style.opacity = 1}
                 onMouseOut={(e) => e.currentTarget.style.opacity = 0.5}
-            >
-                🗑️
-            </span>
+            />
         </div>
     );
 };
@@ -200,7 +201,7 @@ const NavItem = ({ title, icon, action, isActive, isNewChat = false }) => {
             onMouseOut={(e) => e.currentTarget.style.backgroundColor = isActive ? 'rgba(0, 0, 0, 0.2)' : 'transparent'}
         >
             <div style={{ display: 'flex', alignItems: 'center' }}>
-                <span style={navItemIconStyles}>{icon}</span>
+                <FontAwesomeIcon icon={icon} style={navItemIconStyles} />
                 {title}
             </div>
         </div>
@@ -278,28 +279,27 @@ function Sidebar() {
                 {/* 1. Logo B3 e Botão de Fechar */}
                 <div style={logoContainerStyles}>
                     <span style={logoStyles}>BTrust</span>
-                    <span
-                        onClick={() => setIsSidebarOpen(false)} // Ação: FECHAR
+                    <FontAwesomeIcon 
+                        icon={faChevronLeft}
+                        onClick={() => setIsSidebarOpen(false)}
                         style={closeButtonStyles}
                         onMouseOver={(e) => e.currentTarget.style.opacity = 1}
                         onMouseOut={(e) => e.currentTarget.style.opacity = 0.7}
-                    >
-                        ❮
-                    </span>
+                    />
                 </div>
 
                 {/* 2. Ações Principais */}
                 <nav style={navAreaStyles}>
                     <NavItem
                         title="Criar novo chat"
-                        icon="📝"
+                        icon={faMessage}
                         action={handleCreateNewChat}
                         isActive={isNewChatActive}
                         isNewChat={true}
                     />
                     <NavItem
                         title="Escolher um modelo"
-                        icon="⚙️"
+                        icon={faGear}
                         action={() => {
                             navigate('/model-select');
                             setActiveChat(null); // Desmarca qualquer chat ativo

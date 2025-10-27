@@ -1,6 +1,8 @@
 // src/App.jsx
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { AppProvider, useAppContext } from './context/AppContext.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import Topbar from './components/Topbar.jsx';
@@ -76,9 +78,11 @@ const AppLayout = () => {
         <div style={layoutStyles}>
             {/* Botão de abrir sidebar */}
             {showOpenButton && !isSidebarOpen && (
-                <span onClick={() => setIsSidebarOpen(true)} style={openButtonStyles}>
-                    ❯
-                </span>
+                <FontAwesomeIcon 
+                    icon={faChevronRight}
+                    onClick={() => setIsSidebarOpen(true)} 
+                    style={openButtonStyles}
+                />
             )}
 
             {/* Sidebar */}

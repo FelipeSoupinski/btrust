@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import logoB3 from '../assets/b3.svg';
-import './login.css';
+import '../styles/Login.css';
 
 export default function BTrustLogin() {
   const [email, setEmail] = useState('');
@@ -23,96 +25,91 @@ export default function BTrustLogin() {
   const handleClearPassword = () => setPassword('');
 
   return (
-    <div className="login-container">
+    <div className='login-container'>
       {/* Logo B3 */}
-      <div className="logo-b3">
-        <img 
-          src={logoB3}
-          alt="B3 Logo"
-        />
+      <div className='logo-b3'>
+        <img src={logoB3} alt='B3 Logo' />
       </div>
 
       {/* Conteúdo Principal */}
-      <div className="login-form-wrapper">
+      <div className='login-form-wrapper'>
         {/* Header */}
         <div>
-          <h1 className="login-title">BTrust</h1>
-          <p className="login-subtitle">
+          <h1 className='login-title'>BTrust</h1>
+          <p className='login-subtitle'>
             Seja bem-vindo ao seu agente pessoal. Faça login para continuar
           </p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="login-form">
+        <form onSubmit={handleSubmit} className='login-form'>
           {/* Email Input */}
-          <div className="text-field">
-            <div className="text-field-input-wrapper">
-              <div className="text-field-content">
+          <div className='text-field'>
+            <div className='text-field-input-wrapper'>
+              <div className='text-field-content'>
                 <label>email</label>
                 <input
-                  type="email"
+                  type='email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="email@b3.com.br"
+                  placeholder='email@b3.com.br'
                   required
                 />
               </div>
               {email && (
-                <button
-                  type="button"
+                <FontAwesomeIcon
+                  size='sm'
+                  icon={faXmark}
                   onClick={handleClearEmail}
-                  className="clear-button"
-                >
-                  X
-                </button>
+                  style={{ cursor: 'pointer' }}
+                />
               )}
             </div>
           </div>
 
           {/* Password Input */}
-          <div className="text-field">
-            <div className="text-field-input-wrapper">
-              <div className="text-field-content">
+          <div className='text-field'>
+            <div className='text-field-input-wrapper'>
+              <div className='text-field-content'>
                 <label>senha</label>
                 <input
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Sua senha aqui"
                   required
+                  value={password}
+                  placeholder='Sua senha aqui'
+                  type={showPassword ? 'text' : 'password'}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               {password && (
-                <button
-                  type="button"
-                  onClick={handleClearPassword}
-                  className="clear-button"
-                >
-                  X
-                </button>
+                <FontAwesomeIcon
+                  size='sm'
+                  style={{ cursor: 'pointer' }}
+                  icon={showPassword ? faEyeSlash : faEye}
+                  onClick={() => setShowPassword(!showPassword)}
+                />
               )}
             </div>
-            
+
             {/* Forgot Password Link */}
-            <div className="forgot-password">
-              <a href="#">Esqueci minha senha</a>
+            <div className='forgot-password'>
+              <a href='#'>Esqueci minha senha</a>
             </div>
           </div>
 
           {/* Enter Button */}
-          <button type="submit" className="btn-primary">
+          <button type='submit' className='btn-primary'>
             Entrar
           </button>
 
           {/* Divider */}
-          <div className="divider-container">
-            <div className="divider-line"></div>
-            <span className="divider-text">ou</span>
-            <div className="divider-line"></div>
+          <div className='divider-container'>
+            <div className='divider-line'></div>
+            <span className='divider-text'>ou</span>
+            <div className='divider-line'></div>
           </div>
 
           {/* Register Button */}
-          <button type="button" className="btn-secondary">
+          <button type='button' className='btn-secondary'>
             Clique aqui e cadastre-se
           </button>
         </form>

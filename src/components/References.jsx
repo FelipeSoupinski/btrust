@@ -1,5 +1,7 @@
 // src/components/References.jsx
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faFile } from '@fortawesome/free-solid-svg-icons';
 import { COLORS, FONT_SIZES } from '../styles/theme';
 
 const containerStyles = {
@@ -79,7 +81,7 @@ const References = ({ items = [], startOpen = false }) => {
             <div style={containerStyles}>
                 <div style={{...headerStyles, borderBottom: isOpen ? `1px solid #e0e0e0` : 'none'}} onClick={toggleOpen}>
                     <span>Referências utilizadas:</span>
-                    <span style={arrowStyles(isOpen)}>▼</span>
+                    <FontAwesomeIcon icon={faChevronDown} style={arrowStyles(isOpen)} />
                 </div>
 
                 {/* A lista só é renderizada se estiver aberta */}
@@ -87,7 +89,7 @@ const References = ({ items = [], startOpen = false }) => {
                 <div style={listStyles}>
                     {itemsToShow.map((item, index) => (
                         <div key={index} style={itemStyles}>
-                            <span>📄</span>
+                            <FontAwesomeIcon icon={faFile} />
                             <span>{item.name}</span>
                             <span style={pageTagStyles}>p.{item.page}</span>
                         </div>

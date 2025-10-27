@@ -1,14 +1,15 @@
 // src/App.jsx
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { AppProvider, useAppContext } from './context/AppContext.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import Topbar from './components/Topbar.jsx';
-import ChatPage from './pages/ChatPage.jsx';
-import ModelSelectPage from './pages/ModelSelectPage.jsx';
+import Login from './components/Login.jsx';
+import AppRoutes from './routes/index.jsx';
 import { COLORS } from './styles/theme.js';
 
 const AppLayout = () => {
-    const { isSidebarOpen, activeScreen, setIsSidebarOpen } = useAppContext();
+    const { isSidebarOpen, setIsSidebarOpen } = useAppContext();
     const [showOpenButton, setShowOpenButton] = useState(!isSidebarOpen);
 
     useEffect(() => {
@@ -71,9 +72,6 @@ const AppLayout = () => {
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
     };
 
-    const CurrentPage = activeScreen === 'chat' ? ChatPage : ModelSelectPage;
-
-
     return (
         <div style={layoutStyles}>
             {/* Botão de abrir sidebar */}
@@ -90,7 +88,7 @@ const AppLayout = () => {
             <div style={mainContentStyles}>
                 <Topbar />
                 <div style={pageContainerStyles}>
-                    <CurrentPage />
+                    <AppRoutes />
                 </div>
             </div>
         </div>
@@ -100,7 +98,10 @@ const AppLayout = () => {
 function App() {
     return (
         <AppProvider>
-            <AppLayout />
+            <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/*" element={<AppLayout />} />
+            </Routes>
         </AppProvider>
     );
 }

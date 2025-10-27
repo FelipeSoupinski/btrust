@@ -66,9 +66,6 @@ export function AppProvider({ children }) {
     
     // --- Estados Globais ---
     
-    // Estado para controlar a tela atual ('chat' ou 'model-select')
-    const [activeScreen, setActiveScreen] = useState('chat');
-    
     // Estado para controlar a sidebar (aberta ou fechada)
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -105,7 +102,6 @@ export function AppProvider({ children }) {
     // 3. Montar o "pacote" de informações que todos os filhos podem aceder
     const value = {
         // Variáveis
-        activeScreen,
         isSidebarOpen,
         availableDataSources,
         selectedDataSources,
@@ -114,7 +110,6 @@ export function AppProvider({ children }) {
         chatMessages,
         
         // Funções
-        setActiveScreen,
         setIsSidebarOpen,
         setSelectedDataSources,
         toggleDataSource,

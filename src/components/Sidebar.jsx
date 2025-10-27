@@ -1,6 +1,7 @@
 // src/components/Sidebar.jsx
 
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { COLORS, FONT_SIZES, FONTS } from '../styles/theme.js';
 import { useAppContext } from '../context/AppContext.jsx';
 
@@ -132,7 +133,8 @@ const deleteIconStyles = {
 // SUB-COMPONENTES
 // ----------------------------------------------------
 
-const ChatHistoryItem = ({ chat, activeChat, setActiveChat, onDelete, setActiveScreen }) => {
+const ChatHistoryItem = ({ chat, activeChat, setActiveChat, onDelete }) => {
+    const navigate = useNavigate();
     
     const isSelected = chat.id === activeChat;
     
@@ -153,7 +155,7 @@ const ChatHistoryItem = ({ chat, activeChat, setActiveChat, onDelete, setActiveS
             style={combinedStyles}
             onClick={() => {
                 setActiveChat(chat.id);
-                setActiveScreen('chat'); // Navega para a tela de chat
+                navigate('/chat'); // Navega para a rota de chat
             }}
             onMouseOver={(e) => e.currentTarget.style.backgroundColor = isSelected ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.1)'}
             onMouseOut={(e) => e.currentTarget.style.backgroundColor = isSelected ? 'rgba(0, 0, 0, 0.2)' : 'transparent'}
@@ -211,9 +213,10 @@ const NavItem = ({ title, icon, action, isActive, isNewChat = false }) => {
 // ----------------------------------------------------
 
 function Sidebar() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    
     const { 
-        activeScreen, 
-        setActiveScreen,
         isSidebarOpen,
         setIsSidebarOpen,
         chats,
@@ -235,7 +238,7 @@ function Sidebar() {
         setChats([newChat, ...chats]);
         setChatMessages(prev => ({ ...prev, [newChat.id]: [] })); // Cria um array de mensagens vazio para o novo chat
         setActiveChat(newChat.id);
-        setActiveScreen('chat');
+        navigate('/chat');
     };
     
     const handleDeleteChat = (id) => {
@@ -252,7 +255,8 @@ function Sidebar() {
         });
     };
     
-    const isNewChatActive = activeChat === null && activeScreen === 'chat';
+    const isNewChatActive = activeChat === null && location.pathname === '/chat';
+    const isModelSelectActive = location.pathname === '/model-select';
 
     const finalSidebarStyles = {
         ...sidebarStyles,
@@ -297,10 +301,10 @@ function Sidebar() {
                         title="Escolher um modelo"
                         icon="⚙️"
                         action={() => {
-                            setActiveScreen('model-select');
+                            navigate('/model-select');
                             setActiveChat(null); // Desmarca qualquer chat ativo
                         }}
-                        isActive={activeScreen === 'model-select'}
+                        isActive={isModelSelectActive}
                     />
                 </nav>
                 
@@ -318,7 +322,6 @@ function Sidebar() {
                                     chat={chat}
                                     activeChat={activeChat}
                                     setActiveChat={setActiveChat}
-                                    setActiveScreen={setActiveScreen}
                                     onDelete={handleDeleteChat}
                                 />
                             ))}

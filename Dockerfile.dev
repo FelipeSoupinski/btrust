@@ -8,8 +8,8 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 
 # Instala as dependências
-# Usamos 'ci' para garantir uma instalação limpa e consistente baseada no lockfile
-RUN npm ci
+# Usamos 'install' para garantir que o package-lock.json seja atualizado
+RUN npm install
 
 # Copia o resto do código-fonte da aplicação
 COPY . .

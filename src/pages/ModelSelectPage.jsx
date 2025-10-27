@@ -1,5 +1,6 @@
 // src/pages/ModelSelectPage.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
+
 import { useAppContext } from '../context/AppContext.jsx';
 import { COLORS, FONT_SIZES, FONTS } from '../styles/theme.js';
 
@@ -14,9 +15,7 @@ const ModelCard = ({ source, isSelected, onSelect }) => {
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
-    border: isSelected 
-      ? `2px solid ${COLORS.principal}` 
-      : `2px dashed ${COLORS.textosSecundarios}`,
+    border: isSelected ? `2px solid ${COLORS.principal}` : `2px dashed ${COLORS.textosSecundarios}`,
     backgroundColor: isSelected ? COLORS.principal : COLORS.branco,
     color: isSelected ? COLORS.branco : COLORS.principal,
     transition: 'all 0.3s ease',
@@ -27,14 +26,14 @@ const ModelCard = ({ source, isSelected, onSelect }) => {
     marginBottom: '10px',
     color: isSelected ? COLORS.branco : COLORS.principal,
   };
-  
+
   const titleStyles = {
     fontSize: FONT_SIZES.texto,
     fontWeight: '600',
     fontFamily: FONTS.secundaria,
     marginBottom: '5px',
   };
-  
+
   const descriptionStyles = {
     fontSize: FONT_SIZES.subtexto,
     color: isSelected ? COLORS.fundo : COLORS.textosSecundarios,
@@ -42,11 +41,11 @@ const ModelCard = ({ source, isSelected, onSelect }) => {
   };
 
   return (
-    <div 
+    <div
       style={cardStyles}
       onClick={() => onSelect(source.id)}
-      onMouseOver={(e) => e.currentTarget.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)'}
-      onMouseOut={(e) => e.currentTarget.style.boxShadow = 'none'}
+      onMouseOver={e => (e.currentTarget.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)')}
+      onMouseOut={e => (e.currentTarget.style.boxShadow = 'none')}
     >
       <span style={iconStyles}>Chart Icon</span>
       <div style={titleStyles}>{source.name}</div>
@@ -56,13 +55,9 @@ const ModelCard = ({ source, isSelected, onSelect }) => {
 };
 
 function ModelSelectPage() {
-  const { 
-    availableDataSources, 
-    setSelectedDataSources, 
-    setActiveScreen, 
-    selectedDataSources 
-  } = useAppContext();
-  
+  const { availableDataSources, setSelectedDataSources, setActiveScreen, selectedDataSources } =
+    useAppContext();
+
   const [localSelected, setLocalSelected] = useState(selectedDataSources);
 
   const containerStyles = {
@@ -85,14 +80,12 @@ function ModelSelectPage() {
     maxWidth: '1200px', // Mantém um limite máximo de largura para o grid
   };
 
-  const handleSelect = (id) => {
-    setLocalSelected(prev => 
-      prev.includes(id) 
-        ? prev.filter(sourceId => sourceId !== id)
-        : [...prev, id]
+  const handleSelect = id => {
+    setLocalSelected(prev =>
+      prev.includes(id) ? prev.filter(sourceId => sourceId !== id) : [...prev, id]
     );
   };
-  
+
   const handleConfirmSelection = () => {
     setSelectedDataSources(localSelected);
     setActiveScreen('chat');
@@ -100,29 +93,33 @@ function ModelSelectPage() {
 
   return (
     <div style={containerStyles}>
-      <h1 style={{
-        fontSize: FONT_SIZES.titulo,
-        color: COLORS.principal,
-        fontFamily: FONTS.secundaria,
-        marginBottom: '5px',
-        textAlign: 'center'
-      }}>
+      <h1
+        style={{
+          fontSize: FONT_SIZES.titulo,
+          color: COLORS.principal,
+          fontFamily: FONTS.secundaria,
+          marginBottom: '5px',
+          textAlign: 'center',
+        }}
+      >
         BTrust
       </h1>
-      <h2 style={{
-        fontSize: FONT_SIZES.subtitulo,
-        color: COLORS.textosSecundarios,
-        fontWeight: '400',
-        marginBottom: '40px',
-        textAlign: 'center',
-        maxWidth: '800px'
-      }}>
+      <h2
+        style={{
+          fontSize: FONT_SIZES.subtitulo,
+          color: COLORS.textosSecundarios,
+          fontWeight: '400',
+          marginBottom: '40px',
+          textAlign: 'center',
+          maxWidth: '800px',
+        }}
+      >
         Escolha a base de dados que melhor corresponde a sua área de trabalho.
       </h2>
 
       <div style={gridStyles}>
         {availableDataSources.map(source => (
-          <ModelCard 
+          <ModelCard
             key={source.id}
             source={source}
             isSelected={localSelected.includes(source.id)}
@@ -132,7 +129,7 @@ function ModelSelectPage() {
       </div>
 
       {localSelected.length > 0 && (
-        <button 
+        <button
           onClick={handleConfirmSelection}
           style={{
             padding: '12px 30px',
@@ -146,8 +143,8 @@ function ModelSelectPage() {
             cursor: 'pointer',
             transition: 'background-color 0.2s',
           }}
-          onMouseOver={(e) => e.currentTarget.style.opacity = '0.9'}
-          onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
+          onMouseOver={e => (e.currentTarget.style.opacity = '0.9')}
+          onMouseOut={e => (e.currentTarget.style.opacity = '1')}
         >
           Confirmar Seleção ({localSelected.length})
         </button>

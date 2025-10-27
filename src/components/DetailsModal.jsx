@@ -1,6 +1,8 @@
 // src/components/DetailsModal.jsx
 import { useState } from 'react';
+
 import * as styles from '../styles/DetailsModal.styles.js';
+
 import InfoMetric from './InfoMetric.jsx';
 import SegmentedControl from './SegmentedControl.jsx';
 

@@ -1,6 +1,8 @@
 // src/components/BotMessage.jsx
 import { useState } from 'react';
+
 import * as styles from '../styles/BotMessage.styles.js';
+
 import ConfidenceScore from './ConfidenceScore.jsx';
 import DetailsModal from './DetailsModal.jsx';
 

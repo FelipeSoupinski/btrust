@@ -3,6 +3,7 @@ import { faChevronDown, faRightFromBracket, faUser } from '@fortawesome/free-sol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { useAppContext } from '../context/AppContext.jsx';
 import * as styles from '../styles/Topbar.styles.js';
 

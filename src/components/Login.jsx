@@ -2,6 +2,7 @@ import { faEye, faEyeSlash, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import logoB3 from '../assets/b3.svg';
 import '../styles/Login.css';
 import { pointerStyle } from '../styles/Login.styles.js';

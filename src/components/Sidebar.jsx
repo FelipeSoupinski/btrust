@@ -4,6 +4,7 @@ import { faChevronLeft, faGear, faMessage, faTrash } from '@fortawesome/free-sol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { useAppContext } from '../context/AppContext.jsx';
 import * as styles from '../styles/Sidebar.styles.js';
 

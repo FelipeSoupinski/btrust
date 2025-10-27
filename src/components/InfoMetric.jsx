@@ -1,5 +1,6 @@
 // src/components/InfoMetric.jsx
 import { useState } from 'react';
+
 import * as styles from '../styles/InfoMetric.styles.js';
 
 const InfoMetric = ({ label, value, tooltip, showBar = false }) => {

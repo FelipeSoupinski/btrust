@@ -1,5 +1,6 @@
 // src/components/ChatInput.jsx
 import { useEffect, useRef, useState } from 'react';
+
 import * as styles from '../styles/ChatInput.styles.js';
 
 function ChatInput({ onSendMessage, disabled, onStop }) {

@@ -1,6 +1,7 @@
 // src/components/ThinkingIndicator.jsx
 import { faRobot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import * as styles from '../styles/ThinkingIndicator.styles.js';
 
 const ThinkingIndicator = () => (

@@ -26,17 +26,21 @@ export const closedSidebarStyles = {
 };
 
 export const logoContainerStyles = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: '6px',
   padding: '0 20px',
   marginBottom: '30px',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
 };
+
+export const logoImageStyles = { display: 'flex', alignItems: 'center', gap: '4px' };
 
 export const logoStyles = {
   fontSize: FONT_SIZES.titulo,
   fontWeight: '700',
   fontFamily: FONTS.secundaria,
+  marginLeft: '-10px',
 };
 
 export const closeButtonStyles = {

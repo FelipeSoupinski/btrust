@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import logoB3 from '../assets/b3-bg-white.svg';
 import { useAppContext } from '../context/AppContext.jsx';
 import * as styles from '../styles/Sidebar.styles.js';
 
@@ -158,8 +159,16 @@ function Sidebar() {
     <div style={finalSidebarStyles}>
       <div style={styles.contentStyles(isSidebarOpen)}>
         {/* 1. Logo B3 e Botão de Fechar */}
-        <div style={styles.logoContainerStyles}>
-          <span style={styles.logoStyles}>BTrust</span>
+        <div
+          style={
+            styles.logoContainerStyles
+          }
+        >
+          <div style={styles.logoImageStyles}>
+            <img src={logoB3} alt="B3 Logo" />
+            <span style={styles.logoStyles}>Trust</span>
+          </div>
+
           <FontAwesomeIcon
             icon={faChevronLeft}
             onClick={() => setIsSidebarOpen(false)}

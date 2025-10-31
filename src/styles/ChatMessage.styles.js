@@ -19,8 +19,8 @@ export const avatarStyles = isUser => ({
   alignItems: 'center',
   justifyContent: 'center',
   flexShrink: 0,
-  backgroundColor: isUser ? COLORS.detalhes : COLORS.principal,
-  color: isUser ? COLORS.principal : COLORS.detalhes,
+  backgroundColor: isUser ? COLORS.principal : COLORS.azulClaro,
+  color: isUser ? COLORS.branco : COLORS.principal,
   fontFamily: FONTS.secundaria,
   fontWeight: '700',
 });

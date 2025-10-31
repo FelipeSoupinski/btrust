@@ -40,20 +40,21 @@ export const iconStyle = disabled => ({
   opacity: disabled ? 0.5 : 1,
 });
 
-export const sendButtonStyles = {
+export const sendButtonStyles = canSend => ({
   width: '40px',
   height: '40px',
-  backgroundColor: COLORS.principal,
+  backgroundColor: canSend ? COLORS.principal : '#A9A9A9', // Cinza quando desabilitado
   borderRadius: '50%',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  cursor: 'pointer',
+  cursor: canSend ? 'pointer' : 'not-allowed',
   border: 'none',
   flexShrink: 0,
   marginRight: '12px',
-  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
-};
+  boxShadow: canSend ? '0 4px 12px rgba(0, 0, 0, 0.2)' : 'none',
+  transition: 'background-color 0.2s ease',
+});
 
 export const stopButtonStyles = {
   ...sendButtonStyles,

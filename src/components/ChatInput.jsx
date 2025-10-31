@@ -3,10 +3,12 @@ import { useEffect, useRef, useState } from 'react';
 
 import * as styles from '../styles/ChatInput.styles.js';
 
-function ChatInput({ onSendMessage, disabled, onStop }) {
+function ChatInput({ onSendMessage, disabled, onStop, onAddFiles, hasFiles }) {
   const [inputValue, setInputValue] = useState('');
   const textareaRef = useRef(null);
+  const fileInputRef = useRef(null);
 
+  const canSend = !disabled && (inputValue.trim() || hasFiles);
   // Efeito para ajustar a altura do textarea dinamicamente
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -20,7 +22,7 @@ function ChatInput({ onSendMessage, disabled, onStop }) {
   }, [inputValue]);
 
   const handleSend = () => {
-    if (inputValue.trim()) {
+    if (canSend) {
       onSendMessage(inputValue);
       setInputValue('');
     }
@@ -33,10 +35,25 @@ function ChatInput({ onSendMessage, disabled, onStop }) {
     }
   };
 
+  const handleFileIconClick = () => {
+    if (!disabled) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = e => {
+    if (e.target.files.length > 0) {
+      onAddFiles(e.target.files);
+      // Limpa o input para permitir selecionar o mesmo arquivo novamente
+      e.target.value = null;
+    }
+  };
+
   return (
     <div style={styles.inputContainerStyles(disabled)}>
       {/* Ícone de Anexo (Clip) */}
-      <span style={styles.iconStyle(disabled)}>📎</span>
+      <span style={styles.iconStyle(disabled)} onClick={handleFileIconClick}>📎</span>
+      <input type="file" ref={fileInputRef} style={{ display: 'none' }} multiple accept=".pdf" onChange={handleFileChange} />
 
       {/* Campo de Texto */}
       <textarea
@@ -52,8 +69,9 @@ function ChatInput({ onSendMessage, disabled, onStop }) {
 
       {/* Botão de Envio / Parar */}
       <button
-        style={disabled ? styles.stopButtonStyles : styles.sendButtonStyles}
+        style={disabled ? styles.stopButtonStyles : styles.sendButtonStyles(canSend)}
         onClick={disabled ? onStop : handleSend}
+        disabled={!canSend && !disabled}
       >
         {disabled ? (
           <span style={styles.sendIconStyles}>■</span> // Ícone de "parar"

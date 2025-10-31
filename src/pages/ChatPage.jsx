@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import BotMessage from '../components/BotMessage.jsx';
 import ChatInput from '../components/ChatInput.jsx';
 import ChatMessage from '../components/ChatMessage.jsx';
+import FileUploadPreview from '../components/FileUploadPreview.jsx';
 import ThinkingIndicator from '../components/ThinkingIndicator.jsx';
 import { useAppContext } from '../context/AppContext.jsx';
 import * as styles from '../styles/ChatPage.styles.js';
@@ -11,10 +12,57 @@ import * as styles from '../styles/ChatPage.styles.js';
 function ChatPage() {
   const { activeChat, chatMessages, setChatMessages, setChats } = useAppContext();
   const [isThinking, setIsThinking] = useState(false);
+  const [filesToSend, setFilesToSend] = useState([]);
+  const [isDragging, setIsDragging] = useState(false);
   const messagesEndRef = useRef(null);
   const thinkingTimeoutRef = useRef(null); // Ref para guardar o ID do timeout
 
   const currentMessages = useMemo(() => chatMessages[activeChat] || [], [chatMessages, activeChat]);
+
+  const handleAddFiles = newFiles => {
+    const pdfFiles = Array.from(newFiles).filter(file => file.type === 'application/pdf');
+    setFilesToSend(prevFiles => {
+      // Rejeita a adição se o total exceder 10
+      if (prevFiles.length + pdfFiles.length > 10) {
+        alert('Você pode enviar no máximo 10 arquivos PDF por vez.');
+        return prevFiles; // Mantém os arquivos anteriores sem adicionar os novos
+      }
+      const combined = [...prevFiles, ...pdfFiles];
+      return combined;
+    });
+  };
+
+  const handleRemoveFile = index => {
+    setFilesToSend(prevFiles => prevFiles.filter((_, i) => i !== index));
+  };
+
+  const handleDragEnter = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDragOver = e => {
+    e.preventDefault();
+    e.stopPropagation(); // Necessário para o onDrop funcionar
+  };
+
+  const handleDrop = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      handleAddFiles(e.dataTransfer.files);
+      e.dataTransfer.clearData();
+    }
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -23,15 +71,25 @@ function ChatPage() {
   useEffect(scrollToBottom, [currentMessages, isThinking]);
 
   const handleSendMessage = text => {
+    // A mensagem só pode ser enviada se houver texto ou arquivos
+    if (!text.trim() && filesToSend.length === 0) {
+      return;
+    }
+
     // Se for a primeira mensagem, atualiza o título do chat na sidebar
-    if (currentMessages.length === 0) {
+    if (currentMessages.length === 0 && text.trim()) {
       const newTitle = text.length > 40 ? text.substring(0, 40) + '...' : text;
       setChats(prevChats =>
         prevChats.map(chat => (chat.id === activeChat ? { ...chat, title: newTitle } : chat))
       );
     }
 
-    const userMessage = { author: 'user', text };
+    const userMessage = {
+      author: 'user',
+      text,
+      // Anexa os arquivos à mensagem e limpa o estado
+      files: filesToSend,
+    };
 
     // Adiciona a mensagem do usuário ao estado
     const updatedMessages = [...currentMessages, userMessage];
@@ -39,6 +97,9 @@ function ChatPage() {
 
     // Simula o bot "pensando"
     setIsThinking(true);
+
+    // Limpa os arquivos após o envio
+    setFilesToSend([]);
 
     // Simula a resposta do bot após um tempo
     // Guarda o ID do timeout para que possamos cancelá-lo
@@ -120,7 +181,13 @@ function ChatPage() {
   }
 
   return (
-    <div style={styles.containerStyles}>
+    <div
+      style={styles.containerStyles}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+    >
       <div style={styles.chatWindowStyles}>
         <div style={styles.messagesContainerStyles}>
           {currentMessages.map((msg, index) => (
@@ -128,14 +195,20 @@ function ChatPage() {
           ))}
           {isThinking && <ThinkingIndicator />}
           <div ref={messagesEndRef} />
+          {isDragging && (
+            <div style={{ textAlign: 'center', padding: '20px', color: COLORS.principal }}>Arraste os arquivos PDF aqui...</div>
+          )}
         </div>
       </div>
       <div style={styles.inputAreaStyles}>
         <div style={styles.inputWrapperStyles}>
+          <FileUploadPreview files={filesToSend} onRemoveFile={handleRemoveFile} />
           <ChatInput
             onSendMessage={handleSendMessage}
             disabled={isThinking}
             onStop={handleStopGeneration}
+            hasFiles={filesToSend.length > 0}
+            onAddFiles={handleAddFiles}
           />
         </div>
       </div>

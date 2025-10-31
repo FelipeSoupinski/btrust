@@ -54,10 +54,17 @@ function ChatPage() {
         { docCount: 8, coverage: 75, relevance: 60 },
         { docCount: 3, coverage: 40, relevance: 30 },
       ];
+      const testReferences = [
+        { name: 'Relatório Anual 2023.pdf', page: 12 },
+        { name: 'Apresentação de Resultados Q4.pptx', page: 5 },
+        { name: 'Análise de Mercado de Risco.docx', page: 8 },
+        { name: 'Estratégia de Expansão Global.pdf', page: 23 },
+        { name: 'Minuta da Reunião de Diretoria.pdf', page: 2 },
+        { name: 'Guia de Compliance Regulatório.docx', page: 15 },
+      ];
       const botResponseCount = Math.floor(updatedMessages.length / 2);
       const scoreToTest = testScores[botResponseCount % testScores.length];
       const metricsToTest = testMetrics[botResponseCount % testMetrics.length];
-
       let scoreExplanationText = '';
       if (scoreToTest.level === 'high') {
         scoreExplanationText =
@@ -76,6 +83,7 @@ function ChatPage() {
           <BotMessage
             text={`Esta é uma resposta simulada para a sua pergunta: "${text}". A integração real com a IA virá em breve.`}
             score={scoreToTest}
+            references={testReferences}
             metrics={metricsToTest}
             scoreExplanation={scoreExplanationText}
           />

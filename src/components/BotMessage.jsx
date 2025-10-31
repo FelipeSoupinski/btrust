@@ -5,6 +5,7 @@ import * as styles from '../styles/BotMessage.styles.js';
 
 import ConfidenceScore from './ConfidenceScore.jsx';
 import DetailsModal from './DetailsModal.jsx';
+import References from './References.jsx';
 
 const BotMessage = ({ text, score, references, metrics, scoreExplanation }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,6 +15,8 @@ const BotMessage = ({ text, score, references, metrics, scoreExplanation }) => {
       <div style={styles.botTextStyles}>{text}</div>
 
       {score && <ConfidenceScore level={score.level} value={score.value} />}
+
+      {references && references.length > 0 && <References items={references} />}
 
       <button style={styles.detailsButtonStyles} onClick={() => setIsModalOpen(true)}>
         Ver detalhes

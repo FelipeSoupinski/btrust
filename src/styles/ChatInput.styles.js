@@ -33,9 +33,9 @@ export const inputFieldStyles = {
 export const iconStyle = disabled => ({
   fontSize: '20px',
   color: COLORS.textosSecundarios,
-  cursor: 'pointer',
+  cursor: disabled ? 'not-allowed' : 'pointer', // Atualizado
   padding: '0 5px',
-  marginLeft: '7px',
+  marginLeft: '15px', // Aumentado
   marginRight: '10px',
   opacity: disabled ? 0.5 : 1,
 });
@@ -43,7 +43,7 @@ export const iconStyle = disabled => ({
 export const sendButtonStyles = canSend => ({
   width: '40px',
   height: '40px',
-  backgroundColor: canSend ? COLORS.principal : '#A9A9A9', // Cinza quando desabilitado
+  backgroundColor: canSend ? COLORS.principal : '#A9A9A9',
   borderRadius: '50%',
   display: 'flex',
   justifyContent: 'center',
@@ -57,7 +57,7 @@ export const sendButtonStyles = canSend => ({
 });
 
 export const stopButtonStyles = {
-  ...sendButtonStyles,
+  ...sendButtonStyles(true), // Garante que o estilo base seja aplicado
   backgroundColor: COLORS.principal,
 };
 
@@ -65,4 +65,11 @@ export const sendIconStyles = {
   fontSize: '18px',
   color: COLORS.branco,
   lineHeight: '18px',
+};
+
+// Novo estilo adicionado
+export const actionButtonContainerStyles = {
+  position: 'relative', // Essencial para posicionar o menu
+  display: 'flex',
+  alignItems: 'center',
 };

@@ -1,5 +1,5 @@
 // src/context/AppContext.jsx
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useMemo, useState, useCallback } from 'react';
 
 // --- Dados Simulados (Mock) para as Bases ---
 // Estes são os dados que o ModelSelectPage.jsx vai usar
@@ -98,6 +98,46 @@ export function AppProvider({ children }) {
     });
   };
 
+
+  const branchActiveChat = useCallback(() => {
+    if (!activeChat) {
+      console.warn('Nenhum chat ativo para ramificar.');
+      return;
+    }
+
+    // 1. Encontra o chat e as mensagens atuais
+    const currentChat = chats.find(c => c.id === activeChat);
+    const currentMessages = chatMessages[activeChat] || [];
+
+    if (!currentChat) {
+      console.warn('Chat ativo não encontrado nos dados.');
+      return;
+    }
+
+    // 2. Cria os novos dados
+    const newChatId = `branch-${Date.now()}`;
+    const newTitle = currentChat.title + ' (Cópia)';
+    const newChat = {
+      id: newChatId,
+      title: newTitle,
+      date: new Date().toISOString().split('T')[0], // Formato AAAA-MM-DD
+    };
+
+    // 3. Atualiza os estados globais
+    // Adiciona o novo chat à lista da sidebar
+    setChats(prevChats => [newChat, ...prevChats]); // Adiciona no topo
+
+    // Adiciona o histórico de mensagens copiado para o novo chat
+    setChatMessages(prevMessages => ({
+      ...prevMessages,
+      [newChatId]: [...currentMessages], // IMPORTANTE: Cria uma nova cópia do array
+    }));
+
+    // 4. Define o novo chat como ativo
+    setActiveChat(newChatId);
+    
+  }, [activeChat, chats, chatMessages]);
+  
   // 3. Montar o "pacote" de informações que todos os filhos podem aceder
   const value = {
     // Variáveis
@@ -115,6 +155,7 @@ export function AppProvider({ children }) {
     setChats,
     setActiveChat,
     setChatMessages,
+    branchActiveChat,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

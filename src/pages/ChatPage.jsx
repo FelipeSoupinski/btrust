@@ -10,27 +10,30 @@ import { useAppContext } from '../context/AppContext.jsx';
 import * as styles from '../styles/ChatPage.styles.js';
 
 function ChatPage() {
-  const { activeChat, chatMessages, setChatMessages, setChats } = useAppContext();
+  // Pega a nova função 'branchActiveChat' do contexto
+  const { activeChat, chatMessages, setChatMessages, setChats, branchActiveChat } = useAppContext();
+  
   const [thinkingProcess, setThinkingProcess] = useState({
     active: false,
     steps: '',
-    currentScore: null, // Pode começar nulo ou com um valor { level: 'low', value: 0 }
+    currentScore: null,
   });
-  const [isThinking, setIsThinking] = useState(false);
+  
+  // O estado 'isThinking' foi removido, pois 'thinkingProcess.active' o substitui
+  
   const [filesToSend, setFilesToSend] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const messagesEndRef = useRef(null);
-  const thinkingTimeoutRef = useRef([]); // Ref para guardar o ID do timeout
+  const thinkingTimeoutRef = useRef([]);
 
   const currentMessages = useMemo(() => chatMessages[activeChat] || [], [chatMessages, activeChat]);
 
   const handleAddFiles = newFiles => {
     const pdfFiles = Array.from(newFiles).filter(file => file.type === 'application/pdf');
     setFilesToSend(prevFiles => {
-      // Rejeita a adição se o total exceder 10
       if (prevFiles.length + pdfFiles.length > 10) {
         alert('Você pode enviar no máximo 10 arquivos PDF por vez.');
-        return prevFiles; // Mantém os arquivos anteriores sem adicionar os novos
+        return prevFiles;
       }
       const combined = [...prevFiles, ...pdfFiles];
       return combined;
@@ -56,7 +59,7 @@ function ChatPage() {
 
   const handleDragOver = e => {
     e.preventDefault();
-    e.stopPropagation(); // Necessário para o onDrop funcionar
+    e.stopPropagation();
   };
 
   const handleDrop = e => {
@@ -74,7 +77,8 @@ function ChatPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  useEffect(scrollToBottom, [currentMessages, isThinking]);
+  // Atualiza o useEffect para usar 'thinkingProcess.active'
+  useEffect(scrollToBottom, [currentMessages, thinkingProcess.active]);
 
   const handleSendMessage = text => {
     if (!text.trim() && filesToSend.length === 0) {
@@ -82,7 +86,6 @@ function ChatPage() {
     }
 
     if (currentMessages.length === 0 && text.trim()) {
-      // ... (lógica para atualizar título do chat) ...
       const newTitle = text.length > 40 ? text.substring(0, 40) + '...' : text;
       setChats(prevChats =>
         prevChats.map(chat => (chat.id === activeChat ? { ...chat, title: newTitle } : chat))
@@ -101,67 +104,59 @@ function ChatPage() {
 
     // --- INÍCIO DA SIMULAÇÃO COM SCORE PROGRESSIVO ---
     
-    handleStopGeneration(); // Limpa timeouts antigos
+    handleStopGeneration();
     
-    // 1. Ativa o "thinking" e define o PRIMEIRO passo e score
     setThinkingProcess({
       active: true,
       steps: 'Iniciando análise da sua pergunta...',
-      currentScore: { level: 'low', value: 10 }, // Score inicial
+      currentScore: { level: 'low', value: 10 },
     });
 
     const timeouts = [];
 
-    // 2. Simula o segundo passo (texto e score)
     timeouts.push(
       setTimeout(() => {
         setThinkingProcess(prev => ({
           ...prev,
           steps: prev.steps + '\n- Consultando bases de dados selecionadas...',
-          currentScore: { level: 'low', value: 35 }, // Score melhora
+          currentScore: { level: 'low', value: 35 },
         }));
-      }, 1000) // 1s
+      }, 1000)
     );
 
-    // 3. Simula o terceiro passo (texto e score)
     timeouts.push(
       setTimeout(() => {
         setThinkingProcess(prev => ({
           ...prev,
           steps: prev.steps + '\n- Analisando documentos relevantes para RAG...',
-          currentScore: { level: 'medium', value: 65 }, // Score melhora mais
+          currentScore: { level: 'medium', value: 65 },
         }));
-      }, 2000) // 2s
+      }, 2000)
     );
 
-    // 4. Simula o quarto passo (texto e score)
     timeouts.push(
       setTimeout(() => {
         setThinkingProcess(prev => ({
           ...prev,
           steps: prev.steps + '\n- Gerando rascunho da resposta...',
-          currentScore: { level: 'high', value: 85 }, // Score quase final
+          currentScore: { level: 'high', value: 85 },
         }));
-      }, 3000) // 3s
+      }, 3000)
     );
 
-    // 5. Simula a resposta final (o antigo timeout)
     timeouts.push(
       setTimeout(() => {
-        // ... (Toda a lógica de mock de resposta que já existia)
-        // Você pode usar os mocks que já tinha
-        const scoreFinal = { level: 'high', value: 95 }; // O score final da resposta
+        const scoreFinal = { level: 'high', value: 95 };
         const metricsToTest = { docCount: 15, coverage: 98, relevance: 85 };
         const testReferences = [{ name: 'Relatório Anual 2023.pdf', page: 12 }];
         const scoreExplanationText = 'O nível de confiança é alto...';
-        // ...
         
         const botResponse = {
           author: 'bot',
           text: (
             <BotMessage
               text={`Esta é uma resposta simulada para a sua pergunta: "${text}".`}
-              score={scoreFinal} // Usa o score final
+              score={scoreFinal}
               references={testReferences}
               metrics={metricsToTest}
               scoreExplanation={scoreExplanationText}
@@ -169,17 +164,15 @@ function ChatPage() {
           ),
         };
 
-        // Adiciona a resposta final
         setChatMessages(prev => ({
           ...prev,
           [activeChat]: [...updatedMessages, botResponse],
         }));
 
-        // 6. Desliga o "thinking" e limpa o estado
         setThinkingProcess({ active: false, steps: '', currentScore: null });
         thinkingTimeoutRef.current = [];
         
-      }, 4000) // Simula 4s no total
+      }, 4000)
     );
 
     thinkingTimeoutRef.current = timeouts;
@@ -191,15 +184,15 @@ function ChatPage() {
     }
     thinkingTimeoutRef.current = [];
     
-    // Limpa o estado de "thinking"
     setThinkingProcess({ active: false, steps: '', currentScore: null });
   };
 
-  // ... (Lógica de `if (!activeChat)` permanece igual) ...
   if (!activeChat) {
     return (
       <div style={styles.noChatContainerStyles}>
-        {/* ... (seu JSX de 'nenhum chat') ... */}
+        {/* Você pode preencher com seu JSX de 'noChat' se quiser */}
+        <h1>BTrust</h1>
+        <p>Selecione um chat ou crie um novo para começar.</p>
       </div>
     );
   }
@@ -207,7 +200,10 @@ function ChatPage() {
   return (
     <div
       style={styles.containerStyles}
-      // ... (seus handlers de drag/drop)
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
     >
       <div style={styles.chatWindowStyles}>
         <div style={styles.messagesContainerStyles}>
@@ -215,8 +211,6 @@ function ChatPage() {
             <ChatMessage key={index} message={msg} />
           ))}
           
-          {/* !!! MUDANÇA NA RENDERIZAÇÃO !!! */}
-          {/* Renderiza o indicador se estiver ativo e passa o score */}
           {thinkingProcess.active && (
             <ThinkingIndicator
               steps={thinkingProcess.steps}
@@ -225,7 +219,11 @@ function ChatPage() {
           )}
           
           <div ref={messagesEndRef} />
-          {/* ... (seu JSX de 'isDragging') ... */}
+          {isDragging && (
+            <div style={{ textAlign: 'center', padding: '20px', color: 'blue' }}>
+              Arraste os arquivos PDF aqui...
+            </div>
+          )}
         </div>
       </div>
       <div style={styles.inputAreaStyles}>
@@ -233,10 +231,12 @@ function ChatPage() {
           <FileUploadPreview files={filesToSend} onRemoveFile={handleRemoveFile} />
           <ChatInput
             onSendMessage={handleSendMessage}
-            disabled={thinkingProcess.active} // Desabilita com base no 'active'
+            disabled={thinkingProcess.active}
             onStop={handleStopGeneration}
             hasFiles={filesToSend.length > 0}
             onAddFiles={handleAddFiles}
+            // Passa a nova função para o ChatInput
+            onBranchChat={branchActiveChat}
           />
         </div>
       </div>

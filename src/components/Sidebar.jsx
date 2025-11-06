@@ -9,9 +9,6 @@ import logoB3 from '../assets/b3-bg-white.svg';
 import { useAppContext } from '../context/AppContext.jsx';
 import * as styles from '../styles/Sidebar.styles.js';
 
-// ----------------------------------------------------
-// DADOS SIMULADOS E FUNÇÕES DE AJUDA
-// ----------------------------------------------------
 const groupChatsByMonth = chats => {
   return chats.reduce((groups, chat) => {
     const date = new Date(chat.date);
@@ -24,10 +21,6 @@ const groupChatsByMonth = chats => {
     return groups;
   }, {});
 };
-
-// ----------------------------------------------------
-// SUB-COMPONENTES
-// ----------------------------------------------------
 
 const ChatHistoryItem = ({ chat, activeChat, setActiveChat, onDelete }) => {
   const navigate = useNavigate();
@@ -100,10 +93,6 @@ const NavItem = ({ title, icon, action, isActive, isNewChat = false }) => {
   );
 };
 
-// ----------------------------------------------------
-// COMPONENTE PRINCIPAL (Sidebar)
-// ----------------------------------------------------
-
 function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -158,7 +147,6 @@ function Sidebar() {
   return (
     <div style={finalSidebarStyles}>
       <div style={styles.contentStyles(isSidebarOpen)}>
-        {/* 1. Logo B3 e Botão de Fechar */}
         <div
           style={
             styles.logoContainerStyles
@@ -178,7 +166,6 @@ function Sidebar() {
           />
         </div>
 
-        {/* 2. Ações Principais */}
         <nav style={styles.navAreaStyles}>
           <NavItem
             title="Criar novo chat"
@@ -198,10 +185,8 @@ function Sidebar() {
           />
         </nav>
 
-        {/* Separador */}
         <hr style={styles.separatorStyles} />
 
-        {/* 3. Histórico de Conversas */}
         <div style={styles.historySectionStyles}>
           {Object.entries(chatsByMonth).map(([monthYear, monthlyChats]) => (
             <React.Fragment key={monthYear}>

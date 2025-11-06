@@ -1,7 +1,8 @@
-// src/components/ChatMessage.jsx
 import { faFilePdf, faRobot, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
+
+import BotMessage from './BotMessage.jsx';
 
 import * as styles from '../styles/ChatMessage.styles.js';
 
@@ -12,7 +13,6 @@ const UserMessageBubble = ({ text, files }) => {
 
   const toggleExpand = () => setIsExpanded(!isExpanded);
 
-  // Se não houver nem texto nem arquivos, não renderiza nada.
   if ((!files || files.length === 0) && !text) {
     return null;
   }
@@ -40,7 +40,16 @@ const UserMessageBubble = ({ text, files }) => {
 };
 
 const ChatMessage = ({ message }) => {
-  const { text, author, files } = message;
+  const { 
+    text, 
+    author, 
+    files, 
+    score, 
+    references, 
+    metrics, 
+    scoreExplanation 
+  } = message;
+  
   const isUser = author === 'user';
 
   return (
@@ -48,14 +57,18 @@ const ChatMessage = ({ message }) => {
       <div style={styles.avatarStyles(isUser)}>
         <FontAwesomeIcon icon={isUser ? faUser : faRobot} />
       </div>
-      {/* Para o bot, o container ocupa 100% da largura. Para o usuário, não. */}
       <div style={styles.contentStyles(isUser)}>
+        
         {isUser ? (
           <UserMessageBubble text={text} files={files} />
-        ) : typeof text === 'string' ? (
-          <div style={styles.botTextStyles}>{text}</div>
         ) : (
-          text
+          <BotMessage
+            text={text}
+            score={score}
+            references={references}
+            metrics={metrics}
+            scoreExplanation={scoreExplanation}
+          />
         )}
       </div>
     </div>

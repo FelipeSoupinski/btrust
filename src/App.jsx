@@ -31,7 +31,6 @@ const AppLayout = () => {
 
   return (
     <div style={styles.layoutStyles(isSidebarOpen)}>
-      {/* Botão de abrir sidebar */}
       {showOpenButton && !isSidebarOpen && (
         <FontAwesomeIcon
           icon={faChevronRight}
@@ -40,10 +39,8 @@ const AppLayout = () => {
         />
       )}
 
-      {/* Sidebar */}
       <Sidebar />
 
-      {/* Área Principal */}
       <div style={styles.mainContentStyles}>
         <Topbar />
         <div style={styles.pageContainerStyles}>

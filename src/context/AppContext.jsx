@@ -1,8 +1,6 @@
 // src/context/AppContext.jsx
 import { createContext, useContext, useMemo, useState, useCallback } from 'react';
 
-// --- Dados Simulados (Mock) para as Bases ---
-// Estes são os dados que o ModelSelectPage.jsx vai usar
 const MOCK_DATA_SOURCES = [
   {
     id: 'b1',
@@ -40,9 +38,7 @@ const MOCK_DATA_SOURCES = [
     description: 'Rastreamento de entregas, gestão de inventário e otimização de rotas.',
   },
 ];
-// ----------------------------------------------
 
-// --- Dados Simulados para o Histórico de Chats ---
 const INITIAL_CHATS = [
   { id: 101, title: 'Análise de Risco de Crédito', date: '2025-05-20' },
   { id: 102, title: 'Predição de Mercado', date: '2025-05-15' },
@@ -58,54 +54,37 @@ const INITIAL_CHAT_MESSAGES = {
   103: [],
 };
 
-// 1. Criar o Contexto
 const AppContext = createContext(null);
 
-// 2. Criar o "Provedor" (O componente "Pai" que guarda a informação)
 export function AppProvider({ children }) {
-  // --- Estados Globais ---
-
-  // Estado para controlar a sidebar (aberta ou fechada)
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
-  // Estado que guarda TODAS as bases de dados disponíveis
   const availableDataSources = useMemo(() => MOCK_DATA_SOURCES, []);
-
-  // Estado que guarda as bases que o utilizador SELECIONOU
   const [selectedDataSources, setSelectedDataSources] = useState([]);
 
-  // Estado para o histórico de chats (lista na sidebar)
   const [chats, setChats] = useState(INITIAL_CHATS);
-
-  // Estado para o chat ativo (ID)
   const [activeChat, setActiveChat] = useState(INITIAL_CHATS[0]?.id || null);
 
-  // Estado que armazena as mensagens de cada chat
   const [chatMessages, setChatMessages] = useState(INITIAL_CHAT_MESSAGES);
 
-  // --- Funções Globais ---
-
-  // Função para adicionar/remover uma base de dados (usada no Header e ModelSelectPage)
   const toggleDataSource = id => {
     setSelectedDataSources(prevSelected => {
       if (prevSelected.includes(id)) {
-        // Se já existe, remove
         return prevSelected.filter(sourceId => sourceId !== id);
       } else {
-        // Se não existe, adiciona
         return [...prevSelected, id];
       }
     });
   };
 
-
+  /**
+   * Cria uma cópia do chat ativo e a define como o novo chat ativo.
+   */
   const branchActiveChat = useCallback(() => {
     if (!activeChat) {
       console.warn('Nenhum chat ativo para ramificar.');
       return;
     }
 
-    // 1. Encontra o chat e as mensagens atuais
     const currentChat = chats.find(c => c.id === activeChat);
     const currentMessages = chatMessages[activeChat] || [];
 
@@ -114,7 +93,6 @@ export function AppProvider({ children }) {
       return;
     }
 
-    // 2. Cria os novos dados
     const newChatId = `branch-${Date.now()}`;
     const newTitle = currentChat.title + ' (Cópia)';
     const newChat = {
@@ -123,22 +101,16 @@ export function AppProvider({ children }) {
       date: new Date().toISOString().split('T')[0], // Formato AAAA-MM-DD
     };
 
-    // 3. Atualiza os estados globais
-    // Adiciona o novo chat à lista da sidebar
-    setChats(prevChats => [newChat, ...prevChats]); // Adiciona no topo
+    setChats(prevChats => [newChat, ...prevChats]);
 
-    // Adiciona o histórico de mensagens copiado para o novo chat
     setChatMessages(prevMessages => ({
       ...prevMessages,
-      [newChatId]: [...currentMessages], // IMPORTANTE: Cria uma nova cópia do array
+      [newChatId]: [...currentMessages],
     }));
 
-    // 4. Define o novo chat como ativo
     setActiveChat(newChatId);
     
   }, [activeChat, chats, chatMessages]);
-  
-  // 3. Montar o "pacote" de informações que todos os filhos podem aceder
   const value = {
     // Variáveis
     isSidebarOpen,
@@ -161,7 +133,6 @@ export function AppProvider({ children }) {
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 
-// 4. Criar o "Hook" (O atalho para os componentes "Filho" usarem a informação)
 export function useAppContext() {
   const context = useContext(AppContext);
   if (!context) {

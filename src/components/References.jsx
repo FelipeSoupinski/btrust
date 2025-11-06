@@ -15,7 +15,6 @@ const References = ({ items = [], startOpen = false }) => {
 
   const toggleOpen = () => setIsOpen(!isOpen);
 
-  // Define quais itens são visíveis com base nos estados
   const itemsToShow = isOpen ? items.slice(0, visibleCount) : items.slice(0, 1);
 
   return (
@@ -26,7 +25,6 @@ const References = ({ items = [], startOpen = false }) => {
           <FontAwesomeIcon icon={faChevronDown} style={styles.arrowStyles(isOpen)} />
         </div>
 
-        {/* A lista só é renderizada se estiver aberta */}
         {isOpen && (
           <div style={styles.listStyles}>
             {itemsToShow.map((item, index) => (

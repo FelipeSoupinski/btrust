@@ -54,4 +54,6 @@ export const noChatTextStyles = {
 export const inputWrapperStyles = {
   maxWidth: '842px',
   margin: '0 auto',
+  display: 'flex',
+  flexDirection: 'column',
 };

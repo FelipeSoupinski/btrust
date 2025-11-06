@@ -96,7 +96,7 @@ function ChatPage() {
     const updatedMessages = [...currentMessages, userMessage];
     setChatMessages(prev => ({ ...prev, [activeChat]: updatedMessages }));
     setFilesToSend([]);
-    
+
     handleStopGeneration();
     
     setThinkingProcess({
@@ -143,6 +143,7 @@ function ChatPage() {
         const metricsToTest = { docCount: 15, coverage: 98, relevance: 85 };
         const testReferences = [{ name: 'Relatório Anual 2023.pdf', page: 12 }];
         const scoreExplanationText = 'O nível de confiança é alto...';
+        
         const botResponse = {
           author: 'bot',
           text: `Esta é uma resposta simulada para a sua pergunta: "${text}".`,

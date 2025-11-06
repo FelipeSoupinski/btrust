@@ -33,30 +33,31 @@ export const inputFieldStyles = {
 export const iconStyle = disabled => ({
   fontSize: '20px',
   color: COLORS.textosSecundarios,
-  cursor: 'pointer',
+  cursor: disabled ? 'not-allowed' : 'pointer', // Atualizado
   padding: '0 5px',
-  marginLeft: '7px',
+  marginLeft: '15px', // Aumentado
   marginRight: '10px',
   opacity: disabled ? 0.5 : 1,
 });
 
-export const sendButtonStyles = {
+export const sendButtonStyles = canSend => ({
   width: '40px',
   height: '40px',
-  backgroundColor: COLORS.principal,
+  backgroundColor: canSend ? COLORS.principal : '#A9A9A9',
   borderRadius: '50%',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  cursor: 'pointer',
+  cursor: canSend ? 'pointer' : 'not-allowed',
   border: 'none',
   flexShrink: 0,
   marginRight: '12px',
-  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
-};
+  boxShadow: canSend ? '0 4px 12px rgba(0, 0, 0, 0.2)' : 'none',
+  transition: 'background-color 0.2s ease',
+});
 
 export const stopButtonStyles = {
-  ...sendButtonStyles,
+  ...sendButtonStyles(true), // Garante que o estilo base seja aplicado
   backgroundColor: COLORS.principal,
 };
 
@@ -64,4 +65,11 @@ export const sendIconStyles = {
   fontSize: '18px',
   color: COLORS.branco,
   lineHeight: '18px',
+};
+
+// Novo estilo adicionado
+export const actionButtonContainerStyles = {
+  position: 'relative', // Essencial para posicionar o menu
+  display: 'flex',
+  alignItems: 'center',
 };

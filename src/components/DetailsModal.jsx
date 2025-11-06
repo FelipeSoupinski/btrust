@@ -1,4 +1,3 @@
-// src/components/DetailsModal.jsx
 import { useState } from 'react';
 
 import * as styles from '../styles/DetailsModal.styles.js';

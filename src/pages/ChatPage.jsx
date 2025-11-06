@@ -11,11 +11,16 @@ import * as styles from '../styles/ChatPage.styles.js';
 
 function ChatPage() {
   const { activeChat, chatMessages, setChatMessages, setChats } = useAppContext();
+  const [thinkingProcess, setThinkingProcess] = useState({
+    active: false,
+    steps: '',
+    currentScore: null, // Pode começar nulo ou com um valor { level: 'low', value: 0 }
+  });
   const [isThinking, setIsThinking] = useState(false);
   const [filesToSend, setFilesToSend] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const messagesEndRef = useRef(null);
-  const thinkingTimeoutRef = useRef(null); // Ref para guardar o ID do timeout
+  const thinkingTimeoutRef = useRef([]); // Ref para guardar o ID do timeout
 
   const currentMessages = useMemo(() => chatMessages[activeChat] || [], [chatMessages, activeChat]);
 
@@ -32,6 +37,7 @@ function ChatPage() {
     });
   };
 
+  
   const handleRemoveFile = index => {
     setFilesToSend(prevFiles => prevFiles.filter((_, i) => i !== index));
   };
@@ -71,13 +77,12 @@ function ChatPage() {
   useEffect(scrollToBottom, [currentMessages, isThinking]);
 
   const handleSendMessage = text => {
-    // A mensagem só pode ser enviada se houver texto ou arquivos
     if (!text.trim() && filesToSend.length === 0) {
       return;
     }
 
-    // Se for a primeira mensagem, atualiza o título do chat na sidebar
     if (currentMessages.length === 0 && text.trim()) {
+      // ... (lógica para atualizar título do chat) ...
       const newTitle = text.length > 40 ? text.substring(0, 40) + '...' : text;
       setChats(prevChats =>
         prevChats.map(chat => (chat.id === activeChat ? { ...chat, title: newTitle } : chat))
@@ -87,95 +92,114 @@ function ChatPage() {
     const userMessage = {
       author: 'user',
       text,
-      // Anexa os arquivos à mensagem e limpa o estado
       files: filesToSend,
     };
 
-    // Adiciona a mensagem do usuário ao estado
     const updatedMessages = [...currentMessages, userMessage];
     setChatMessages(prev => ({ ...prev, [activeChat]: updatedMessages }));
-
-    // Simula o bot "pensando"
-    setIsThinking(true);
-
-    // Limpa os arquivos após o envio
     setFilesToSend([]);
 
-    // Simula a resposta do bot após um tempo
-    // Guarda o ID do timeout para que possamos cancelá-lo
-    thinkingTimeoutRef.current = setTimeout(() => {
-      // Lógica para ciclar entre os scores para facilitar os testes manuais
-      const testScores = [
-        { level: 'high', value: 95 },
-        { level: 'medium', value: 65 },
-        { level: 'low', value: 35 },
-      ];
-      const testMetrics = [
-        { docCount: 15, coverage: 98, relevance: 85 },
-        { docCount: 8, coverage: 75, relevance: 60 },
-        { docCount: 3, coverage: 40, relevance: 30 },
-      ];
-      const testReferences = [
-        { name: 'Relatório Anual 2023.pdf', page: 12 },
-        { name: 'Apresentação de Resultados Q4.pptx', page: 5 },
-        { name: 'Análise de Mercado de Risco.docx', page: 8 },
-        { name: 'Estratégia de Expansão Global.pdf', page: 23 },
-        { name: 'Minuta da Reunião de Diretoria.pdf', page: 2 },
-        { name: 'Guia de Compliance Regulatório.docx', page: 15 },
-      ];
-      const botResponseCount = Math.floor(updatedMessages.length / 2);
-      const scoreToTest = testScores[botResponseCount % testScores.length];
-      const metricsToTest = testMetrics[botResponseCount % testMetrics.length];
-      let scoreExplanationText = '';
-      if (scoreToTest.level === 'high') {
-        scoreExplanationText =
-          'O nível de confiança é alto, indicando que a resposta foi gerada com base em múltiplos documentos altamente relevantes e cobrindo a maior parte da sua pergunta. Você pode usar esta informação com grande segurança.';
-      } else if (scoreToTest.level === 'medium') {
-        scoreExplanationText =
-          'O nível de confiança é médio. A resposta utilizou documentos relevantes, mas pode haver lacunas na cobertura da pergunta ou a relevância média das fontes não foi a ideal. Recomenda-se uma verificação rápida ou refinar a pergunta se precisar de mais precisão.';
-      } else {
-        scoreExplanationText =
-          'O nível de confiança é baixo. A resposta pode ter sido gerada com poucas fontes, ou as fontes encontradas não foram muito relevantes para a sua pergunta. É crucial verificar esta informação antes de usar ou reformular a sua pergunta para obter resultados mais precisos.';
-      }
+    // --- INÍCIO DA SIMULAÇÃO COM SCORE PROGRESSIVO ---
+    
+    handleStopGeneration(); // Limpa timeouts antigos
+    
+    // 1. Ativa o "thinking" e define o PRIMEIRO passo e score
+    setThinkingProcess({
+      active: true,
+      steps: 'Iniciando análise da sua pergunta...',
+      currentScore: { level: 'low', value: 10 }, // Score inicial
+    });
 
-      const botResponse = {
-        author: 'bot',
-        text: (
-          <BotMessage
-            text={`Esta é uma resposta simulada para a sua pergunta: "${text}". A integração real com a IA virá em breve.`}
-            score={scoreToTest}
-            references={testReferences}
-            metrics={metricsToTest}
-            scoreExplanation={scoreExplanationText}
-          />
-        ),
-      };
+    const timeouts = [];
 
-      setChatMessages(prev => ({
-        ...prev,
-        [activeChat]: [...updatedMessages, botResponse],
-      }));
+    // 2. Simula o segundo passo (texto e score)
+    timeouts.push(
+      setTimeout(() => {
+        setThinkingProcess(prev => ({
+          ...prev,
+          steps: prev.steps + '\n- Consultando bases de dados selecionadas...',
+          currentScore: { level: 'low', value: 35 }, // Score melhora
+        }));
+      }, 1000) // 1s
+    );
 
-      setIsThinking(false);
-    }, 2500); // Simula 2.5 segundos de espera
+    // 3. Simula o terceiro passo (texto e score)
+    timeouts.push(
+      setTimeout(() => {
+        setThinkingProcess(prev => ({
+          ...prev,
+          steps: prev.steps + '\n- Analisando documentos relevantes para RAG...',
+          currentScore: { level: 'medium', value: 65 }, // Score melhora mais
+        }));
+      }, 2000) // 2s
+    );
+
+    // 4. Simula o quarto passo (texto e score)
+    timeouts.push(
+      setTimeout(() => {
+        setThinkingProcess(prev => ({
+          ...prev,
+          steps: prev.steps + '\n- Gerando rascunho da resposta...',
+          currentScore: { level: 'high', value: 85 }, // Score quase final
+        }));
+      }, 3000) // 3s
+    );
+
+    // 5. Simula a resposta final (o antigo timeout)
+    timeouts.push(
+      setTimeout(() => {
+        // ... (Toda a lógica de mock de resposta que já existia)
+        // Você pode usar os mocks que já tinha
+        const scoreFinal = { level: 'high', value: 95 }; // O score final da resposta
+        const metricsToTest = { docCount: 15, coverage: 98, relevance: 85 };
+        const testReferences = [{ name: 'Relatório Anual 2023.pdf', page: 12 }];
+        const scoreExplanationText = 'O nível de confiança é alto...';
+        // ...
+        
+        const botResponse = {
+          author: 'bot',
+          text: (
+            <BotMessage
+              text={`Esta é uma resposta simulada para a sua pergunta: "${text}".`}
+              score={scoreFinal} // Usa o score final
+              references={testReferences}
+              metrics={metricsToTest}
+              scoreExplanation={scoreExplanationText}
+            />
+          ),
+        };
+
+        // Adiciona a resposta final
+        setChatMessages(prev => ({
+          ...prev,
+          [activeChat]: [...updatedMessages, botResponse],
+        }));
+
+        // 6. Desliga o "thinking" e limpa o estado
+        setThinkingProcess({ active: false, steps: '', currentScore: null });
+        thinkingTimeoutRef.current = [];
+        
+      }, 4000) // Simula 4s no total
+    );
+
+    thinkingTimeoutRef.current = timeouts;
   };
 
   const handleStopGeneration = () => {
-    if (thinkingTimeoutRef.current) {
-      clearTimeout(thinkingTimeoutRef.current);
-      thinkingTimeoutRef.current = null;
+    if (thinkingTimeoutRef.current.length > 0) {
+      thinkingTimeoutRef.current.forEach(timeoutId => clearTimeout(timeoutId));
     }
-    setIsThinking(false);
-    // Opcional: Adicionar uma mensagem informando que a geração foi parada
-    // (Pode ser implementado depois)
+    thinkingTimeoutRef.current = [];
+    
+    // Limpa o estado de "thinking"
+    setThinkingProcess({ active: false, steps: '', currentScore: null });
   };
 
-  // Se nenhum chat estiver ativo, mostra uma mensagem inicial
+  // ... (Lógica de `if (!activeChat)` permanece igual) ...
   if (!activeChat) {
     return (
       <div style={styles.noChatContainerStyles}>
-        <h1 style={styles.noChatTitleStyles}>BTrust</h1>
-        <p style={styles.noChatTextStyles}>Selecione um chat ou crie um novo para começar.</p>
+        {/* ... (seu JSX de 'nenhum chat') ... */}
       </div>
     );
   }
@@ -183,21 +207,25 @@ function ChatPage() {
   return (
     <div
       style={styles.containerStyles}
-      onDragEnter={handleDragEnter}
-      onDragLeave={handleDragLeave}
-      onDragOver={handleDragOver}
-      onDrop={handleDrop}
+      // ... (seus handlers de drag/drop)
     >
       <div style={styles.chatWindowStyles}>
         <div style={styles.messagesContainerStyles}>
           {currentMessages.map((msg, index) => (
             <ChatMessage key={index} message={msg} />
           ))}
-          {isThinking && <ThinkingIndicator />}
-          <div ref={messagesEndRef} />
-          {isDragging && (
-            <div style={{ textAlign: 'center', padding: '20px', color: COLORS.principal }}>Arraste os arquivos PDF aqui...</div>
+          
+          {/* !!! MUDANÇA NA RENDERIZAÇÃO !!! */}
+          {/* Renderiza o indicador se estiver ativo e passa o score */}
+          {thinkingProcess.active && (
+            <ThinkingIndicator
+              steps={thinkingProcess.steps}
+              currentScore={thinkingProcess.currentScore}
+            />
           )}
+          
+          <div ref={messagesEndRef} />
+          {/* ... (seu JSX de 'isDragging') ... */}
         </div>
       </div>
       <div style={styles.inputAreaStyles}>
@@ -205,7 +233,7 @@ function ChatPage() {
           <FileUploadPreview files={filesToSend} onRemoveFile={handleRemoveFile} />
           <ChatInput
             onSendMessage={handleSendMessage}
-            disabled={isThinking}
+            disabled={thinkingProcess.active} // Desabilita com base no 'active'
             onStop={handleStopGeneration}
             hasFiles={filesToSend.length > 0}
             onAddFiles={handleAddFiles}

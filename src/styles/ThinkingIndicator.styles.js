@@ -26,19 +26,14 @@ export const avatarStyles = {
   fontWeight: '700',
 };
 
-// --- Estilos Removidos ---
-// (dotsContainerStyles e dotStyle foram removidos)
-
-// --- NOVOS ESTILOS ADICIONADOS ---
-
 // Container para o header e o conteúdo dos passos
 export const contentContainerStyles = {
   flexGrow: 1,
-  backgroundColor: '#F9F9F9', // <- Troque por seu COLORS.cinzaClaro ou similar
+  backgroundColor: '#F9F9F9', // (Ajuste para seu COLORS.cinzaClaro ou similar)
   borderRadius: '8px',
-  border: `1px solid #EAEAEA`, // <- Troque por seu COLORS.borda ou similar
+  border: `1px solid ${COLORS.azulClaro}`, // (Ajuste para seu COLORS.borda)
   overflow: 'hidden',
-  marginTop: '5px', // Alinha melhor com o avatar
+  marginTop: '5px', 
 };
 
 // Header (título "Pensando..." e ícone)
@@ -49,11 +44,11 @@ export const headerStyles = {
   padding: '10px 14px',
   cursor: 'pointer',
   userSelect: 'none',
-  borderBottom: `1px solid #EAEAEA`, // <- Troque por seu COLORS.borda
-  backgroundColor: COLORS.white, // (Assumindo que você tem COLORS.white)
-  fontFamily: FONTS.primaria, // (Assumindo que você tem FONTS.primaria)
+  borderBottom: `1px solid #EAEAEA`, 
+  backgroundColor: COLORS.branco, 
+  fontFamily: FONTS.primaria, 
   fontWeight: '600',
-  color: COLORS.textos, // (Assumindo que você tem COLORS.textos)
+  color: COLORS.textos, 
 };
 
 // Ícone de expandir/recolher (chevron)
@@ -78,4 +73,10 @@ export const preStyles = {
   wordWrap: 'break-word', // Quebra palavras longas
   fontSize: 'inherit',
   color: 'inherit',
+};
+
+export const scoreContainerStyles = {
+  padding: '12px 14px',
+  borderBottom: `1px solid ${COLORS.borda || '#EAEAEA'}`, // Use sua cor de borda
+  backgroundColor: COLORS.white || '#FFFFFF', // Use sua cor de fundo
 };

@@ -8,7 +8,14 @@ import ThinkingIndicator from '../components/ThinkingIndicator.jsx';
 import { useAppContext } from '../context/AppContext.jsx';
 import * as styles from '../styles/ChatPage.styles.js';
 
+// ====================================================================
+// CONFIGURAÇÃO DA API
+// ====================================================================
+const API_URL = 'http://localhost:8001';
+const DEBUG_MODE = true; // Mude para false em produção
+
 function ChatPage() {
+  // --- Hooks ---
   const { activeChat, chatMessages, setChatMessages, setChats, branchActiveChat } = useAppContext();
   
   const [thinkingProcess, setThinkingProcess] = useState({
@@ -20,10 +27,21 @@ function ChatPage() {
   const [filesToSend, setFilesToSend] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const messagesEndRef = useRef(null);
-  const thinkingTimeoutRef = useRef([]);
 
   const currentMessages = useMemo(() => chatMessages[activeChat] || [], [chatMessages, activeChat]);
 
+  // ====================================================================
+  // UTILITÁRIO DE LOG (DEBUG)
+  // ====================================================================
+  const debugLog = (message, data = null) => {
+    if (DEBUG_MODE) {
+      console.log(`[ChatPage] ${message}`, data || '');
+    }
+  };
+
+  // ====================================================================
+  // HANDLERS DE ARQUIVOS E DRAG/DROP
+  // ====================================================================
   const handleAddFiles = newFiles => {
     const pdfFiles = Array.from(newFiles).filter(file => file.type === 'application/pdf');
     setFilesToSend(prevFiles => {
@@ -31,38 +49,21 @@ function ChatPage() {
         alert('Você pode enviar no máximo 10 arquivos PDF por vez.');
         return prevFiles;
       }
-      const combined = [...prevFiles, ...pdfFiles];
-      return combined;
+      return [...prevFiles, ...pdfFiles];
     });
   };
 
-  
   const handleRemoveFile = index => {
     setFilesToSend(prevFiles => prevFiles.filter((_, i) => i !== index));
   };
 
-  const handleDragEnter = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-  };
-
-  const handleDragOver = e => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
+  const handleDragEnter = e => { e.preventDefault(); e.stopPropagation(); setIsDragging(true); };
+  const handleDragLeave = e => { e.preventDefault(); e.stopPropagation(); setIsDragging(false); };
+  const handleDragOver = e => { e.preventDefault(); e.stopPropagation(); };
   const handleDrop = e => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
-
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       handleAddFiles(e.dataTransfer.files);
       e.dataTransfer.clearData();
@@ -74,19 +75,28 @@ function ChatPage() {
   };
 
   useEffect(scrollToBottom, [currentMessages, thinkingProcess.active]);
+  
+  // ====================================================================
+  // HANDLER PRINCIPAL DE ENVIO DE MENSAGEM
+  // ====================================================================
+  const handleSendMessage = async (text) => {
+    debugLog('🚀 handleSendMessage chamado', { text, filesToSend });
 
-  const handleSendMessage = text => {
     if (!text.trim() && filesToSend.length === 0) {
+      debugLog('❌ Mensagem vazia, abortando');
       return;
     }
 
+    // Criar título para novo chat
     if (currentMessages.length === 0 && text.trim()) {
       const newTitle = text.length > 40 ? text.substring(0, 40) + '...' : text;
       setChats(prevChats =>
         prevChats.map(chat => (chat.id === activeChat ? { ...chat, title: newTitle } : chat))
       );
+      debugLog('📝 Título do chat atualizado', newTitle);
     }
 
+    // Criar mensagem do usuário
     const userMessage = {
       author: 'user',
       text,
@@ -96,85 +106,108 @@ function ChatPage() {
     const updatedMessages = [...currentMessages, userMessage];
     setChatMessages(prev => ({ ...prev, [activeChat]: updatedMessages }));
     setFilesToSend([]);
-    
+    debugLog('✅ Mensagem do usuário adicionada ao estado', userMessage);
+
+    // ====================================================================
+    // CHAMADA DE API PARA O BACKEND
+    // ====================================================================
     handleStopGeneration();
     
     setThinkingProcess({
       active: true,
-      steps: 'Iniciando análise da sua pergunta...',
-      currentScore: { level: 'low', value: 10 },
+      steps: 'Enviando sua pergunta...',
+      currentScore: null,
     });
 
-    const timeouts = [];
+    try {
+      // Preparar dados
+      const dadosParaEnviar = {
+        chatId: activeChat.toString(),
+        texto: text,
+        arquivos: filesToSend.map(file => file.name),
+      };
 
-    timeouts.push(
-      setTimeout(() => {
-        setThinkingProcess(prev => ({
-          ...prev,
-          steps: prev.steps + '\n- Consultando bases de dados selecionadas...',
-          currentScore: { level: 'low', value: 35 },
-        }));
-      }, 1000)
-    );
+      debugLog('📤 Enviando para API', { url: `${API_URL}/api/enviar_mensagem`, payload: dadosParaEnviar });
 
-    timeouts.push(
-      setTimeout(() => {
-        setThinkingProcess(prev => ({
-          ...prev,
-          steps: prev.steps + '\n- Analisando documentos relevantes para RAG...',
-          currentScore: { level: 'medium', value: 65 },
-        }));
-      }, 2000)
-    );
+      // Fazer requisição
+      const response = await fetch(`${API_URL}/api/enviar_mensagem`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dadosParaEnviar),
+      });
 
-    timeouts.push(
-      setTimeout(() => {
-        setThinkingProcess(prev => ({
-          ...prev,
-          steps: prev.steps + '\n- Gerando rascunho da resposta...',
-          currentScore: { level: 'high', value: 85 },
-        }));
-      }, 3000)
-    );
+      debugLog('📡 Resposta recebida', { 
+        status: response.status, 
+        statusText: response.statusText,
+        ok: response.ok 
+      });
 
-    timeouts.push(
-      setTimeout(() => {
-        const scoreFinal = { level: 'high', value: 95 };
-        const metricsToTest = { docCount: 15, coverage: 98, relevance: 85 };
-        const testReferences = [{ name: 'Relatório Anual 2023.pdf', page: 12 }];
-        const scoreExplanationText = 'O nível de confiança é alto...';
-        const botResponse = {
-          author: 'bot',
-          text: `Esta é uma resposta simulada para a sua pergunta: "${text}".`,
-          score: scoreFinal,
-          references: testReferences,
-          metrics: metricsToTest,
-          scoreExplanation: scoreExplanationText,
-        };
-
-        setChatMessages(prev => ({
-          ...prev,
-          [activeChat]: [...updatedMessages, botResponse],
-        }));
-
-        setThinkingProcess({ active: false, steps: '', currentScore: null });
-        thinkingTimeoutRef.current = [];
+      // Verificar se a resposta é OK
+      if (!response.ok) {
+        let errorMessage = `Erro ${response.status}: ${response.statusText}`;
         
-      }, 4000)
-    );
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.detail || errorMessage;
+          debugLog('❌ Erro detalhado da API', errorData);
+        } catch (parseError) {
+          debugLog('⚠️ Não foi possível parsear erro JSON', parseError);
+        }
+        
+        throw new Error(errorMessage);
+      }
 
-    thinkingTimeoutRef.current = timeouts;
+      // Parse da resposta de sucesso
+      const data = await response.json();
+      debugLog('✅ Resposta do backend parseada', data);
+
+      console.log('✅ Mensagem enfileirada com sucesso!');
+      console.log('   - Status:', data.status);
+      console.log('   - Detalhe:', data.detalhe);
+      console.log('   - MessageID:', data.messageId);
+      console.log('   - Versão do Backend:', data.versao);
+
+      // Atualizar status do ThinkingIndicator
+      setThinkingProcess(prev => ({
+        ...prev,
+        steps: 'Pergunta recebida! Aguardando processamento...',
+      }));
+
+      // NOTA: A resposta do bot virá do consumidor posteriormente
+
+    } catch (error) {
+      // Tratar erros
+      console.error('❌ ERRO ao enviar mensagem:', error);
+      debugLog('❌ Stack trace', error.stack);
+
+      const errorResponse = {
+        author: 'bot',
+        text: `Desculpe, ocorreu um erro ao enviar sua mensagem: ${error.message}`,
+        score: { level: 'low', value: 0 },
+      };
+
+      setChatMessages(prev => ({
+        ...prev,
+        [activeChat]: [...updatedMessages, errorResponse],
+      }));
+
+      setThinkingProcess({ active: false, steps: '', currentScore: null });
+    }
   };
 
+  // ====================================================================
+  // HANDLER DE PARAR GERAÇÃO
+  // ====================================================================
   const handleStopGeneration = () => {
-    if (thinkingTimeoutRef.current.length > 0) {
-      thinkingTimeoutRef.current.forEach(timeoutId => clearTimeout(timeoutId));
-    }
-    thinkingTimeoutRef.current = [];
-    
+    debugLog('⏹️ Parando geração');
     setThinkingProcess({ active: false, steps: '', currentScore: null });
   };
 
+  // ====================================================================
+  // RENDERIZAÇÃO
+  // ====================================================================
   if (!activeChat) {
     return (
       <div style={styles.noChatContainerStyles}>
@@ -206,8 +239,9 @@ function ChatPage() {
           )}
           
           <div ref={messagesEndRef} />
+          
           {isDragging && (
-            <div style={{ textAlign: 'center', padding: '20px', color: 'blue' }}>
+            <div style={{ textAlign: 'center', padding: '20px', color: '#2196F3' }}>
               Arraste os arquivos PDF aqui...
             </div>
           )}
